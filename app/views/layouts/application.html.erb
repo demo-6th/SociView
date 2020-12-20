@@ -10,8 +10,7 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render "devise/shared/notice" if notice %>
     <%= yield %>
   </body>
 </html>
