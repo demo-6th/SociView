@@ -1,6 +1,6 @@
-import("./navbar.scss")
-import("./reset.scss")
-import("./grid.scss")
-import ("tailwindcss/tailwind.css")
-import ("tailwindcss/components")
-import ("tailwindcss/utilities")
+import "tailwindcss/base";
+import "tailwindcss/components";
+import "./reset.scss";
+import "./grid.scss";
+import "./navbar.scss";
+import "tailwindcss/utilities";
