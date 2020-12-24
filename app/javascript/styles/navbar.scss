@@ -1,30 +1,7 @@
-.nav{
-  background-color: #0d6efd;
-  height: 50px;
-  padding-top: 20px;
-}
-.row{
-  justify-content: space-between;
-  padding: 0 50px;
-}
 
-.nav_button{
-  display: flex;
-  justify-content: space-evenly;
-}
-.nav_logo{
-  font-style: italic;
-  text-decoration: none;
-  font-size: 30px;
-  color: aliceblue;
-}
 
-.log_btn{
-  /* border-radius: 50px;
-  margin-left: 5px;
-  width: 60px; */
-}
 
 .log_up{
-  background-color:  aqua;
+  border: 1px solid #f00;
+  // @apply bg-gray;
 }
