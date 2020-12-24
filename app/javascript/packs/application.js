@@ -10,6 +10,9 @@ require("channels")
 require("styles")
 
 
+import "tailwindcss/dist/tailwind.css"  
+
+// "node_modules/tailwindcss/dist/tailwind.css"
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
