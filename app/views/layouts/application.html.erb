@@ -13,6 +13,7 @@
 
   <body>
     <%= render "shared/navbar" %>
+    <%= render "devise/shared/notice" if notice %>
     <%= yield %>
   </body>
 </html>
