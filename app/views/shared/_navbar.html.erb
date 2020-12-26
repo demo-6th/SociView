@@ -5,16 +5,16 @@
           href="#">Soci<span class="text-blue-700">View</span></a>
       </div>
       <div class="flex justify-evenly">
-        <button class="rounded-full py-3 px-4 bg-green-300">登入</button>
-        <button class="log_up rounded-full py-3 px-4 ml-1 aqua">註冊</button>
+        <button class="mr-2 rounded-full py-3 px-4 bg-green-300 transition delay-150 duration-300 ease-in-out transform hover:scale-125 font-bold rounded">登入</button>
+        <button class="log_up rounded-full py-3 px-4 aqua transition delay-150 duration-300 ease-in-out transform hover:scale-125 font-bold rounded">註冊</button>
     </div>
     </div>
 </div>
 
   <% if current_user %>
-          <%= link_to('登出', destroy_user_session_path, method: :delete) %> |
-          <%= link_to('修改密碼', edit_registration_path(:user)) %>
-        <% else %>
-          <%= link_to('註冊', new_registration_path(:user)) %> |
-          <%= link_to('登入', new_session_path(:user)) %>
-        <% end %>
+    <%= link_to('登出', destroy_user_session_path, method: :delete) %> |
+    <%= link_to('修改密碼', edit_registration_path(:user)) %>
+  <% else %>
+    <%= link_to('註冊', new_registration_path(:user)) %> |
+    <%= link_to('登入', new_session_path(:user)) %>
+  <% end %>

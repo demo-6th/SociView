@@ -4,3 +4,6 @@ import "./reset.scss";
 import "./grid.scss";
 import "./navbar.scss";
 import "tailwindcss/utilities";
+import "./page.scss";
+import "./devise.scss";
+
