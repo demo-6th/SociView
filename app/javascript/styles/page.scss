@@ -11,9 +11,8 @@
 .pt150{
   padding-top: 120px;
 }
-.text{
-  @apply 
-  // outline: solid springgreen ;
+.text{ 
+
   margin: 40px auto;
 }
 
@@ -23,7 +22,7 @@
 }
 
 .try_button{
- 
+ @apply text-center;
 }
 
 
