@@ -1,11 +1,30 @@
 
+.log_page{
+  height: 40em;
+}
+.logo_img{
+  width: 100%;
+}
+.container{
 
-
+}
 .pt150{
   padding-top: 120px;
 }
 .text{
-  outline: solid springgreen ;
+  @apply 
+  // outline: solid springgreen ;
   margin: 40px auto;
 }
+
+
+.far{
+  font-size: 8em;
+}
+
+.try_button{
+ 
+}
+
+
 
