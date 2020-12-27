@@ -7,10 +7,10 @@
       <div class="flex justify-evenly">
         <% if current_user %>
           <%= render "shared/notice" if notice %>
-          <%= link_to('登出', destroy_user_session_path, class: "mr-2 rounded-full py-3 px-4 bg-green-300 transition delay-150 duration-300 ease-in-out transform hover:scale-125 font-bold rounded", method: :delete) %> 
+          <%= link_to('登出', destroy_user_session_path, class: "nav_btn bg-green-300", method: :delete) %> 
         <% else %>
-          <%= link_to('登入', new_session_path(:user), class: "mr-2 rounded-full py-3 px-4 bg-green-300 transition delay-150 duration-300 ease-in-out transform hover:scale-125 font-bold rounded") %>
-          <%= link_to('註冊', new_registration_path(:user), class: "log_up rounded-full py-3 px-4 aqua transition delay-150 duration-300 ease-in-out transform hover:scale-125 font-bold rounded") %> 
+          <%= link_to('登入', new_session_path(:user), class: "nav_btn bg-green-300") %>
+          <%= link_to('註冊', new_registration_path(:user), class: "bg-red-300 nav_btn") %> 
         <% end %>
       </div>
     </div>
