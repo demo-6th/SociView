@@ -1,15 +1,15 @@
-<div class="head">
+<div class="home_page">
   <div class="container">
     <div class="flex justify-center">
       <div class="col-4">
-        <div class="">
+        <div class="logo_img">
           <%= image_tag "logo.png", class:"logo_img"%>
         </div>
       </div>
       <div class="col-6 self-center">
-        <div class="try_button">
+        <div class="text-center">
           <h2 class="text-5xl py-8">您的專業社群分析管家</h2>
-          <button class="text-3xl bg-white hover:bg-gray-100 text-blue-400 font-semibold py-2 px-4 border border-gray-400 rounded shadow animate-bounce text-gray-900">立即體驗</button>
+          <%= link_to('立即體驗', new_registration_path(:user), class: "home_btn") %>
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
     
     <div class="flex justify-around text-center">
       <div class="col-3">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="shadow_card">
           <div class="icon">
             <i class="far fa-list-alt text"></i>
           </div>
@@ -36,7 +36,7 @@
       </div>
 
       <div class="col-3">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="shadow_card">
           <div class="img">
             <i class="far fa-calendar-check text"></i>
           </div>
@@ -47,7 +47,7 @@
       </div>
 
       <div class="col-3">
-        <div class="max-w-sm rounded overflow-hidden shadow-lg">
+        <div class="shadow_card">
           <div class="img">
             <img src="https://picsum.photos/300/300/?random=3">
           </div>
@@ -67,21 +67,21 @@
     </div>
 
     <div class="analysis_introduction">
-      <div class="flex justify-center py-3">
+      <div class="home_analy">
         <div class="col-5">
           <div class="img">
             <img class="rounded shadow" src="https://picsum.photos/400/400/?random=5">
           </div>
         </div>
         <div class="col-5">
-          <div class="text-center pt150">
+          <div class="pt150">
             <h3 class="text-4xl">領袖聲量分析圖</h3>
             <p>藉由圖表分析，讓你快速了解社群媒介由哪些大大們引領話題風潮，</p>
           </div>
         </div>
       </div>
 
-      <div class="flex justify-center py-3">
+      <div class="home_analy">
         <div class="col-5">
           <div class="img">
             <img class="rounded shadow" src="https://picsum.photos/400/400/?random=7">
@@ -95,7 +95,7 @@
         </div>
       </div>
 
-      <div class="flex justify-center py-3">
+      <div class="home_analy">
         <div class="col-5">
           <div class="img">
             <img class="rounded shadow" src="https://picsum.photos/400/400/?random=8">
