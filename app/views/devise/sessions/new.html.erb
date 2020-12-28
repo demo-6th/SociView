@@ -1,26 +1,38 @@
-<h2>登入頁面</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, '密碼' %><br />
-    <%= f.password_field :password, autocomplete: "請輸入密碼" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me, '記得我' %>
+<div class="log_page">
+  <div class="container py-8">
+      <div class="row flex justify-around items-center">
+        <div class="col-4 rounded shadow-lg">
+          <div class="log_detail overflow-hidden">
+            <h3 class="text-center bg-teal-600 rounded py-2 px-6 text-white text-1xl">歡迎回來</h3>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <div class="field">
+                  <%= f.label :email %><br />
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "bg-gray" %>
+                </div>
+              
+                <div class="field">
+                  <%= f.label :password, '密碼' %><br />
+                  <%= f.password_field :password, autocomplete: "請輸入密碼" %>
+                </div>
+              
+                <% if devise_mapping.rememberable? %>
+                  <div class="field">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me, '記得我' %>
+                  </div>
+                <% end %>
+              
+                <div class="actions">
+                  <%= f.submit "登入", class: "nav_btn" %>
+                </div>
+              <% end %>
+              
+              <%= render "devise/shared/links" %>
+          </div>
+        </div>
+             <%= render "devise/shared/log_img" %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "登入" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

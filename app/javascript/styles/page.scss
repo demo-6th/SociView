@@ -1,0 +1,41 @@
+.home_btn{
+  @apply text-3xl bg-white hover:bg-gray-100 text-blue-400 font-semibold py-2 px-4 border border-gray-400 rounded shadow animate-bounce text-gray-900;
+}
+
+.home_analy{
+  @apply flex justify-center py-3;
+}
+
+.shadow_card{
+  @apply max-w-sm rounded overflow-hidden shadow-lg;
+}
+
+.pt150{
+  @apply text-center;
+  padding-top: 120px;
+}
+
+
+.log_page{
+  height: 40em;
+}
+.logo_img{
+  width: 100%;
+}
+
+.text{ 
+  margin: 40px auto;
+}
+
+.far{
+  font-size: 8em;
+}
+
+// .shadow_card:nth-child(even){
+
+
+// }
+
+
+
+
