@@ -2,19 +2,16 @@
     <div class="flex justify-between px-10">
       <div class="logo">
         <a class="text-4xl no-underline italic text-white"
-          href="#">Soci<span class="text-blue-700">View</span></a>
+          href="/">Soci<span class="text-blue-700">View</span></a>
       </div>
       <div class="flex justify-evenly">
-        <button class="rounded-full py-3 px-4 bg-green-300">登入</button>
-        <button class="log_up rounded-full py-3 px-4 ml-1 aqua">註冊</button>
-    </div>
+        <% if current_user %>
+          <%= render "shared/notice" if notice %>
+          <%= link_to('登出', destroy_user_session_path, class: "nav_btn bg-green-300", method: :delete) %> 
+        <% else %>
+          <%= link_to('登入', new_session_path(:user), class: "nav_btn bg-green-300") %>
+          <%= link_to('註冊', new_registration_path(:user), class: "bg-red-300 nav_btn") %> 
+        <% end %>
+      </div>
     </div>
 </div>
-
-  <% if current_user %>
-          <%= link_to('登出', destroy_user_session_path, method: :delete) %> |
-          <%= link_to('修改密碼', edit_registration_path(:user)) %>
-        <% else %>
-          <%= link_to('註冊', new_registration_path(:user)) %> |
-          <%= link_to('登入', new_session_path(:user)) %>
-        <% end %>
