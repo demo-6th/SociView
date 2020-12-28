@@ -1,10 +1,10 @@
 
 <div class="log_page">
   <div class="container py-8">
-      <div class="row flex justify-around items-center">
+      <div class="flex justify-inner items-center">
         <div class="col-4 rounded shadow-lg">
           <div class="log_detail overflow-hidden">
-            <h3 class="text-center bg-teal-600 rounded py-2 px-6 text-white text-1xl">歡迎回來</h3>
+            <h3 class="text-center bg-teal-600 rounded py-2 px-6 text-white text-1xl">Ｗelcom Back</h3>
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <div class="field">
                   <%= f.label :email %><br />
@@ -36,3 +36,6 @@
     </div>
   </div>
 </div>
+
+
+
