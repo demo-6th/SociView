@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comment_sentimen: 1
+  sentimen: MyString
+  comment_id: 1
+
+two:
+  comment_sentimen: 1
+  sentimen: MyString
+  comment_id: 1
