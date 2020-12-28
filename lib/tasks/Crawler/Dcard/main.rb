@@ -33,7 +33,9 @@ def loop_crawler
   end
 end
 
+def dcard
 get_forums()
 beta_folder_name()
 loop_crawler()
 finish_time()
+end
