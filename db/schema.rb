@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_28_133339) do
+ActiveRecord::Schema.define(version: 2020_12_28_173204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,12 +23,76 @@ ActiveRecord::Schema.define(version: 2020_12_28_133339) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comment_cleans", force: :cascade do |t|
+    t.integer "comment_id"
+    t.text "clean_text"
+    t.integer "comment_clean"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_keywords", force: :cascade do |t|
+    t.text "keyword"
+    t.string "comment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_sentiment", force: :cascade do |t|
+    t.integer "comment_sentiment"
+    t.string "sentiment"
+    t.integer "comment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_tokens", force: :cascade do |t|
+    t.integer "comment_token"
+    t.text "token"
+    t.integer "comment_id"
+    t.text "stop_words"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.string "url"
     t.string "title"
     t.text "content"
     t.integer "post_number"
     t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_cleans", force: :cascade do |t|
+    t.integer "post_id"
+    t.text "clean_text"
+    t.integer "post_clean"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_keywords", force: :cascade do |t|
+    t.text "keyword"
+    t.string "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_sentiment", force: :cascade do |t|
+    t.integer "post_sentiment"
+    t.string "sentiment"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_tokens", force: :cascade do |t|
+    t.integer "post_token"
+    t.text "token"
+    t.integer "post_id"
+    t.text "stop_words"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -65,4 +129,5 @@ ActiveRecord::Schema.define(version: 2020_12_28_133339) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
 end
