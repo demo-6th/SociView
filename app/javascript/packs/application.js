@@ -7,10 +7,15 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+import "tailwindcss/dist/tailwind.css"  
+
+// node_modules/tailwindcss/dist/tailwind.css
 require("styles")
 
 
-import "tailwindcss/dist/tailwind.css"  
+
+// import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+
 
 // "node_modules/tailwindcss/dist/tailwind.css"
 // Uncomment to copy all static images under ../images to the output folder and reference

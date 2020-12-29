@@ -32,6 +32,7 @@ def loop_crawler
     mv_files(table_title)
   end
 end
+
 def dcard
 get_forums()
 beta_folder_name()
