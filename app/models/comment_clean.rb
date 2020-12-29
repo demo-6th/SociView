@@ -1,3 +1,3 @@
 class CommentClean < ApplicationRecord
-  belongs_to :comment
+  # belongs_to :comment
 end
