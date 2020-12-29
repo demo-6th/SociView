@@ -11,8 +11,7 @@
         div{
           @apply text-center;
           h2{
-            @apply text-5xl;
-            @apply py-8;
+            @apply text-5xl py-8;
           }
         }
       }
@@ -59,11 +58,15 @@
 
 .far{
   font-size: 8em;
+  
 }
 
 .home_analy:nth-child(even){
   flex-direction: row-reverse;
 }
+
+
+
 
 
 
