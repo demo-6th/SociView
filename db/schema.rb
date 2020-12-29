@@ -10,10 +10,112 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_20_151555) do
+ActiveRecord::Schema.define(version: 2020_12_28_173204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
+    t.string "name"
+    t.integer "board_number"
+    t.integer "source_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_cleans", force: :cascade do |t|
+    t.integer "comment_id"
+    t.text "clean_text"
+    t.integer "comment_clean"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_keywords", force: :cascade do |t|
+    t.text "keyword"
+    t.string "comment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_sentiment", force: :cascade do |t|
+    t.integer "comment_sentiment"
+    t.string "sentiment"
+    t.integer "comment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_tokens", force: :cascade do |t|
+    t.integer "comment_token"
+    t.text "token"
+    t.integer "comment_id"
+    t.text "stop_words"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "url"
+    t.string "title"
+    t.text "content"
+    t.integer "post_number"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_cleans", force: :cascade do |t|
+    t.integer "post_id"
+    t.text "clean_text"
+    t.integer "post_clean"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_keywords", force: :cascade do |t|
+    t.text "keyword"
+    t.string "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_sentiment", force: :cascade do |t|
+    t.integer "post_sentiment"
+    t.string "sentiment"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_tokens", force: :cascade do |t|
+    t.integer "post_token"
+    t.text "token"
+    t.integer "post_id"
+    t.text "stop_words"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "board_number"
+    t.integer "board_id"
+    t.integer "post_number"
+    t.string "url"
+    t.string "title"
+    t.string "author"
+    t.text "content"
+    t.integer "comment_count"
+    t.integer "like_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sources", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
