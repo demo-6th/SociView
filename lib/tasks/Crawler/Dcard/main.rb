@@ -29,6 +29,9 @@ def loop_crawler
     get_post_id(board, sleep_every, sleep_time, prev_day)
     get_post_content(sleep_every, sleep_time)
     get_post_comment(sleep_every, sleep_time)
+    # data cleaning process
+    cleaned_data = `python lib/tasks/Crawler/Dcard/data_cleaning.py params`
+    puts(cleaned_data)
     mv_files(table_title)
   end
 end
