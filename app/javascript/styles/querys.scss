@@ -3,6 +3,12 @@
   .aside{
     @apply border-blue-800;
     border: 5px double;
+    width: 15%;
+    .query_link{
+      text-align: center;
+      border: solid 1px black;
+      font-size: small;
+    }
   }
 
   .section{
@@ -26,6 +32,9 @@
   }
   .button_page{
     text-align: center;
+    .search_btn{
+      @apply bg-yellow-700;
+    }
   }
 
   .analy_page{
