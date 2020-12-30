@@ -6,7 +6,8 @@
       </div>
       <div class="flex justify-evenly">
         <% if current_user %>
-          <%= render "shared/notice" if notice %>
+          <!-- <#%= render "shared/notice" if notice %> -->
+          <div class="m-2 text-xl">您好! <%= current_user.nickname %> </div>
           <%= link_to('登出', destroy_user_session_path, class: "nav_btn bg-green-300", method: :delete) %> 
         <% else %>
           <%= link_to('登入', new_session_path(:user), class: "nav_btn bg-green-300") %>
