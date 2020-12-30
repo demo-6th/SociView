@@ -25,6 +25,9 @@
       @apply border-l	border-black w-4/12;
       &:first-child { border: none; }
       // border: 1px solid black;
+      .theme_item{
+        @apply bg-green-700 text-white;
+      }
       .checkbox{
         @apply p-2;
         .theme_text{
