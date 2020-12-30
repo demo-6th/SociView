@@ -37,6 +37,9 @@
 .analysis{
   .container{
     @apply m-auto;
+    .analysis_title{
+      @apply text-center my-8 bg-indigo-500 text-5xl text-white;
+    }
   }
 }
 

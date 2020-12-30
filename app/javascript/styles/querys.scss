@@ -1,8 +1,7 @@
 .query_page{
   height: calc(100vh - 160px);
   .aside{
-    @apply border-blue-800;
-    width: 15%;
+    @apply w-1/6;
     .query_link{
       &:hover {
         @apply text-white;
@@ -15,7 +14,7 @@
     }
   }
   .section{
-    @apply border-blue-800;
+    @apply rounded shadow;
     width: 100%;
     .theme_item{
       @apply border-pink-600 text-3xl;
