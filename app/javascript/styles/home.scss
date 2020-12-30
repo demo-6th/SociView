@@ -1,0 +1,76 @@
+.home_page{
+  @apply m-auto;
+  .container{
+    .row{
+      @apply flex justify-center;
+      .col-4{
+
+      }
+      .col-6{
+        @apply self-center;
+        div{
+          @apply text-center;
+          h2{
+            @apply text-5xl py-8;
+          }
+        }
+      }
+    }
+  }
+}
+
+.step_teach{
+  @apply bg-gray-200 m-auto;
+  .container{
+    @apply text-center;
+    div{
+      h3{
+        @apply text-4xl bg-green-400 text-white
+      }
+    }
+    .row{
+      @apply flex justify-around text-center;
+    }
+  }
+}
+
+
+
+.home_analy{
+  @apply flex justify-center py-3;
+}
+
+
+.pt150{
+  @apply text-center;
+  padding-top: 120px;
+}
+
+
+.log_page{
+  height: 40em;
+}
+
+
+.text{ 
+  margin: 40px auto;
+}
+
+.far{
+  font-size: 8em;
+  
+}
+
+.home_analy:nth-child(even){
+  flex-direction: row-reverse;
+}
+
+
+
+
+
+
+
+
+
+
