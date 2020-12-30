@@ -1,0 +1,43 @@
+.query_page{
+  height: calc(100vh - 160px);
+  .aside{
+    @apply border-blue-800;
+    border: 5px double;
+    width: 15%;
+    .query_link{
+      text-align: center;
+      border: solid 1px black;
+      font-size: small;
+    }
+  }
+
+  .section{
+    @apply border-blue-800;
+    border: 5px double;
+    width: 100%;
+    .theme_item{
+      @apply border-pink-600;
+      text-align: center;
+    }
+    .theme{
+      width: 33.33%;
+    }
+    .time{
+      text-align: center;
+      width: 33.33%;
+    }
+    .community{
+      width: 33.33%;
+    }
+  }
+  .button_page{
+    text-align: center;
+    .search_btn{
+      @apply bg-yellow-700;
+    }
+  }
+
+  .analy_page{
+    text-align: center;
+  }
+}
