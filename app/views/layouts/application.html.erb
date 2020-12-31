@@ -11,13 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
   </head>
 
-  <body>
+  <body class="relative">
     <%= render "shared/navbar" %>
-    <div class="query_page flex">
-      <%= render "shared/aside" %>
-      <%= yield %>
-    </div>
-    </div>
+    <%= yield %>
     <%= render "shared/footer" %>
   </body>
 </html>
