@@ -109,9 +109,9 @@ post["sentiment"] = post.token.apply(sentiment)
 comment["sentiment"] = comment.token.apply(sentiment)
 
 # save as csv
-post_id.to_csv("lib/tasks/Crawler/Dcard/post_id.csv")
-post.to_csv("lib/tasks/Crawler/Dcard/post_content.csv")
-comment.to_csv("lib/tasks/Crawler/Dcard/post_comment.csv")
+post_id.to_csv("lib/tasks/Crawler/Dcard/post_id.csv",header=False)
+post.to_csv("lib/tasks/Crawler/Dcard/post_content.csv",header=False)
+comment.to_csv("lib/tasks/Crawler/Dcard/post_comment.csv",header=False)
 
 # succesfully executed!
 print("======[python data_cleaning process successfully executed.]=====")
