@@ -1,4 +1,5 @@
 class QuerysController < ApplicationController
+  layout "homepage"
   def index
   end
 
