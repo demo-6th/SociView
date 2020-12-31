@@ -30,6 +30,8 @@ gem "whenever", require: false
 gem "bootsnap", ">= 1.4.2", require: false
 gem "devise"
 gem 'hirb', '~> 0.7.3'
+gem 'omniauth-facebook', '~> 4.0'
+gem "figaro"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -55,4 +57,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
