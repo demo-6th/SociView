@@ -16,9 +16,10 @@
  
       <div class="query_page flex">
         <%= render "shared/aside" %>
-        <%= yield %>
+        <div class="w-10/12">
+          <%= yield %>
+        </div>
       </div>
-    </div>
     <%= render "shared/footer" %>
   </body>
 </html>
