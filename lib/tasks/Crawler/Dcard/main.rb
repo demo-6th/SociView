@@ -37,8 +37,10 @@ def loop_crawler
 end
 
 def dcard
-get_forums()
-beta_folder_name()
-loop_crawler()
-finish_time()
+  get_forums()
+  csv_to_psql()
+  # folder_name()
+  # loop_crawler()
+  puts "STOP"
+  # finish_time()
 end
