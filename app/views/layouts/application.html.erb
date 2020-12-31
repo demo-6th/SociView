@@ -13,7 +13,11 @@
 
   <body>
     <%= render "shared/navbar" %>
-    <%= yield %>
+    <div class="query_page flex">
+      <%= render "shared/aside" %>
+      <%= yield %>
+    </div>
+    </div>
     <%= render "shared/footer" %>
   </body>
 </html>
