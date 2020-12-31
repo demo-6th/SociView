@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_053748) do
 
   create_table "boards", force: :cascade do |t|
     t.string "name"
-    t.integer "board_number"
+    t.string "alias"
     t.integer "source_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -56,11 +56,12 @@ ActiveRecord::Schema.define(version: 2020_12_30_053748) do
   end
 
   create_table "comments", force: :cascade do |t|
+    t.string "cid"
+    t.integer "pid"
+    t.text "comment_content"
+    t.integer "like_count"
+    t.string "alias"
     t.string "url"
-    t.string "title"
-    t.text "content"
-    t.integer "post_number"
-    t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -98,15 +99,14 @@ ActiveRecord::Schema.define(version: 2020_12_30_053748) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "board_number"
-    t.integer "board_id"
-    t.integer "post_number"
-    t.string "url"
+    t.integer "pid"
+    t.text "post_content"
     t.string "title"
-    t.string "author"
-    t.text "content"
     t.integer "comment_count"
     t.integer "like_count"
+    t.string "alias"
+    t.string "url"
+    t.string "author"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
