@@ -18,7 +18,7 @@ def loop_crawler
     table_title = all_boards["#{board}".to_i.."#{board}".to_i].first.first
 
     # n 天前的資料
-    prev_day = 30
+    prev_day = 1
 
     # 每 n 筆資料暫停 / 隨機請參考rand(n..m)
     sleep_every = 50
