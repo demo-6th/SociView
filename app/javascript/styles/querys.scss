@@ -17,14 +17,13 @@
     @apply rounded shadow;
     width: 100%;
     .theme_item{
-      @apply border-pink-600 text-3xl;
+      @apply text-3xl;
       border-bottom: 1px solid black;
       text-align: center;
     }
     .theme{
       @apply border-l	border-black w-4/12;
       &:first-child { border: none; }
-      // border: 1px solid black;
       .theme_item{
         @apply bg-green-700 text-white;
       }
