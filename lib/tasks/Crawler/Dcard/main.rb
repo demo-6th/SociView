@@ -1,17 +1,16 @@
 require "net/http"
 require "json"
 require "csv"
-#
-require("./lib/tasks/Crawler/Dcard/get_forums.rb")
-require("./lib/tasks/Crawler/Dcard/get_post_id.rb")
-require("./lib/tasks/Crawler/Dcard/get_post_content.rb")
-require("./lib/tasks/Crawler/Dcard/get_post_comment.rb")
-require("./lib/tasks/Crawler/Dcard/process_files.rb")
-#
 require "fileutils"
+#
+require("#{Rails.root}/lib/tasks/Crawler/Dcard/get_forums.rb")
+require("#{Rails.root}/lib/tasks/Crawler/Dcard/get_post_id.rb")
+require("#{Rails.root}/lib/tasks/Crawler/Dcard/get_post_content.rb")
+require("#{Rails.root}/lib/tasks/Crawler/Dcard/get_post_comment.rb")
+require("#{Rails.root}/lib/tasks/Crawler/Dcard/process_files.rb")
 
 def loop_crawler
-  all_boards = CSV.parse(File.read("./lib/tasks/Crawler/Dcard/forums.csv"), headers: false)
+  all_boards = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/Dcard/forums.csv"), headers: false)
 
   # 0.upto = 從第一個版開始
   0.upto(all_boards.count - 1) do |board|
