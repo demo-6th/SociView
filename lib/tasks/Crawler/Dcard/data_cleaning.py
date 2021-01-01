@@ -1,10 +1,8 @@
 import pandas as pd
 import re
-from opencc import OpenCC
 from collections import Counter
 from ckip import CkipSegmenter
 segmenter = CkipSegmenter()
-import zipfile
 
 forum = pd.read_csv("lib/tasks/Crawler/Dcard/forums.csv",names = ["board_name","alias","board_url"])
 post_id = pd.read_csv("lib/tasks/Crawler/Dcard/post_id.csv", names = ["post_id","post_title","board_name","alias"])
