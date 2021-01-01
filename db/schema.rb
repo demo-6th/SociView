@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_12_30_053748) do
+=======
+ActiveRecord::Schema.define(version: 2021_01_01_120759) do
+>>>>>>> finsih and setbackpoint
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,33 +28,30 @@ ActiveRecord::Schema.define(version: 2020_12_30_053748) do
   end
 
   create_table "comment_cleans", force: :cascade do |t|
-    t.integer "comment_id"
+    t.string "cid"
     t.text "clean_text"
-    t.integer "comment_clean"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comment_keywords", force: :cascade do |t|
     t.text "keyword"
-    t.string "comment_id"
+    t.string "cid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "comment_sentiment", force: :cascade do |t|
-    t.integer "comment_sentiment"
+  create_table "comment_sentiments", force: :cascade do |t|
     t.string "sentiment"
-    t.integer "comment_id"
+    t.string "cid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comment_tokens", force: :cascade do |t|
-    t.integer "comment_token"
     t.text "token"
-    t.integer "comment_id"
-    t.text "stop_words"
+    t.string "cid"
+    t.text "no_stop_words"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -67,33 +68,30 @@ ActiveRecord::Schema.define(version: 2020_12_30_053748) do
   end
 
   create_table "post_cleans", force: :cascade do |t|
-    t.integer "post_id"
     t.text "clean_text"
-    t.integer "post_clean"
+    t.integer "pid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_keywords", force: :cascade do |t|
     t.text "keyword"
-    t.string "post_id"
+    t.integer "pid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "post_sentiment", force: :cascade do |t|
-    t.integer "post_sentiment"
+  create_table "post_sentiments", force: :cascade do |t|
     t.string "sentiment"
-    t.integer "post_id"
+    t.integer "pid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_tokens", force: :cascade do |t|
-    t.integer "post_token"
     t.text "token"
-    t.integer "post_id"
-    t.text "stop_words"
+    t.integer "pid"
+    t.text "no_stop_words"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

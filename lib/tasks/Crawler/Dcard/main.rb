@@ -41,6 +41,6 @@ def dcard
   csv_to_psql()
   # folder_name()
   # loop_crawler()
-  puts "STOP"
+  puts "Finish"
   # finish_time()
 end
