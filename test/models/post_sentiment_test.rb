@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CommentSentimanTest < ActiveSupport::TestCase
+class PostSentimentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

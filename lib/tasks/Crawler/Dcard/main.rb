@@ -6,7 +6,7 @@ require("./lib/tasks/Crawler/Dcard/get_forums.rb")
 require("./lib/tasks/Crawler/Dcard/get_post_id.rb")
 require("./lib/tasks/Crawler/Dcard/get_post_content.rb")
 require("./lib/tasks/Crawler/Dcard/get_post_comment.rb")
-require("./lib/tasks/Crawler/Dcard/mv_files.rb")
+require("./lib/tasks/Crawler/Dcard/process_files.rb")
 #
 require "fileutils"
 
@@ -32,13 +32,13 @@ def loop_crawler
     # data cleaning process
     cleaned_data = `python lib/tasks/Crawler/Dcard/data_cleaning.py params`
     puts(cleaned_data)
+    csv_to_psql()
     mv_files(table_title)
   end
 end
 
 def dcard
-get_forums()
-beta_folder_name()
-loop_crawler()
-finish_time()
+  get_forums()
+  folder_name()
+  loop_crawler()
 end
