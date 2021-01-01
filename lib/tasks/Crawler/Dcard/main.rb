@@ -38,6 +38,9 @@ def loop_crawler
 end
 
 def dcard
+  # python packages
+  pkg = `python lib/tasks/Crawler/Dcard/packages.py params`
+  puts(pkg)
   get_forums()
   folder_name()
   loop_crawler()
