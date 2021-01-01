@@ -29,9 +29,10 @@ gem "whenever", require: false
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
 gem "devise"
-gem 'hirb', '~> 0.7.3'
-gem 'omniauth-facebook', '~> 4.0'
+gem "omniauth-facebook", "~> 4.0"
 gem "figaro"
+gem "hirb-unicode"
+gem "activerecord-import"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -45,7 +46,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
-  gem 'foreman', '~> 0.87.2'
+  gem "foreman", "~> 0.87.2"
 end
 
 group :test do

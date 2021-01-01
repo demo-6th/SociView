@@ -45,6 +45,8 @@ GEM
     activerecord (6.0.3.4)
       activemodel (= 6.0.3.4)
       activesupport (= 6.0.3.4)
+    activerecord-import (1.0.7)
+      activerecord (>= 3.2)
     activestorage (6.0.3.4)
       actionpack (= 6.0.3.4)
       activejob (= 6.0.3.4)
@@ -100,6 +102,9 @@ GEM
       activesupport (>= 4.2.0)
     hashie (4.1.0)
     hirb (0.7.3)
+    hirb-unicode (0.0.5)
+      hirb (~> 0.5)
+      unicode-display_width (~> 0.1.1)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
@@ -235,6 +240,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
+    unicode-display_width (0.1.1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.1.0)
@@ -269,13 +275,14 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
+  activerecord-import
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
   devise
   figaro
   foreman (~> 0.87.2)
-  hirb (~> 0.7.3)
+  hirb-unicode
   jbuilder (~> 2.7)
   listen (~> 3.2)
   omniauth-facebook (~> 4.0)
