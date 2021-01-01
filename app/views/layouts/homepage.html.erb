@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
@@ -13,7 +13,12 @@
 
   <body class="relative">
     <%= render "shared/navbar" %>
-    <%= yield %>
+ 
+      <div class="query_page flex">
+        <%= render "shared/aside" %>
+        <%= yield %>
+      </div>
+    </div>
     <%= render "shared/footer" %>
   </body>
 </html>
