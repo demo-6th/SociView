@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_01_01_120759) do
 
+  # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
