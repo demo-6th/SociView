@@ -1,10 +1,14 @@
+#coding=utf-8
 import pandas as pd
 import re
-from opencc import OpenCC
 from collections import Counter
 from ckip import CkipSegmenter
+import time 
+import numpy as np
+from tqdm import tqdm
+# remove set copy warning 
+pd.options.mode.chained_assignment = None
 segmenter = CkipSegmenter()
-import zipfile
 
 forum = pd.read_csv("lib/tasks/Crawler/Dcard/forums.csv",names = ["board_name","alias","board_url"])
 post_id = pd.read_csv("lib/tasks/Crawler/Dcard/post_id.csv", names = ["post_id","post_title","board_name","alias"])
@@ -82,9 +86,12 @@ def sentiment(token):
   else:
     return "negative"
 
-post_id["alias"] = post_id.board_name.apply(get_alias_by_name)
-post["alias"] = post.post_id.apply(get_alias_by_id)
-comment["alias"] = comment.post_id.apply(get_alias_by_id)
+tqdm.pandas(desc="post_id_alias loading... ")
+post_id["alias"] = post_id.board_name.progress_apply(get_alias_by_name)
+tqdm.pandas(desc="post_alias loading... ")
+post["alias"] = post.post_id.progress_apply(get_alias_by_id)
+tqdm.pandas(desc="comment_alias loading... ")
+comment["alias"] = comment.post_id.progress_apply(get_alias_by_id)
 post["url"] = post.alias
 comment["url"] = comment.post_id
 
@@ -97,16 +104,26 @@ post["source"] = "dcard"
 comment["source"] = "dcard"
 post["type"] = "post"
 comment["type"] = "comment"
-post["clean_txt"] = post.post_content.apply(cleaning)
-comment["clean_txt"] = comment.comment_content.apply(cleaning)
-post["token"] = post.clean_txt.apply(tokenization)
-comment["token"] = comment.clean_txt.apply(tokenization)
-post["no_stop"] = post.token.apply(no_stop)
-comment["no_stop"] = comment.token.apply(no_stop)
-post["keywords"] = post.no_stop.apply(keyword)
-comment["keywords"] = comment.no_stop.apply(keyword)
-post["sentiment"] = post.token.apply(sentiment)
-comment["sentiment"] = comment.token.apply(sentiment)
+tqdm.pandas(desc="post_clean_txt loading... ")
+post["clean_txt"] = post.post_content.progress_apply(cleaning)
+tqdm.pandas(desc="comment_clean_txt loading... ")
+comment["clean_txt"] = comment.comment_content.progress_apply(cleaning)
+tqdm.pandas(desc="post_token loading... ")
+post["token"] = post.clean_txt.progress_apply(tokenization)
+tqdm.pandas(desc="comment_token loading... ")
+comment["token"] = comment.clean_txt.progress_apply(tokenization)
+tqdm.pandas(desc="post_no_stop loading... ")
+post["no_stop"] = post.token.progress_apply(no_stop)
+tqdm.pandas(desc="comment_no_stop loading... ")
+comment["no_stop"] = comment.token.progress_apply(no_stop)
+tqdm.pandas(desc="post_keywords loading... ")
+post["keywords"] = post.no_stop.progress_apply(keyword)
+tqdm.pandas(desc="comment_keywords loading... ")
+comment["keywords"] = comment.no_stop.progress_apply(keyword)
+tqdm.pandas(desc="post_sentiment loading... ")
+post["sentiment"] = post.token.progress_apply(sentiment)
+tqdm.pandas(desc="comment_sentiment loading... ")
+comment["sentiment"] = comment.token.progress_apply(sentiment)
 
 # save as csv
 post_id.to_csv("lib/tasks/Crawler/Dcard/post_id.csv",header=False)
