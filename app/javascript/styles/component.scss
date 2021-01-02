@@ -1,8 +1,7 @@
 .img{
-  width: 100%;
+  @apply w-full;
 }
 .log_detail{
-  // outline: solid blue;
   line-height: 2em;
 }
 .log_page{
