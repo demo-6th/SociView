@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 2021_01_01_120759) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "comment_sentiment", force: :cascade do |t|
+    t.integer "comment_sentiment"
+    t.string "sentiment"
+    t.integer "comment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "comment_sentiments", force: :cascade do |t|
     t.string "sentiment"
     t.string "cid"
@@ -73,6 +81,14 @@ ActiveRecord::Schema.define(version: 2021_01_01_120759) do
   create_table "post_keywords", force: :cascade do |t|
     t.text "keyword"
     t.integer "pid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_sentiment", force: :cascade do |t|
+    t.integer "post_sentiment"
+    t.string "sentiment"
+    t.integer "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

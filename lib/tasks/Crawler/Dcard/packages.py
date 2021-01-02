@@ -1,3 +1,4 @@
+#coding=utf-8
 #!/usr/bin/python3.7.4
 import sys
 import subprocess

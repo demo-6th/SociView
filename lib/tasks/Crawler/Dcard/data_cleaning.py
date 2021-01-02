@@ -1,7 +1,11 @@
+#coding=utf-8
 import pandas as pd
 import re
 from collections import Counter
 from ckip import CkipSegmenter
+import time 
+# remove set copy warning 
+pd.options.mode.chained_assignment = None
 segmenter = CkipSegmenter()
 
 forum = pd.read_csv("lib/tasks/Crawler/Dcard/forums.csv",names = ["board_name","alias","board_url"])
@@ -97,8 +101,17 @@ post["type"] = "post"
 comment["type"] = "comment"
 post["clean_txt"] = post.post_content.apply(cleaning)
 comment["clean_txt"] = comment.comment_content.apply(cleaning)
+
+start = time.time()
+# start tokenization
+print("start tokenization...")
 post["token"] = post.clean_txt.apply(tokenization)
 comment["token"] = comment.clean_txt.apply(tokenization)
+# end tokenizaiton
+end = time.time()
+total = end - start
+# total time spent on tokenization
+print("end tokenization."+"time spent = "+str(total))
 post["no_stop"] = post.token.apply(no_stop)
 comment["no_stop"] = comment.token.apply(no_stop)
 post["keywords"] = post.no_stop.apply(keyword)
