@@ -29,7 +29,7 @@ def loop_crawler
     get_post_content(sleep_every, sleep_time)
     get_post_comment(sleep_every, sleep_time)
     # data cleaning process
-    cleaned_data = `python lib/tasks/Crawler/Dcard/data_cleaning.py params`
+    cleaned_data = `python3 lib/tasks/Crawler/Dcard/data_cleaning.py params`
     puts(cleaned_data)
     csv_to_psql()
     mv_files(table_title)
@@ -38,7 +38,7 @@ end
 
 def dcard
   # python packages
-  pkg = `python lib/tasks/Crawler/Dcard/packages.py params`
+  pkg = `python3 lib/tasks/Crawler/Dcard/packages.py params`
   puts(pkg)
   get_forums()
   folder_name()
