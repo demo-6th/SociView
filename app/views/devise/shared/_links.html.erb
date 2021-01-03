@@ -3,7 +3,7 @@
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "註冊", new_registration_path(resource_name), class: "text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" %><br />
+  <%= link_to "註冊", new_registration_path(resource_name), class: "text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg " %><br />
   <% end %>
 
   <!-- <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
@@ -17,9 +17,8 @@
   <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
     <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
   <% end %>
-
   <%- if devise_mapping.omniauthable? %>
     <%- resource_class.omniauth_providers.each do |provider| %>
-      <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+      <%= link_to "使用 #{OmniAuth::Utils.camelize(provider)} 登入", omniauth_authorize_path(resource_name, provider), class: "w-full text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg " %><br />
     <% end %>
 <% end %>
