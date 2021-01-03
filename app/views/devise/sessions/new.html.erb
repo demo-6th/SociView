@@ -1,14 +1,14 @@
   <div class="login_page">
     <div class="container m-auto">
       <div class="row flex justify-center items-center">
-        <div class="w-1/2">
+        <div class="w-1/2 leading-10">
           <h2>Welcome Join Us</h2>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="loin_item">
             <%= f.label :email, class: "leading-7 text-sm text-gray-600" %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
           </div>
-          <div class="loin_item">
+          <div class="loin_item mb-2">
             <%= f.label :password, '密碼', class: "leading-7 text-sm text-gray-600"%><br />
             <%= f.password_field :password, autocomplete: "請輸入密碼", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
           </div>
@@ -20,13 +20,13 @@
           </div> -->
           <% end %>
         
-          <div class="loin_action">
+          <div class="loin_action leading-10">
             <%= f.submit "登入", class: "text-white bg-indigo-500 border-0 py-1 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" %>
             <%= render "devise/shared/links" %>
           </div>
           <% end %> 
         </div>
-        <div class="w-1/2">
+        <div class="w-1/2 leading-10">
           <%= render "devise/shared/log_img" %>
         </div>
       </div>
