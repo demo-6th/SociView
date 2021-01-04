@@ -48,7 +48,7 @@ def tokenization(post):
       return ""
    
 # stopwords 
-with open("lib/tasks/Crawler/Dcard/stopwords.txt", encoding="utf-8") as fin:
+with open("lib/tasks/Crawler/Dcard/dict/stopwords.txt", encoding="utf-8") as fin:
   stopwords = fin.read().split("\n")[1:]
 
 def no_stop(item):
@@ -65,10 +65,10 @@ def keyword(doc):
   return keywords
 
 # sentiment 
-with open("lib/tasks/Crawler/Dcard/pos.txt", encoding="utf-8") as pos:
+with open("lib/tasks/Crawler/Dcard/dict/pos.txt", encoding="utf-8") as pos:
   pos_words = pos.read().split("\n")[1:]
 
-with open("lib/tasks/Crawler/Dcard/neg.txt", encoding="utf-8") as neg:
+with open("lib/tasks/Crawler/Dcard/dict/neg.txt", encoding="utf-8") as neg:
   neg_words = neg.read().split("\n")[1:]
 
 def sentiment(token):
@@ -130,5 +130,5 @@ post_id.to_csv("lib/tasks/Crawler/Dcard/post_id.csv",header=False)
 post.to_csv("lib/tasks/Crawler/Dcard/post_content.csv",header=False)
 comment.to_csv("lib/tasks/Crawler/Dcard/post_comment.csv",header=False)
 
-# succesfully executed!
+# succesfully executed
 print("======[python data_cleaning process successfully executed.]=====")
