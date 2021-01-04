@@ -13,7 +13,7 @@ def loop_crawler
   all_boards = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/Dcard/forums.csv"), headers: false)
 
   # 0.upto = 從第一個版開始
-  6.upto(all_boards.count - 1) do |board|
+  0.upto(all_boards.count - 1) do |board|
     table_title = all_boards["#{board}".to_i.."#{board}".to_i].first.first
 
     # n 天前的資料
