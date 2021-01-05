@@ -31,7 +31,6 @@ gem "bootsnap", ">= 1.4.2", require: false
 gem "devise"
 gem "omniauth-facebook", "~> 4.0"
 gem "figaro"
-gem "hirb-unicode"
 gem "activerecord-import"
 
 group :development, :test do
@@ -47,6 +46,8 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "foreman", "~> 0.87.2"
+  gem "hirb-unicode"
+
 end
 
 group :test do
