@@ -12,7 +12,7 @@ class QueriesController < ApplicationController
   def volume
   end
 
-  def sub_topic
+  def topic
   end
 
   def wordcloud

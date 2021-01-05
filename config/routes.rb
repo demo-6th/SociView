@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       get :list
       get :volume
       get :sentiment
-      get :sub_topic
+      get :topic
       get :wordcloud
       get :diffusion
     end
