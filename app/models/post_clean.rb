@@ -1,3 +1,3 @@
-class PostClean < ApplicationRecord
-  belongs_to :post, class_name: "Post", foreign_key: "pid", primary_key: "pid"
+class PostClean < Feature
+  belongs_to :post
 end

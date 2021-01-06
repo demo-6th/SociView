@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_120759) do
+ActiveRecord::Schema.define(version: 2021_01_06_025948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,38 +24,33 @@ ActiveRecord::Schema.define(version: 2021_01_01_120759) do
   end
 
   create_table "comment_cleans", force: :cascade do |t|
-    t.string "cid"
-    t.text "clean_text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comment_keep_words", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comment_keywords", force: :cascade do |t|
-    t.text "keyword"
-    t.string "cid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comment_sentiments", force: :cascade do |t|
-    t.string "sentiment"
-    t.string "cid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comment_tokens", force: :cascade do |t|
-    t.text "token"
-    t.string "cid"
-    t.text "no_stop_words"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.string "cid"
-    t.integer "pid"
-    t.text "comment_content"
+  create_table "comments", id: :string, force: :cascade do |t|
+    t.integer "post_id"
+    t.text "content"
     t.integer "like_count"
     t.string "alias"
     t.string "url"
@@ -63,38 +58,42 @@ ActiveRecord::Schema.define(version: 2021_01_01_120759) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "features", force: :cascade do |t|
+    t.text "content"
+    t.string "type"
+    t.integer "post_id"
+    t.string "comment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "post_cleans", force: :cascade do |t|
-    t.text "clean_text"
-    t.integer "pid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_keep_words", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_keywords", force: :cascade do |t|
-    t.text "keyword"
-    t.integer "pid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_sentiments", force: :cascade do |t|
-    t.string "sentiment"
-    t.integer "pid"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_tokens", force: :cascade do |t|
-    t.text "token"
-    t.integer "pid"
-    t.text "no_stop_words"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "pid"
-    t.text "post_content"
+    t.text "content"
     t.string "title"
     t.integer "comment_count"
     t.integer "like_count"
@@ -127,6 +126,8 @@ ActiveRecord::Schema.define(version: 2021_01_01_120759) do
     t.string "last_sign_in_ip"
     t.string "fb_uid"
     t.string "fb_token"
+    t.string "google_uid"
+    t.string "google_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["fb_uid"], name: "index_users_on_fb_uid"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
