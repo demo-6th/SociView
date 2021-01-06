@@ -4,6 +4,7 @@ class CreateBoards < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :alias
       t.integer :source_id
+
       t.timestamps
     end
   end
