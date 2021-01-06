@@ -1,3 +1,3 @@
-class PostToken < ApplicationRecord
-  belongs_to :post, class_name: "Post", foreign_key: "pid", primary_key: "pid"
+class PostToken < Feature
+  belongs_to :post
 end
