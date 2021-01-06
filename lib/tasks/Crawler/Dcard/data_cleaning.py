@@ -15,13 +15,7 @@ post_id = pd.read_csv("data/post_id.csv", names = ["post_id","post_title","board
 post = pd.read_csv("data/post_content.csv", names = ["post_id","post_content","post_title","created_at", "updated_at", "comment_count","like_count","gender"])
 comment = pd.read_csv("data/post_comment.csv", names = ["comment_id", "post_id","created_at", "updated_at","floor", "comment_content","like_count", "gender"])
 
-def get_alias_by_name(b_name):
-  board_name = b_name
-  try:
-    alias = forum.loc[forum.board_name == board_name].alias.values[0]
-    return alias 
-  except:
-    return ""
+
 
 def get_alias_by_id(p_id):
   p_id = p_id
@@ -85,10 +79,7 @@ def sentiment(token):
     return "positive"
   else:
     return "negative"
-#alias會被洗空值 待修
-# tqdm.pandas(desc="post_id_alias loading... ")
-# post_id["alias"] = post_id.board_name.progress_apply(get_alias_by_name)
-#淡江版會爆 待修
+
 tqdm.pandas(desc="post_alias loading... ")
 post["alias"] = post.post_id.progress_apply(get_alias_by_id)
 tqdm.pandas(desc="comment_alias loading... ")
