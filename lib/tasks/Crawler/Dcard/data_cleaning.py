@@ -10,10 +10,10 @@ from tqdm import tqdm
 pd.options.mode.chained_assignment = None
 segmenter = CkipSegmenter()
 
-forum = pd.read_csv("lib/tasks/Crawler/Dcard/forums.csv",names = ["board_name","alias","board_url"])
-post_id = pd.read_csv("lib/tasks/Crawler/Dcard/post_id.csv", names = ["post_id","post_title","board_name","alias"])
-post = pd.read_csv("lib/tasks/Crawler/Dcard/post_content.csv", names = ["post_id","post_content","post_title","created_at", "updated_at", "comment_count","like_count","gender"])
-comment = pd.read_csv("lib/tasks/Crawler/Dcard/post_comment.csv", names = ["comment_id", "post_id","created_at", "updated_at","floor", "comment_content","like_count", "gender"])
+forum = pd.read_csv("data/forums.csv",names = ["board_name","alias","board_url"])
+post_id = pd.read_csv("data/post_id.csv", names = ["post_id","post_title","board_name","alias"])
+post = pd.read_csv("data/post_content.csv", names = ["post_id","post_content","post_title","created_at", "updated_at", "comment_count","like_count","gender"])
+comment = pd.read_csv("data/post_comment.csv", names = ["comment_id", "post_id","created_at", "updated_at","floor", "comment_content","like_count", "gender"])
 
 def get_alias_by_name(b_name):
   board_name = b_name
@@ -48,7 +48,7 @@ def tokenization(post):
       return ""
    
 # stopwords 
-with open("lib/tasks/Crawler/Dcard/dict/stopwords.txt", encoding="utf-8") as fin:
+with open("data/dict/stopwords.txt", encoding="utf-8") as fin:
   stopwords = fin.read().split("\n")[1:]
 
 def no_stop(item):
@@ -65,10 +65,10 @@ def keyword(doc):
   return keywords
 
 # sentiment 
-with open("lib/tasks/Crawler/Dcard/dict/pos.txt", encoding="utf-8") as pos:
+with open("data/dict/pos.txt", encoding="utf-8") as pos:
   pos_words = pos.read().split("\n")[1:]
 
-with open("lib/tasks/Crawler/Dcard/dict/neg.txt", encoding="utf-8") as neg:
+with open("data/dict/neg.txt", encoding="utf-8") as neg:
   neg_words = neg.read().split("\n")[1:]
 
 def sentiment(token):
@@ -85,9 +85,10 @@ def sentiment(token):
     return "positive"
   else:
     return "negative"
-
-tqdm.pandas(desc="post_id_alias loading... ")
-post_id["alias"] = post_id.board_name.progress_apply(get_alias_by_name)
+#alias會被洗空值 待修
+# tqdm.pandas(desc="post_id_alias loading... ")
+# post_id["alias"] = post_id.board_name.progress_apply(get_alias_by_name)
+#淡江版會爆 待修
 tqdm.pandas(desc="post_alias loading... ")
 post["alias"] = post.post_id.progress_apply(get_alias_by_id)
 tqdm.pandas(desc="comment_alias loading... ")
@@ -126,6 +127,6 @@ tqdm.pandas(desc="comment_sentiment loading... ")
 comment["sentiment"] = comment.token.progress_apply(sentiment)
 
 # save as csv
-post_id.to_csv("lib/tasks/Crawler/Dcard/post_id.csv",header=False)
-post.to_csv("lib/tasks/Crawler/Dcard/post_content.csv",header=False)
-comment.to_csv("lib/tasks/Crawler/Dcard/post_comment.csv",header=False)
+post_id.to_csv("data/post_id.csv",header=False)
+post.to_csv("data/post_content.csv",header=False)
+comment.to_csv("data/post_comment.csv",header=False)

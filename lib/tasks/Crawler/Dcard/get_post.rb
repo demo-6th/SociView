@@ -13,11 +13,11 @@ def get_forums
   rescue => e
     puts "error type=#{e.class}, message=#{e.message}"
   end
-  File.write("#{Rails.root}/lib/tasks/Crawler/Dcard/forums.csv", forums.map(&:to_csv).join)
+  File.write("#{Rails.root}/data/forums.csv", forums.map(&:to_csv).join)
 end
 
 def get_post_id(board, sleep_every, sleep_time, prev_day)
-  table = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/Dcard/forums.csv"), headers: false)
+  table = CSV.parse(File.read("#{Rails.root}/data/forums.csv"), headers: false)
 
   current_table = table["#{board}".to_i.."#{board}".to_i]
 
@@ -101,11 +101,11 @@ def get_post_id(board, sleep_every, sleep_time, prev_day)
     all_post_id += forum_post_id
   end
 
-  File.write("#{Rails.root}/lib/tasks/Crawler/Dcard/post_id.csv", all_post_id.map(&:to_csv).join)
+  File.write("#{Rails.root}/data/post_id.csv", all_post_id.map(&:to_csv).join)
 end
 
 def get_post_content(sleep_every, sleep_time)
-  table = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/Dcard/post_id.csv"), headers: false)
+  table = CSV.parse(File.read("#{Rails.root}/data/post_id.csv"), headers: false)
   post_content = []
   total_cut = 0
   table.each do |line|
@@ -129,11 +129,11 @@ def get_post_content(sleep_every, sleep_time)
     end
   end
 
-  File.write("#{Rails.root}/lib/tasks/Crawler/Dcard/post_content.csv", post_content.map(&:to_csv).join)
+  File.write("#{Rails.root}/data/post_content.csv", post_content.map(&:to_csv).join)
 end
 
 def get_post_comment(sleep_every, sleep_time)
-  table = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/Dcard/post_id.csv"), headers: false)
+  table = CSV.parse(File.read("#{Rails.root}/data/post_id.csv"), headers: false)
 
   post_comments = []
   table.each do |line|
@@ -182,5 +182,5 @@ def get_post_comment(sleep_every, sleep_time)
     end
   end
 
-  File.write("#{Rails.root}/lib/tasks/Crawler/Dcard/post_comment.csv", post_comments.map(&:to_csv).join)
+  File.write("#{Rails.root}/data/post_comment.csv", post_comments.map(&:to_csv).join)
 end
