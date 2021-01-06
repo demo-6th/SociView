@@ -1,4 +1,4 @@
-class QuerysController < ApplicationController
+class QueriesController < ApplicationController
   layout "homepage"
   def index
   end
@@ -12,7 +12,7 @@ class QuerysController < ApplicationController
   def volume
   end
 
-  def sub_topic
+  def topic
   end
 
   def wordcloud

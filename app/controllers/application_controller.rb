@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protected
   def after_sign_in_path_for(resource)
     # 登入後指定頁面
-    querys_path
+    queries_path
   end
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])
