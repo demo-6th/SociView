@@ -30,4 +30,5 @@ def loop_crawler
     csv_to_psql()
     mv_files(table_title)
   end
+  update_boards()
 end

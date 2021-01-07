@@ -1,2 +1,0 @@
-class Feature < ApplicationRecord
-end
