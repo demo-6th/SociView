@@ -16,6 +16,7 @@ class QueriesController < ApplicationController
   end
 
   def wordcloud
+
   end
 
   def diffusion
