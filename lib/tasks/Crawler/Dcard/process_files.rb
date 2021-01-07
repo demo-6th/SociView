@@ -12,7 +12,7 @@ def board_folder()
   Dir.mkdir("#{Rails.root}/data/#{@folder_name}")
 end
 
-def csv_to_psql()
+def update_boards()
   data_boards = CSV.read("#{Rails.root}/data/forums.csv")
   data_boards.each do |arr|
     colums = [:name, :alias, :source_id]
@@ -21,7 +21,9 @@ def csv_to_psql()
   end
 
   Board.where.not(id: Board.group(:alias).select("min(id)")).destroy_all
+end 
 
+def csv_to_psql()
   data_posts = CSV.read("#{Rails.root}/data/post_content.csv")
   data_posts.each do |arr|
     post_colums = [:pid, :content, :title, :created_at, :updated_at, :comment_count, :like_count, :alias, :url, :clean,:token, :no_stop, :keyword, :sentiment]
