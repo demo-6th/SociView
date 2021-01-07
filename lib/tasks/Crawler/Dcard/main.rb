@@ -10,8 +10,7 @@ def loop_crawler
   all_boards = CSV.parse(File.read("#{Rails.root}/data/forums.csv"), headers: false)
 
   # 0.upto = 從第一個版開始
-  # 7.upto(all_boards.count - 1) do |board|
-  7.upto(9) do |board|
+  7.upto(all_boards.count - 1) do |board|
     #first.first待改
     table_title = all_boards["#{board}".to_i.."#{board}".to_i].first.first
 
