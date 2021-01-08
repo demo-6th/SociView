@@ -1,6 +1,8 @@
 class QueriesController < ApplicationController
   layout "homepage"
   def index
+    # @test = Post.where(id:3) 
+    # render json: @test
   end
 
   def list
