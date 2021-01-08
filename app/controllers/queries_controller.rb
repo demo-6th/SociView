@@ -1,6 +1,7 @@
 class QueriesController < ApplicationController
   before_action :authenticate_user!
   layout "homepage"
+
   def index
     
   end
@@ -50,6 +51,11 @@ class QueriesController < ApplicationController
   end
 
   def volume
+    # @volume =
+    @count = Post.count
+    @source = Source.pluck(:name)[0]
+    @start = Post.pluck(:created_at).last.strftime("%Y-%m-%d")
+    @end = Post.pluck(:created_at).first.strftime("%Y-%m-%d")
   end
 
   def topic ; end

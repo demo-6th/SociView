@@ -5,7 +5,7 @@ namespace :db do
     `rake db:create`
     `rake db:migrate:status`
     `rake db:migrate`
-    `rake db:migrate:status`
     `rake db:seed`
+    puts "======Finish clean======"
   end
 end
