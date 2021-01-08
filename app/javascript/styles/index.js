@@ -1,7 +1,4 @@
-// import "tailwindcss/base";
-// import "tailwindcss/components";
 import "./navbar.scss";
-// import "tailwindcss/utilities";
 import "./home.scss";
 import "./devise.scss";
 import "./component.scss";
