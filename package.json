@@ -1,5 +1,5 @@
 {
-  "name": "SociView",
+  "name": "sociview",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
@@ -10,6 +10,7 @@
     "@rails/webpacker": "4.3.0",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9",
+    "flatpickr": "^4.6.9",
     "font-awesome": "^4.7.0",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
