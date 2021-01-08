@@ -9,7 +9,8 @@ Rails.application.routes.draw do
       get :volume
       get :sentiment
       get :topic
-      get :wordcloud
+      get :wordcloud, to: 'queries#index'
+      post :wordcloud
       get :diffusion
     end
   end

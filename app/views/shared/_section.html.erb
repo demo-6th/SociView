@@ -1,4 +1,5 @@
 <div class="section">
+  <%= form_tag do %>
   <div class="choice_page flex">
     <div class="theme">
       <h2 class="theme_item">主題區</h2>
@@ -32,6 +33,7 @@
   <div class="button_page">
     <%= submit_tag "開始分析", class: "search_btn" %>
   </div>
+  <% end %>
 </div>
 
   
