@@ -9,9 +9,8 @@ require("@rails/activestorage").start();
 require("channels");
 require("styles");
 
-// document.addEventListener("turbolinks:load", () => {
-//   const search_btn = document.querySelector(".search_btn")
-//   search_btn.addEventListener('click', addItemBtn)
+const images = require.context('../images', true)
+const imagePath = (name) => images(name, true)
 
 //   function addItemBtn(){
 //     console.log("hello")
