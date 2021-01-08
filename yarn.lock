@@ -3173,6 +3173,11 @@ findup-sync@^3.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
+flatpickr@^4.6.9:
+  version "4.6.9"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
+  integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
+
 flatted@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz"
@@ -7574,11 +7579,6 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
-
-vanillajs-datepicker@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/vanillajs-datepicker/-/vanillajs-datepicker-1.1.1.tgz#97f6aacb1a07765a44611b5825992fe2010bebc0"
-  integrity sha512-rvws7iIGWUCM5XaH9dSmyNGQtt+Jl3IlohBjy/hjDs1Vnet+tQRhx6Dr7wq4f9CiN07sHC+663VAyGgObGmOcg==
 
 vary@~1.1.2:
   version "1.1.2"
