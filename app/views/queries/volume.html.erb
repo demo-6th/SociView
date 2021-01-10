@@ -1,7 +1,8 @@
-
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js'></script>
 <%= render "shared/section" %>
 <h1>聲量圖</h1>
  
+
 <div class="search_list">
   <div class="container">
     <div class="w-full px-2">
@@ -10,10 +11,28 @@
         <p>查詢主題：<%= @theme %></p>
         <p>查詢時間：<%= @start %>  至  <%= @end %></p>
         <p>資料來源：<%= @source %></p>
+
+
       </div>
     </div>
-    <%= @volume %>
+    <%= @theme %>
   </div>
 </div>
 
-
+<canvas id="myChart" height="50"></canvas>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+    type: 'polarArea',
+    data: {
+      labels: ['正面', '負面', '中立'],
+      datasets: [
+        {
+          label: '（主文）情緒長條圖',
+          data: ['<%= @positive %>', '<%= @negative %>', '<%= @neutral %>'],
+          backgroundColor: ['lightgreen', 'tomato', 'lightblue']
+        }
+      ]
+    }
+})
+</script> 

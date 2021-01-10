@@ -4,12 +4,20 @@
     <div class="theme">
       <h2 class="theme_item">主題區</h2>
       <div class="checkbox">
-        <div><%= check_box_tag(:theme0) %>
+        <div><%= check_box_tag(:theme) %>
           <%= label_tag(:theme0, "空氣清淨機", class: "theme_text") %></div>
-        <div><%= check_box_tag(:theme1) %>
+        <div><%= check_box_tag(:theme) %>
           <%= label_tag(:theme1, "武漢肺炎", class: "theme_text") %></div>
-        <div><%= check_box_tag(:theme2) %> 
+        <div><%= check_box_tag(:theme) %> 
           <%= label_tag(:theme2, "你想知道什麼？", class: "theme_text") %></div>
+
+        <label class="category-select">
+          <%= check_box_tag "theme", "老師", false %>老師<br>
+          <%= check_box_tag "theme", "學生", false %>學生<br>
+          <%= check_box_tag "theme", "台女", false %>台女<br>
+          <%= check_box_tag "theme", "渣男", false %>渣男<br>
+          <%= check_box_tag "theme", "肺炎", false %>肺炎<br>
+        </label>
       </div>
     </div>
 
