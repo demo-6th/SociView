@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     collection do
       get :list
       get :volume
-      get :sentiment, to: 'queries#index'
+      # get :sentiment, to: 'queries#index'
+      get :sentiment
       post :sentiment
       get :topic
       get :wordcloud, to: 'queries#index'
