@@ -51,11 +51,14 @@ class QueriesController < ApplicationController
   end
 
   def volume
-    # @volume =
-    @count = Post.count
+    @theme = params[:theme]
+    @count = Post.where("clean like ?", "%#{@theme}%").count + Comment.where("clean like ?", "%#{@theme}%").count
     @source = Source.pluck(:name)[0]
     @start = Post.pluck(:created_at).last.strftime("%Y-%m-%d")
     @end = Post.pluck(:created_at).first.strftime("%Y-%m-%d")
+    @positive = Post.where("clean like ?", "%#{@theme}%").where(sentiment: "positive").count + Comment.where("clean like ?", "%#{@theme}%").where(sentiment: "positive").count
+    @negative = Post.where("clean like ?", "%#{@theme}%").where(sentiment: "negative").count + Comment.where("clean like ?", "%#{@theme}%").where(sentiment: "negative").count
+    @neutral = Post.where("clean like ?", "%#{@theme}%").where(sentiment: "neutral").count + Comment.where("clean like ?", "%#{@theme}%").where(sentiment: "neutral").count
   end
 
   def topic ; end

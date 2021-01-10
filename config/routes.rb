@@ -12,8 +12,13 @@ Rails.application.routes.draw do
       get :list
       get :volume, to: "queries#index"
       post :volume
+<<<<<<< HEAD
       get :sentiment
       post :sentiment, to: "queries#sentpost"
+=======
+      get :sentiment, to: "queries#index"
+      post :sentiment
+>>>>>>> backpoint
       get :topic
       post :topic ,to: 'queries#topicpost' 
       get :wordcloud
