@@ -10,10 +10,11 @@ class User < ApplicationRecord
   # validates :nickname, presence: true
 
   def self.from_omniauth(auth)
-    existing_user = User.find_by_email( auth.info.email )
-    existing_user.fb_uid = auth.uid
-    existing_user.fb_token = auth.credentials.token
-    existing_user.save!
-    return existing_user
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider # 登入資訊1
+      user.uid = auth.uid           # 登入資訊2
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+    end
   end
 end
