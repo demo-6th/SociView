@@ -1,0 +1,15 @@
+<%= render "shared/single" %>
+
+<div class="search_list">
+  <div class="container">
+    <div class="w-full px-2">
+      <div class="search_all bg-red-100 px-5 border-solid border-gray-800 border-2 leading-6">
+        <p>查詢結果：<%= @count %>筆</p>
+        <p>查詢主題：<%= @theme %></p>
+        <p>查詢時間：<%= @start %>至<%= @end %></p>
+        <p>資料來源：<%= @source %></p>
+      </div>
+    </div>
+  </div>
+  <div><%= render "shared/ldavis" %></div>
+</div>
