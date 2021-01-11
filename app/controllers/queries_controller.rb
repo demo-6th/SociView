@@ -8,8 +8,9 @@ class QueriesController < ApplicationController
   def list
   end
 
-  def sentiment
-    # pass value down to api action
+  def sentiment; end
+
+  def sentpost
     @theme = params[:theme]
     @source = [params[:dcard],params[:ptt]]
     @start = params[:user][:start].to_date 
@@ -55,7 +56,51 @@ class QueriesController < ApplicationController
   def topic
   end
 
-  def wordcloud
+  def wordcloud ; end
+
+  def cloudpost
+    @theme = params[:theme]
+    @source = [params[:dcard],params[:ptt]]
+    @start = params[:user][:start].to_date 
+    @end = params[:user][:end].to_date
+    @type = [params[:post],params[:comment]]
+
+    @query = ""
+    if @theme == "1"
+      @query = "%期末%"
+    elsif @theme == "2"
+      @query = "%筆電%"
+    else 
+      @query = "%貓%"
+    end 
+    
+    post_result = Post.where('created_at >= ? and created_at <=?', @start.midnight, @end.end_of_day).where("content like ?",@query).or(Post.where("title like ?",@query))
+
+    comment_result = Comment.where('created_at >= ? and created_at <=?', @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?",@query).or(Post.where("title like ?", @query)).pluck(:pid)).or(Comment.where("content like ?", @query))
+    
+    # 計算符合搜尋條件的資料筆數
+    post_count = post_result.count
+    comment_count = comment_result.count
+
+    if params[:post] && params[:comment] 
+      @count = post_count + comment_count
+      result = post_result.select(:token, :id)|comment_result.select(:token, :id)
+    elsif params[:post] && !params[:comment] 
+      @count = post_count
+      result = post_result.select(:token, :id)
+    else
+      @count = comment_count
+      result = comment_result.select(:token, :id)
+    end 
+
+    CSV.open("data/cloud_text.csv", "wb") do |csv|
+      # csv << result.attributes
+      result.find_all do |res|
+        csv << res.attributes.values
+      end
+    end
+    # call python to generate wordcloud
+    `python3 lib/tasks/Wordcloud/main.py`
   end
 
   def diffusion
