@@ -29,6 +29,7 @@ gem "jbuilder", "~> 2.7"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "devise"
 gem "omniauth-facebook", "~> 4.0"
+gem 'omniauth-google-oauth2'
 gem "figaro"
 gem "activerecord-import"
 gem 'gon', '~> 6.1'
