@@ -1,20 +1,24 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
   def facebook
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    callback_for(:facebook)
+  end
 
+  def google_oauth2
+    callback_for(:google)
+  end
+
+  def callback_for(provider)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user.persisted?
-      sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+      sign_in_and_redirect @user, event: :authentication
+      set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except("extra")
+      redirect_to new_user_registration_url, alert: "需要您同意 Email 授權唷！"
     end
   end
 
   def failure
-    flash[:error] = '登入有問題！'
-    redirect_to root_path
+    redirect_to root_path, alert: "無法獲得驗證！"
   end
-
 end
