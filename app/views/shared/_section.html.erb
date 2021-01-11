@@ -4,12 +4,12 @@
     <div class="theme">
       <h2 class="theme_item">主題區</h2>
       <div class="checkbox">
-        <div><%= check_box_tag(:theme, "老師") %>
-          <%= label_tag(:theme, "老師", class: "theme_text") %></div>
-        <div><%= check_box_tag(:theme, "武漢肺炎") %>
-          <%= label_tag(:theme, "武漢肺炎", class: "theme_text") %></div>
-        <div><%= check_box_tag(:theme, "Iphone12") %> 
-          <%= label_tag(:theme, "Iphone12", class: "theme_text") %></div>
+        <div><%= check_box_tag(:theme1, "老師") %>
+          <%= label_tag(:theme1, "老師", class: "theme_text") %></div>
+        <div><%= check_box_tag(:theme2, "學分") %>
+          <%= label_tag(:theme2, "學分", class: "theme_text") %></div>
+        <div><%= check_box_tag(:theme3, "期末") %> 
+          <%= label_tag(:theme3, "期末", class: "theme_text") %></div>
       </div>
     </div>
 
@@ -32,13 +32,13 @@
     	<div class="theme">
 			<h2 class="theme_item">文本種類</h2>
 			<div class="checkbox">
-				<div><%= check_box_tag(:post) %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
-				<div><%= check_box_tag(:comment) %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
+				<div><%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
+				<div><%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
 			</div>
 		</div>
   </div>
   
-  <div class="button_page">
+  <div class="button_page" >
     <%= submit_tag "開始分析", class: "search_btn" %>
   </div>
   <% end %>
