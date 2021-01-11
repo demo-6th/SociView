@@ -3,7 +3,11 @@ class QueriesController < ApplicationController
   layout "homepage"
 
   def index
-    
+    @wordcloud = wordcloud_queries_path
+    @sentiment = sentiment_queries_path
+    @volume = volume_queries_path
+    @list = list_queries_path
+    @topic = topic_queries_path
   end
 
   def list
@@ -13,10 +17,10 @@ class QueriesController < ApplicationController
 
   def sentpost
     @theme = params[:theme]
-    @source = [params[:dcard],params[:ptt]]
-    @start = params[:user][:start].to_date 
+    @source = [params[:dcard], params[:ptt]]
+    @start = params[:user][:start].to_date
     @end = params[:user][:end].to_date
-    @type = [params[:post],params[:comment]]
+    @type = [params[:post], params[:comment]]
 
     # 主題查詢條件（現在是隨便寫）
     @query = ""
@@ -24,41 +28,67 @@ class QueriesController < ApplicationController
       @query = "%期末%"
     elsif @theme == "2"
       @query = "%筆電%"
-    else 
+    else
       @query = "%貓%"
-    end 
-    
-    @post_result = Post.where('created_at >= ? and created_at <=?', @start.midnight, @end.end_of_day).where("content like ?",@query).or(Post.where("title like ?",@query))
+    end
 
+    @post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", @query).or(Post.where("title like ?", @query))
+
+    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", @query).or(Post.where("title like ?", @query)).pluck(:pid)).or(Comment.where("content like ?", @query))
+
+<<<<<<< HEAD
     @comment_result = Comment.where('created_at >= ? and created_at <=?', @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?",@query).or(Post.where("title like ?", @query)).pluck(:pid)).or(Comment.where("content like ?", @query))
     
+=======
+    # 計算符合搜尋條件的資料筆數
+>>>>>>> add volume chart
     post_count = @post_result.count
     comment_count = @comment_result.count
 
-    gon.start = @start 
-    gon.end = @end 
-    
-    if params[:post] && params[:comment] 
+    gon.start = @start
+    gon.end = @end
+
+    if params[:post] && params[:comment]
       @count = post_count + comment_count
       gon.result = @post_result + @comment_result
-    elsif params[:post] && !params[:comment] 
+    elsif params[:post] && !params[:comment]
       @count = post_count
       gon.result = @post_result
     else
       @count = comment_count
       gon.result = @comment_result
-    end 
+    end
   end
 
   def volume
+    # pass value down to api action
     @theme = params[:theme]
-    @count = Post.where("clean like ?", "%#{@theme}%").count + Comment.where("clean like ?", "%#{@theme}%").count
-    @source = Source.pluck(:name)[0]
-    @start = Post.pluck(:created_at).last.strftime("%Y-%m-%d")
-    @end = Post.pluck(:created_at).first.strftime("%Y-%m-%d")
-    @positive = Post.where("clean like ?", "%#{@theme}%").where(sentiment: "positive").count + Comment.where("clean like ?", "%#{@theme}%").where(sentiment: "positive").count
-    @negative = Post.where("clean like ?", "%#{@theme}%").where(sentiment: "negative").count + Comment.where("clean like ?", "%#{@theme}%").where(sentiment: "negative").count
-    @neutral = Post.where("clean like ?", "%#{@theme}%").where(sentiment: "neutral").count + Comment.where("clean like ?", "%#{@theme}%").where(sentiment: "neutral").count
+    @source = params[:dcard]
+    @start = params[:user][:start].to_date
+    @end = params[:user][:end].to_date
+    @type = [params[:post], params[:comment]]
+
+    @post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%"))
+
+    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme}%"))
+
+    # 計算符合搜尋條件的資料筆數
+    post_count = @post_result.count
+    comment_count = @comment_result.count
+
+    gon.start = @start
+    gon.end = @end
+
+    if params[:post] && params[:comment]
+      @count = post_count + comment_count
+      gon.result = @post_result + @comment_result
+    elsif params[:post] && !params[:comment]
+      @count = post_count
+      gon.result = @post_result
+    else
+      @count = comment_count
+      gon.result = @comment_result
+    end
   end
 
   def topic ; end
@@ -151,6 +181,4 @@ class QueriesController < ApplicationController
 
   def diffusion
   end
-
 end
-     

@@ -27,10 +27,10 @@ document.addEventListener("turbolinks:load", () => {
       new Date(e.created_at).getMonth() + 1
     }-${new Date(e.created_at).getDate()}`;
 
-        if (e.sentiment === "positive") {
+        if (e.volume === "positive") {
             pos_count += 1;
             pos_line[d_result] += 1;
-        } else if (e.sentiment === "negative") {
+        } else if (e.volume === "negative") {
             neg_count += 1;
             neg_line[d_result] += 1;
         } else {
@@ -38,7 +38,7 @@ document.addEventListener("turbolinks:load", () => {
         }
     });
     // pie chart
-    const ctx_pie = document.getElementById("sentimentPieChart").getContext("2d");
+    const ctx_pie = document.getElementById("volumePieChart").getContext("2d");
     const pieChart = new Chart(ctx_pie, {
         type: "pie",
         data: {
@@ -52,7 +52,7 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     // bar chart
-    const ctx_bar = document.getElementById("sentimentBarChart").getContext("2d");
+    const ctx_bar = document.getElementById("volumeBarChart").getContext("2d");
     const barChart = new Chart(ctx_bar, {
         type: "bar",
         data: {
@@ -79,7 +79,7 @@ document.addEventListener("turbolinks:load", () => {
 
     // line chart
     const ctx_line = document
-        .getElementById("sentimentLineChart")
+        .getElementById("volumeLineChart")
         .getContext("2d");
     const lineChart = new Chart(ctx_line, {
         type: "line",
