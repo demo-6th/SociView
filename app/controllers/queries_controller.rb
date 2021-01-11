@@ -62,23 +62,34 @@ class QueriesController < ApplicationController
 
   def volume
     # pass value down to api action
-    @theme = params[:theme]
-    @source = params[:dcard]
+    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:user][:start].to_date
     @end = params[:user][:end].to_date
-    @type = [params[:post], params[:comment]]
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
-    @post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%"))
+    #theme1
+    @post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%"))
 
-    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme}%"))
+    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
+
+    #theme2
+    #待改進
+    @post1_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%").or(Post.where("title like ?", "%#{@theme[1]}%"))
+
+    @comment1_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme[1]}%").or(Post.where("title like ?", "%#{@theme[1]}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[1]}%"))
 
     # 計算符合搜尋條件的資料筆數
-    post_count = @post_result.count
-    comment_count = @comment_result.count
-
     gon.start = @start
     gon.end = @end
+    gon.theme = @theme[0]
+    gon.theme1 = @theme[1]
+    post_count = @post_result.count
+    comment_count = @comment_result.count
+    post1_count = @post1_result.count
+    comment1_count = @comment1_result.count
 
+    #主回文數量計算
     if params[:post] && params[:comment]
       @count = post_count + comment_count
       gon.result = @post_result + @comment_result
@@ -89,6 +100,19 @@ class QueriesController < ApplicationController
       @count = comment_count
       gon.result = @comment_result
     end
+    gon.count = @count
+    #待改進
+    if params[:post] && params[:comment]
+      @count1 = post1_count + comment1_count
+      gon.result1 = @post1_result + @comment1_result
+    elsif params[:post] && !params[:comment]
+      @count1 = post1_count
+      gon.result1 = @post1_result
+    else
+      @count1 = comment1_count
+      gon.result1 = @comment1_result
+    end
+    gon.count1 = @count1
   end
 
   def topic ; end

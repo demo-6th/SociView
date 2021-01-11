@@ -1,12 +1,13 @@
 document.addEventListener("turbolinks:load", () => {
     start = gon.start;
     end = gon.end;
+    theme = gon.theme;
+    theme1 = gon.theme1;
+    count = gon.count;
+    count1 = gon.count1;
     let all_date = [];
-    let pos_count = 0;
-    let neg_count = 0;
-    let neutral_count = 0;
-    let pos_line = {};
-    let neg_line = {};
+    let count_line = {}
+    let count1_line = {}
 
     for (
         let d = new Date(start); d <= new Date(end); d.setDate(d.getDate() + 1)
@@ -18,35 +19,35 @@ document.addEventListener("turbolinks:load", () => {
     }
 
     all_date.forEach((d) => {
-        pos_line[d] = 0;
-        neg_line[d] = 0;
+        count_line[d] = 0;
+        count1_line[d] = 0;
     });
-
+    //待改進
     gon.result.forEach((e) => {
         d_result = `${new Date(e.created_at).getFullYear()}-${
       new Date(e.created_at).getMonth() + 1
     }-${new Date(e.created_at).getDate()}`;
-
-        if (e.volume === "positive") {
-            pos_count += 1;
-            pos_line[d_result] += 1;
-        } else if (e.volume === "negative") {
-            neg_count += 1;
-            neg_line[d_result] += 1;
-        } else {
-            neutral_count += 1;
-        }
+        count_line[d_result] += 1;
     });
+    //待改進
+    gon.result1.forEach((e) => {
+        d_result = `${new Date(e.created_at).getFullYear()}-${
+    new Date(e.created_at).getMonth() + 1
+  }-${new Date(e.created_at).getDate()}`;
+        count1_line[d_result] += 1;
+    });
+
+
     // pie chart
     const ctx_pie = document.getElementById("volumePieChart").getContext("2d");
     const pieChart = new Chart(ctx_pie, {
         type: "pie",
         data: {
-            labels: ["正面", "負面", "中立"],
+            labels: [theme, theme1],
             datasets: [{
-                label: "（主文）情緒長條圖",
-                data: [pos_count, neg_count, neutral_count],
-                backgroundColor: ["lightgreen", "tomato", "lightblue"],
+                label: "主題圓餅圖",
+                data: [count, count1],
+                backgroundColor: ["lightgreen", "tomato"],
             }, ],
         },
     });
@@ -56,11 +57,11 @@ document.addEventListener("turbolinks:load", () => {
     const barChart = new Chart(ctx_bar, {
         type: "bar",
         data: {
-            labels: ["正面", "負面", "中立"],
+            labels: [theme, theme1],
             datasets: [{
-                label: "情緒長條圖",
-                data: [pos_count, neg_count, neutral_count],
-                backgroundColor: ["lightgreen", "tomato", "lightblue"],
+                label: "主題長條圖",
+                data: [count, count1],
+                backgroundColor: ["lightgreen", "tomato"],
             }, ],
         },
         options: {
@@ -86,16 +87,16 @@ document.addEventListener("turbolinks:load", () => {
         data: {
             labels: all_date,
             datasets: [{
-                    label: "正面聲量",
-                    data: Object.values(pos_line),
+                    label: "主題聲量",
+                    data: Object.values(count_line),
                     backgroundColor: "#8FC31F",
                     fill: false,
                     pointRadius: 5,
                     borderColor: "#8FC31F",
                 },
                 {
-                    label: "負面聲量",
-                    data: Object.values(neg_line),
+                    label: "主題聲量",
+                    data: Object.values(count1_line),
                     backgroundColor: "red",
                     fill: false,
                     pointRadius: 5,
