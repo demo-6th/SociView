@@ -7,7 +7,9 @@ class QueriesController < ApplicationController
   def list
   end
 
-  def sentiment
+  def sentiment; end
+
+  def sentpost
     @theme = params[:theme]
     @source = [params[:dcard],params[:ptt]]
     @start = params[:user][:start].to_date 
@@ -53,7 +55,9 @@ class QueriesController < ApplicationController
   def topic
   end
 
-  def wordcloud
+  def wordcloud ; end
+
+  def cloudpost
     @theme = params[:theme]
     @source = [params[:dcard],params[:ptt]]
     @start = params[:user][:start].to_date 
