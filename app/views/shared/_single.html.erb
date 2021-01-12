@@ -4,9 +4,9 @@
 		<div class="theme">
 			<h2 class="theme_item">主題區</h2>
 			<div class="checkbox">
-				<div><%= radio_button_tag(:theme, "1") %> <%= label_tag(:theme, "主題一", class: "theme_text") %></div>
-				<div><%= radio_button_tag(:theme, "2") %> <%= label_tag(:theme, "主題二", class: "theme_text") %></div>
-				<div><%= radio_button_tag(:theme, "3") %> <%= label_tag(:theme, "主題三", class: "theme_text") %></div>
+				<div><%= radio_button_tag(:theme1, "期末") %> <%= label_tag(:theme1, "期末", class: "theme_text") %></div>
+				<div><%= radio_button_tag(:theme2, "筆電") %> <%= label_tag(:theme2, "筆電", class: "theme_text") %></div>
+				<div><%= radio_button_tag(:theme3, "貓") %> <%= label_tag(:theme3, "貓", class: "theme_text") %></div>
 			</div>
 		</div>
     <div class="theme">
@@ -17,15 +17,15 @@
 		<div class="theme">
 			<h2 class="theme_item">社團區</h2>
 			<div class="checkbox">
-				<div><%= check_box_tag(:dcard) %> <%= label_tag(:dcard, "Dcard", class: "theme_text") %></div>
-				<div><%= check_box_tag(:ptt) %> <%= label_tag(:ptt, "PTT", class: "theme_text") %></div>
+				<div><%= check_box_tag(:dcard, "Dcard") %>  <%= label_tag(:dcard, "Dcard", class: "theme_text") %></div>
+				<div><%= check_box_tag(:ptt, "PTT") %>  <%= label_tag(:ptt, "PTT", class: "theme_text") %></div>
 			</div>
 		</div>
-		<div class="theme">
+    	<div class="theme">
 			<h2 class="theme_item">文本種類</h2>
 			<div class="checkbox">
-				<div><%= check_box_tag(:post) %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
-				<div><%= check_box_tag(:comment) %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
+				<div><%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
+				<div><%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
 			</div>
 		</div>
 	</div>

@@ -4,12 +4,9 @@
     <div class="theme">
       <h2 class="theme_item">主題區</h2>
       <div class="checkbox">
-        <div><%= check_box_tag(:theme1, "老師") %>
-          <%= label_tag(:theme1, "老師", class: "theme_text") %></div>
-        <div><%= check_box_tag(:theme2, "學分") %>
-          <%= label_tag(:theme2, "學分", class: "theme_text") %></div>
-        <div><%= check_box_tag(:theme3, "期末") %> 
-          <%= label_tag(:theme3, "期末", class: "theme_text") %></div>
+        <div><%= check_box_tag(:theme1, "期末") %> <%= label_tag(:theme1, "期末", class: "theme_text") %></div>
+        <div><%= check_box_tag(:theme2, "筆電") %> <%= label_tag(:theme2, "筆電", class: "theme_text") %></div>
+        <div><%= check_box_tag(:theme3, "貓") %> <%= label_tag(:theme3, "貓", class: "theme_text") %></div>
       </div>
     </div>
 
@@ -22,10 +19,8 @@
 		<div class="theme">
 			<h2 class="theme_item">社團區</h2>
 			<div class="checkbox">
-				<div><%= check_box_tag(:dcard, "Dcard") %>
-        <%= label_tag(:dcard, "Dcard", class: "theme_text") %></div>
-				<div><%= check_box_tag(:ptt, "PTT") %> 
-        <%= label_tag(:ptt, "PTT", class: "theme_text") %></div>
+				<div><%= check_box_tag(:dcard, "Dcard") %>   <%= label_tag(:dcard, "Dcard", class: "theme_text") %></div>
+				<div><%= check_box_tag(:ptt, "PTT") %>   <%= label_tag(:ptt, "PTT", class: "theme_text") %></div>
 			</div>
 		</div>
 
