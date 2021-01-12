@@ -1,17 +1,17 @@
-<div class="bg-green-600 py-3 navbar">
-    <div class="flex justify-between px-10">
+<div class="navbar">
+    <div class="row">
       <div class="logo">
-        <a class="text-4xl no-underline italic text-white"
-          href="/">Soci<span class="text-blue-700">View</span></a>
+        <a class=""
+          href="/">Soci<span class="">View</span></a>
       </div>
-      <div class="flex justify-evenly">
+      <div class="login_btns">
         <% if current_user %>
           <!-- <#%= render "shared/notice" if notice %> -->
           <div class="m-2 text-xl">您好! <%= current_user.nickname %> </div>
-          <%= link_to('登出', destroy_user_session_path, class: "nav_btn bg-green-300", method: :delete) %> 
+          <%= link_to('登出', destroy_user_session_path, class: "nav_btn", method: :delete) %> 
         <% else %>
-          <%= link_to('登入', new_session_path(:user), class: "nav_btn bg-green-300") %>
-          <%= link_to('註冊', new_registration_path(:user), class: "bg-red-300 nav_btn") %> 
+          <%= link_to('登入', new_session_path(:user), class: "nav_btn") %>
+          <%= link_to('註冊', new_registration_path(:user), class: "nav_btn border-double border-black bg-gray-300") %> 
         <% end %>
       </div>
     </div>
