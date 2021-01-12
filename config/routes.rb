@@ -10,15 +10,10 @@ Rails.application.routes.draw do
   resources :queries, only: [:index] do
     collection do
       get :list
-      get :volume, to: "queries#index"
-      post :volume
-<<<<<<< HEAD
+      get :volume
+      post :volume, to: "queries#volumepost"
       get :sentiment
       post :sentiment, to: "queries#sentpost"
-=======
-      get :sentiment, to: "queries#index"
-      post :sentiment
->>>>>>> backpoint
       get :topic
       post :topic ,to: 'queries#topicpost' 
       get :wordcloud
