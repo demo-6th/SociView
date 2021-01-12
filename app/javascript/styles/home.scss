@@ -1,18 +1,24 @@
 .home_page{
-  @apply m-auto pt-5;
+  @apply m-auto pt-5 font-serif;
   .container{
+    @apply m-auto;
     .row{
       @apply flex justify-center;
       .col-4{
-        @apply w-1/3;
+        @apply w-1/4;
       }
       .col-6{
         @apply w-1/2 self-center;
         .logup_text{
           @apply text-center;
           h2{
-            @apply text-base lg:text-5xl py-8;
+            @apply text-base lg:text-4xl p-8 font-bold tracking-widest;
           }
+          .home_btn{
+            @apply text-2xl bg-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow animate-bounce text-gray-900 cursor-pointer;
+            color: #56CCF2;
+          }
+          
         }
       }
     }
@@ -20,57 +26,61 @@
 }
 
 .step_teach{
-  @apply bg-gray-200;
-  .container{
-    @apply text-center m-auto;
-    .teach_text{
-      .text{
-        @apply text-4xl bg-green-400 text-white
-      }
+  @apply bg-gray-100 font-serif text-center pt-5 pb-10 ;
+  .teach_text{
+    .text{
+      @apply text-4xl text-black py-5 font-bold;
     }
+  }
+  .container{
+    @apply m-auto w-3/5;
     .row{
-      @apply flex justify-around text-center;
+      @apply flex justify-around;
+      .col-3{
+        @apply w-1/4;
+        .shadow_card{
+          @apply max-w-sm rounded overflow-hidden shadow-lg;
+          .card_bg{
+            @apply bg-yellow-200;
+          }
+        }
+      }
     }
   }
 }
 .analysis{
+  @apply font-serif py-5;
+  .analysis_title{
+    @apply text-center my-8 text-4xl font-bold text-black;
+  }
   .container{
     @apply m-auto;
-    .analysis_title{
-      @apply text-center my-8 bg-indigo-500 text-5xl text-white;
+    .home_analy{
+      @apply flex justify-center;
+      &:nth-child(even){
+        @apply flex-row-reverse;
+      }
+        .col-5{
+          @apply w-1/3 px-10 flex flex-col justify-center;
+        }
+        .analy_txt{
+          @apply text-center;
+          h3{
+            @apply text-2xl py-2;
+          }
+          p{
+            @apply text-base;
+          }
+        }
     }
   }
 }
 
-.home_analy{
-  @apply flex justify-center;
-  &:nth-child(even){
-    @apply flex-row-reverse;
-  }
-  .col-5{
-    @apply w-1/3 px-10 flex flex-col justify-center;
-  }
-  .analy_txt{
-    @apply text-center;
-  }
-}
+  
+
+  
 
 
-.text{ 
-  margin: 40px auto;
-}
-.card_bg{
-  @apply bg-yellow-200;
-}
-.shadow_card{
-  @apply max-w-sm; 
-  @apply rounded;
-  @apply overflow-hidden;
-  @apply shadow-lg;
-}
-.home_btn{
-  @apply text-3xl bg-white hover:bg-gray-100 text-blue-400 font-semibold py-2 px-4 border border-gray-400 rounded shadow animate-bounce text-gray-900;
-}
 
 
 

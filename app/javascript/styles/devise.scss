@@ -1,0 +1,25 @@
+.login_page{
+  @apply font-serif py-10;
+  height: calc(100vh - 160px);
+  .container{
+    @apply m-auto;
+    .row{
+      @apply flex justify-center items-center;
+      .col-6{
+        @apply w-1/3 leading-10;
+        h2{
+          @apply text-2xl;
+        }
+        .loin_item{
+          .login_label{
+            @apply leading-7 text-sm;
+          }
+        }
+        .loin_action{
+          @apply leading-10 text-center;
+        }
+      }
+    }
+
+  }
+}
