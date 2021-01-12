@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :sentiment
       post :sentiment, to: 'queries#sentpost'
       get :topic
+      post :topic ,to: 'queries#topicpost' 
       get :wordcloud
       post :wordcloud, to: 'queries#cloudpost'
       get :diffusion
