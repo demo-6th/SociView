@@ -87,7 +87,7 @@ document.addEventListener("turbolinks:load", () => {
         data: {
             labels: all_date,
             datasets: [{
-                    label: "主題聲量",
+                    label: `${theme}`,
                     data: Object.values(count_line),
                     backgroundColor: "#8FC31F",
                     fill: false,
@@ -95,7 +95,7 @@ document.addEventListener("turbolinks:load", () => {
                     borderColor: "#8FC31F",
                 },
                 {
-                    label: "主題聲量",
+                    label: `${theme1}`,
                     data: Object.values(count1_line),
                     backgroundColor: "red",
                     fill: false,
