@@ -1,14 +1,14 @@
 .login_page{
-  @apply font-serif py-10;
-  height: calc(100vh - 160px);
+  @apply font-serif pt-10;
+  height: calc(100vh - 150px);
   .container{
-    @apply m-auto;
+    @apply mx-auto;
     .row{
       @apply flex justify-center items-center;
       .col-6{
         @apply w-1/3 leading-10;
         h2{
-          @apply text-2xl;
+          @apply text-2xl text-center;
         }
         .loin_item{
           .login_label{
