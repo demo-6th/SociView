@@ -4,9 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
-  
+
   validates :email, presence: true
-            # uniqueness: true
+  # uniqueness: true
   # validates :nickname, presence: true
 
   def self.from_omniauth(auth)
@@ -14,7 +14,7 @@ class User < ApplicationRecord
       user.provider = auth.provider # 登入資訊1
       user.uid = auth.uid           # 登入資訊2
       user.email = auth.info.email
-      user.password = Devise.friendly_token[0,20]
+      user.password = Devise.friendly_token[0, 20]
     end
   end
 end

@@ -17,32 +17,36 @@ class QueriesController < ApplicationController
 
   def sentpost
     # pass value down to api action
-    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date
-    @end = params[:user][:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @theme = params[:theme].nil? ? "主題必填" : params[:theme] #魚蟬說先這樣
+    @source = params[:dcard].nil? && params[:ptt].nil? ? "來源必填" : [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:user][:start].to_date.nil? ? "起始時間必填" : params[:user][:start].to_date
+    @end = params[:user][:end].to_date.nil? ? "結束時間必填" : params[:user][:end].to_date
+    @type = params[:post].nil? && params[:comment].nil? ? "類型必填" : [params[:post], params[:comment]].delete_if { |x| x == nil }
 
-    #theme1
-    @post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%"))
-    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
-
-    # 計算符合搜尋條件的資料筆數
-    post_count = @post_result.count
-    comment_count = @comment_result.count
-
-    gon.start = @start
-    gon.end = @end
-
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      gon.result = @post_result + @comment_result
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      gon.result = @post_result
+    if @theme.include?("必填") || @type.include?("必填") || @start.include?("必填") || @end.include?("必填") || type.include?("必填")
+      @count = 0
     else
-      @count = comment_count
-      gon.result = @comment_result
+      #theme1
+      @post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%"))
+      @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme}%"))
+
+      # 計算符合搜尋條件的資料筆數
+      post_count = @post_result.count
+      comment_count = @comment_result.count
+
+      gon.start = @start
+      gon.end = @end
+
+      if params[:post] && params[:comment]
+        @count = post_count + comment_count
+        gon.result = @post_result + @comment_result
+      elsif params[:post] && !params[:comment]
+        @count = post_count
+        gon.result = @post_result
+      else
+        @count = comment_count
+        gon.result = @comment_result
+      end
     end
   end
 
@@ -56,6 +60,7 @@ class QueriesController < ApplicationController
     @start = params[:user][:start].to_date
     @end = params[:user][:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @test = params[:user]
 
     #theme1
     @post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%"))
@@ -104,15 +109,15 @@ class QueriesController < ApplicationController
 
   def topicpost
     # pass value down to api action
-    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
+    @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:user][:start].to_date
     @end = params[:user][:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
-    post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%"))
-    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
+    post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%"))
+    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme}%"))
 
     post_count = post_result.count
     comment_count = comment_result.count
@@ -140,15 +145,15 @@ class QueriesController < ApplicationController
 
   def cloudpost
     # pass value down to api action
-    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
+    @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:user][:start].to_date
     @end = params[:user][:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
-    post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%"))
-    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme[0]}%").or(Post.where("title like ?", "%#{@theme[0]}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
+    post_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%"))
+    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ?", "%#{@theme}%").or(Post.where("title like ?", "%#{@theme}%")).pluck(:pid)).or(Comment.where("content like ?", "%#{@theme}%"))
 
     post_count = post_result.count
     comment_count = comment_result.count
