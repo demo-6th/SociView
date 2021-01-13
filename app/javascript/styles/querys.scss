@@ -1,10 +1,10 @@
 .query_page{
   height: calc(100vh - 160px);
   .aside{
-    @apply w-1/6;
+    @apply w-1/6 bg-white text-black mt-1 shadow rounded-lg;
     .query_link{
       &:hover {
-        @apply text-white;
+        @apply text-white bg-blue-400 rounded-lg;
       }
       font-size: 1em;
       .function{
@@ -13,40 +13,43 @@
       }
     }
   }
-  .section{
-    @apply rounded shadow;
-    width: 100%;
-    .theme_item{
-      @apply text-3xl;
-      border-bottom: 1px solid black;
-      text-align: center;
-    }
-    .theme{
-      @apply border-l	border-black w-4/12;
-      &:first-child { border: none; }
-      .theme_item{
-        @apply bg-green-700 text-white;
-      }
-      .checkbox{
-        @apply p-2;
-        .theme_text{
-          @apply p-1
+  .users_query_page{
+    @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll;
+    .section{
+      @apply rounded shadow w-full;
+      .choice_page{
+        @apply flex justify-around;
+        .col-3{
+          @apply w-1/5;
+          .theme{
+            @apply border-black  mb-1 rounded-lg;
+            &:first-child { border: none; }
+            .theme_item{
+              @apply bg-green-700 text-white text-2xl text-center rounded-lg;
+              border-bottom: 1px solid black;
+            }
+            .choice_box{
+              @apply bg-white p-2 border-solid border-black;
+              .theme_text{
+                @apply p-1;
+              }
+            }
+          }
         }
       }
     }
-  }
-  .button_page{
-    @apply border-t border-black;
-    text-align: center;
-    .search_btn{
-      @apply items-center justify-center p-2 m-2 rounded-md bg-blue-500 text-white text-2xl;
-      &:hover{
-        @apply bg-blue-600;
+    .button_page{
+      @apply border-t border-black;
+      text-align: center;
+      .search_btn{
+        @apply items-center justify-center p-2 m-2 rounded-md bg-blue-500 text-white text-2xl;
+        &:hover{
+          @apply bg-blue-600;
+        }
       }
     }
-  }
-
-  .analy_page{
-    text-align: center;
+    .analy_page{
+      text-align: center;
+    }
   }
 }
