@@ -1,21 +1,22 @@
 let environment = {
-  plugins: [
-    require("tailwindcss"),
-    require('postcss-import'),
-    require('autoprefixer'),
-    require('postcss-flexbugs-fixes'),
-    require('postcss-preset-env')({
-      autoprefixer: {
-        flexbox: 'no-2009'
-      },
-      stage: 3
-    })
-  ]
+    plugins: [
+        require("tailwindcss"),
+        require('postcss-import'),
+        require('autoprefixer'),
+        require('postcss-flexbugs-fixes'),
+        require('postcss-preset-env')({
+            autoprefixer: {
+                flexbox: 'no-2009'
+            },
+            stage: 3
+        })
+    ]
 };
 
 
 
 if (process.env.RAILS_ENV === 'production') {
+<<<<<<< HEAD
   environment.plugins.push(
     require('@fullhuman/postcss-purgecss')({
       content: [
@@ -33,6 +34,25 @@ if (process.env.RAILS_ENV === 'production') {
       whitelistPatternsChildren: [/flatpickr/]
     })
   )
+=======
+    environment.plugins.push(
+        require('@fullhuman/postcss-purgecss')({
+            content: [
+                './app/**/.html.erb',
+                './app/**/**/*.html.erb',
+                './app/helpers/**/*.rb',
+                './app/javascript/**/*.js',
+                './app/javascript/**/*.vue',
+                './app/javascript/**/*.jsx',
+                './node_modules/flatpickr/**/*.js',
+                './app/**/*.scss'
+            ],
+            defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
+            whitelistPatterns: [/flatpickr/],
+            whitelistPatternsChildren: [/flatpickr/]
+        })
+    )
+>>>>>>> controller add required feature
 }
 
 module.exports = environment;
