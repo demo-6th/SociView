@@ -69,7 +69,6 @@ document.addEventListener("turbolinks:load", () => {
       labels: ["正面", "負面", "中立"],
       datasets: [
         {
-          label: "情緒長條圖",
           data: [pos_count, neg_count, neutral_count],
           backgroundColor: ["lightgreen", "tomato", "lightblue"],
         },
