@@ -27,12 +27,12 @@ gem "jbuilder", "~> 2.7"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.2", require: false
-gem "devise"
+gem 'devise', '~> 4.7', '>= 4.7.3'
 gem 'omniauth', "1.9.1"
 gem "omniauth-facebook", "~> 4.0"
-gem 'omniauth-google-oauth2'
-gem "figaro"
-gem "activerecord-import"
+gem 'omniauth-google-oauth2', '~> 0.8.1'
+gem 'figaro', '~> 1.2'
+gem 'activerecord-import', '~> 1.0', '>= 1.0.7'
 gem 'gon', '~> 6.1'
 
 group :development, :test do
