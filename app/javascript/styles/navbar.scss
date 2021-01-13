@@ -1,3 +1,24 @@
-.nav_btn{
-  @apply mr-2 rounded-full py-3 px-4 transition delay-150 duration-300 ease-in-out transform hover:scale-125 font-bold rounded
+.navbar{
+  @apply bg-white py-3 shadow;
+  .row{
+    @apply flex justify-between px-10;
+    .logo a{
+      @apply text-4xl no-underline italic text-black;
+      span{
+        color: #56CCF2;
+      }
+    }
+    .login_btns{
+      @apply flex justify-evenly;
+      .nav_user{
+        @apply mx-1 rounded-lg  py-2 px-5 font-bold text-black;
+      }
+      .nav_btn{
+        @apply mx-1 rounded-lg  py-2 px-5 font-bold shadow;
+      }
+    }
+  }
 }
+
+
+
