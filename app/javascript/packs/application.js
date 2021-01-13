@@ -12,5 +12,5 @@ require("channels");
 require("styles");
 require("script");
 require("chart.js");
-import flatpickr from "flatpickr";
+require("flatpickr")
 import "flatpickr/dist/flatpickr.min.css";
