@@ -10,11 +10,15 @@
     }
     .login_btns{
       @apply flex justify-evenly;
+      .nav_user{
+        @apply mx-1 rounded-lg  py-2 px-5 font-bold text-black;
+      }
+      .nav_btn{
+        @apply mx-1 rounded-lg  py-2 px-5 font-bold shadow;
+      }
     }
   }
 }
 
-.nav_btn{
-  @apply mx-1 rounded-lg  py-2 px-5 font-bold shadow;
-}
+
 

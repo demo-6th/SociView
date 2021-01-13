@@ -1,5 +1,5 @@
 .query_page{
-  height: calc(100vh - 160px);
+  height: calc(100vh - 150px);
   .aside{
     @apply w-1/6 bg-white text-black mt-1 rounded-lg;
     .query_link{
@@ -18,9 +18,9 @@
     .section{
       @apply rounded w-full;
       .choice_page{
-        @apply flex justify-around;
+        @apply flex justify-around pt-1;
         .col-3{
-          @apply w-1/5;
+          width: 23%;
           .theme{
             @apply mb-1 rounded-lg bg-white;
             &:first-child { border: none; }
@@ -29,7 +29,7 @@
               border-bottom: 1px solid black;
             }
             .choice_box{
-              @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg;
+              @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg text-lg;
               .choice_item{
                 .theme_text{
                   @apply p-1;

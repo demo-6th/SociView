@@ -17,6 +17,9 @@
         }
         .loin_action{
           @apply leading-10 text-center;
+          .loin_btn{
+            @apply mx-1 rounded-lg  py-2 px-5 font-bold shadow;
+          }
         }
       }
     }
