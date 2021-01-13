@@ -15,7 +15,7 @@
             @apply text-base lg:text-4xl p-8 font-bold tracking-widest;
           }
           .home_btn{
-            @apply text-2xl bg-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow animate-bounce text-gray-900 cursor-pointer;
+            @apply text-2xl bg-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow animate-bounce text-gray-900 cursor-pointer;
             color: #56CCF2;
           }
           
