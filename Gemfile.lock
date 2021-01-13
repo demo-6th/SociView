@@ -296,12 +296,12 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  activerecord-import
+  activerecord-import (~> 1.0, >= 1.0.7)
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
-  devise
-  figaro
+  devise (~> 4.7, >= 4.7.3)
+  figaro (~> 1.2)
   foreman (~> 0.87.2)
   gon (~> 6.1)
   hirb-unicode
@@ -309,7 +309,7 @@ DEPENDENCIES
   listen (~> 3.2)
   omniauth (= 1.9.1)
   omniauth-facebook (~> 4.0)
-  omniauth-google-oauth2
+  omniauth-google-oauth2 (~> 0.8.1)
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
