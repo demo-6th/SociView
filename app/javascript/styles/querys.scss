@@ -16,20 +16,20 @@
   .users_query_page{
     @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll;
     .section{
-      @apply rounded shadow w-full;
+      @apply rounded w-full;
       .choice_page{
         @apply flex justify-around;
         .col-3{
           @apply w-1/5;
           .theme{
-            @apply border-black  mb-1 rounded-lg;
+            @apply mb-1 rounded-lg bg-white;
             &:first-child { border: none; }
             .theme_item{
-              @apply bg-green-700 text-white text-2xl text-center rounded-lg;
+              @apply bg-blue-400 text-white text-xl text-center rounded-lg;
               border-bottom: 1px solid black;
             }
             .choice_box{
-              @apply bg-white p-2 border-solid border-black;
+              @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg;
               .theme_text{
                 @apply p-1;
               }
@@ -39,17 +39,16 @@
       }
     }
     .button_page{
-      @apply border-t border-black;
-      text-align: center;
+      @apply text-center;
       .search_btn{
-        @apply items-center justify-center p-2 m-2 rounded-md bg-blue-500 text-white text-2xl;
+        @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-600 cursor-pointer;
         &:hover{
           @apply bg-blue-600;
         }
       }
     }
     .analy_page{
-      text-align: center;
+      @apply text-center;
     }
   }
 }
