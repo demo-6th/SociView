@@ -9,7 +9,11 @@
       <div class="col-6">
         <div class="logup_text">
           <h2>您的專業社群分析管家</h2>
-          <%= button_to('立即體驗', new_registration_path(:user), method: :get, class: "home_btn") %>
+          <% if current_user %>
+            <%= button_to('立即體驗', list_queries_path, method: :get, class: "home_btn") %> 
+          <% else %>
+            <%= button_to('立即體驗', new_registration_path(:user), method: :get, class: "home_btn") %>
+          <% end %>
         </div>
       </div>
     </div>

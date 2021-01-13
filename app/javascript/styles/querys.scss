@@ -23,6 +23,7 @@
           width: 23%;
           .theme{
             @apply mb-1 rounded-lg bg-white;
+            box-sizing: border-box;
             &:first-child { border: none; }
             .theme_item{
               @apply bg-blue-400 text-white text-xl text-center rounded-t-lg p-2;
