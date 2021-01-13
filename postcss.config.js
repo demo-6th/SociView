@@ -20,11 +20,13 @@ if (process.env.RAILS_ENV === 'production') {
     require('@fullhuman/postcss-purgecss')({
       content: [
         './app/**/.html.erb',
+        './app/**/**/*.html.erb',
         './app/helpers/**/*.rb',
         './app/javascript/**/*.js',
         './app/javascript/**/*.vue',
         './app/javascript/**/*.jsx',
         './node_modules/flatpickr/**/*.js'
+        './app/**/*.scss'
       ],
       defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [], 
       whitelistPatterns: [/flatpickr/],
