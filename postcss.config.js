@@ -24,6 +24,7 @@ if (process.env.RAILS_ENV === 'production') {
         './app/javascript/**/*.js',
         './app/javascript/**/*.vue',
         './app/javascript/**/*.jsx',
+        './node_modules/flatpickr/**/*.js'
       ],
       defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [], 
       whitelistPatterns: [/flatpickr/],
