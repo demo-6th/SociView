@@ -25,15 +25,14 @@ document.addEventListener("turbolinks:load", () => {
     }-${new Date(d).getDate()}`;
         all_date.push(formatDt);
     }
-
     all_date.forEach((d) => {
         count_line[d] = 0;
         count1_line[d] = 0;
     });
+
     //待改進
     gon.result.forEach((e) => {
-        d_result = `${new Date(e.created_at).getFullYear()}-${
-      new Date(e.created_at).getMonth() + 1
+        d_result = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
     }-${new Date(e.created_at).getDate()}`;
         count_line[d_result] += 1;
     });
