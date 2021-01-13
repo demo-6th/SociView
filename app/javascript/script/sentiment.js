@@ -16,6 +16,7 @@ document.addEventListener("turbolinks:load", () => {
     let neutral_count = 0;
     let pos_line = {};
     let neg_line = {};
+    let neu_line = {};
 
 
 
@@ -30,11 +31,12 @@ document.addEventListener("turbolinks:load", () => {
     all_date.forEach((d) => {
         pos_line[d] = 0;
         neg_line[d] = 0;
+        neu_line[d] = 0;
     });
 
     gon.result.forEach((e) => {
         d_result = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
-    }-${new Date(e.created_at).getDate()}`;
+        }-${new Date(e.created_at).getDate()}`;
 
         if (e.sentiment === "positive") {
             pos_count += 1;
@@ -44,6 +46,7 @@ document.addEventListener("turbolinks:load", () => {
             neg_line[d_result] += 1;
         } else {
             neutral_count += 1;
+            neu_line[d_result] += 1;
         }
     });
     // pie chart
@@ -122,6 +125,14 @@ document.addEventListener("turbolinks:load", () => {
                     fill: false,
                     pointRadius: 5,
                     borderColor: "red",
+                },
+                {
+                    label: "中立聲量",
+                    data: Object.values(neu_line),
+                    backgroundColor: "blue",
+                    fill: false,
+                    pointRadius: 5,
+                    borderColor: "blue",
                 },
             ],
         },

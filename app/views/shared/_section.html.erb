@@ -10,8 +10,8 @@
             <%= label_tag(:theme1, "期末", class: "theme_text") %>
           </div>
           <div class="choice_item">
-            <%= check_box_tag(:theme2, "筆電") %> 
-            <%= label_tag(:theme2, "筆電", class: "theme_text") %>
+            <%= check_box_tag(:theme2, "聖誕") %> 
+            <%= label_tag(:theme2, "聖誕", class: "theme_text") %>
           </div>
           <div class="choice_item">
             <%= check_box_tag(:theme3, "貓") %>
@@ -40,8 +40,8 @@
 			<div class="theme">
 				<h2 class="theme_item">時間區</h2>
 				<div class="choice_box">
-					<div><%= label_tag(:time1, "開始時間：", class: "theme_text",for:"start") %><%= date_field(:user, :start, class: "datepicker_start border-solid border-black",id:"start") %></div>
-					<div><%= label_tag(:time2, "結束時間：", class: "theme_text",for:"end") %><%= date_field(:user, :end, class: "datepicker_end",id:"end") %></div>
+					<div><%= label_tag(:time1, "開始時間：", class: "theme_text", for: "start") %><%= date_field(:user, :start, class: "datepicker_start border-solid border-black", id: "start") %></div>
+					<div><%= label_tag(:time2, "結束時間：", class: "theme_text", for: "end") %><%= date_field(:user, :end, class: "datepicker_end", id: "end") %></div>
 			</div>
 		</div>
 	</div>
