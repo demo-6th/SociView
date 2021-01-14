@@ -3,7 +3,7 @@
     <div class="row">
       <%= render "devise/shared/error_messages", resource: resource %>
       <div class="col-6">
-        <h2>編輯使用者</h2>
+        <h2>修改資料</h2>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <div class="login_item">
         <%= f.label :nickname, '暱稱' %><br />

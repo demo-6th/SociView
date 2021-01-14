@@ -2,7 +2,7 @@
   @apply pt-10;
   height: calc(100vh - 150px);
   .container{
-    @apply mx-auto;
+    @apply m-auto;
     .row{
       @apply flex justify-center items-center;
       .col-6{
@@ -16,13 +16,13 @@
           }
         }
         .loin_action{
-          @apply leading-10 text-center;
+          @apply leading-10 text-center flex flex-wrap justify-around;
           .loin_btn{
-            @apply mx-1 rounded-lg  py-2 px-5 font-bold shadow;
+            @apply rounded-lg  py-1 font-bold shadow mb-2; 
+            width: 48%;
           }
         }
       }
     }
-
   }
 }
