@@ -58,7 +58,7 @@ document.addEventListener("turbolinks:load", () => {
             datasets: [{
                 label: "（主文）情緒長條圖",
                 data: [pos_count, neg_count, neutral_count],
-                backgroundColor: ["lightgreen", "tomato", "lightblue"],
+                backgroundColor: ["rgba(60,225,120,1)", "rgb(220,70,70,1)", "rgba(54, 162, 235, 1)"],
             }, ],
         },
         options: {
@@ -78,7 +78,7 @@ document.addEventListener("turbolinks:load", () => {
             datasets: [{
                 label: "情緒長條圖",
                 data: [pos_count, neg_count, neutral_count],
-                backgroundColor: ["lightgreen", "tomato", "lightblue"],
+                backgroundColor: ["rgba(60,225,120,0.5)", "rgb(220,70,70,0.5)", "rgba(54, 162, 235, 0.5)"],
             }, ],
         },
         options: {
@@ -106,6 +106,7 @@ document.addEventListener("turbolinks:load", () => {
     const ctx_line = document
         .getElementById("sentimentLineChart")
         .getContext("2d");
+
     const lineChart = new Chart(ctx_line, {
         type: "line",
         data: {
@@ -113,26 +114,26 @@ document.addEventListener("turbolinks:load", () => {
             datasets: [{
                     label: "正面聲量",
                     data: Object.values(pos_line),
-                    backgroundColor: "#8FC31F",
-                    fill: false,
+                    borderWidth: 1,
                     pointRadius: 5,
-                    borderColor: "#8FC31F",
+                    borderColor: "rgba(60,225,120,1)",
+                    backgroundColor: "rgba(60,225,120,0.2)",
                 },
                 {
                     label: "負面聲量",
                     data: Object.values(neg_line),
-                    backgroundColor: "red",
-                    fill: false,
+                    borderWidth: 1,
                     pointRadius: 5,
-                    borderColor: "red",
+                    borderColor: "rgba(220,70,70,1)",
+                    backgroundColor: "rgb(220,70,70,0.2)",
                 },
                 {
                     label: "中立聲量",
                     data: Object.values(neu_line),
-                    backgroundColor: "blue",
-                    fill: false,
+                    borderWidth: 1,
                     pointRadius: 5,
-                    borderColor: "blue",
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: "rgba(54, 162, 235, 0.2)",
                 },
             ],
         },
