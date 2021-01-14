@@ -3,7 +3,7 @@
 	<div class="choice_page">
 		<div class="col-3">
 			<div class="theme">
-				<h2 class="theme_item">主題區</h2>
+				<h2 class="theme_item">搜尋主題分類</h2>
 				<div class="choice_box">
 					<div><%= radio_button_tag(:theme1, "期末") %> <%= label_tag(:theme1, "期末", class: "theme_text") %></div>
 					<div><%= radio_button_tag(:theme2, "筆電") %> <%= label_tag(:theme2, "筆電", class: "theme_text") %></div>
@@ -13,17 +13,17 @@
 		</div>
 		<div class="col-3">
 			<div class="theme">
-				<h2 class="theme_item">時間區</h2>
+				<h2 class="theme_item">時間區段</h2>
 				<div class="choice_box">
-					<div><%= label_tag(:time1, "開始時間：", class: "theme_text") %><%= date_field(:user, :start, class: "datepicker_start border-solid border-black") %></div>
-					<div><%= label_tag(:time2, "結束時間：", class: "theme_text") %><%= date_field(:user, :end, class: "datepicker_end") %></div>
+					<div><%= label_tag(:time1, "開始時間：", class: "theme_text") %><%= date_field(:user, :start, class: "datepicker_start border border-gray-200 w-full rounded") %></div>
+					<div><%= label_tag(:time2, "結束時間：", class: "theme_text") %><%= date_field(:user, :end, class: "datepicker_end border border-gray-200 w-full rounded") %></div>
 			</div>
 		</div>
 	</div>
     
 		<div class="col-3">
 			<div class="theme">
-				<h2 class="theme_item">社團區</h2>
+				<h2 class="theme_item">搜尋熱門社群</h2>
 				<div class="choice_box">
 					<div><%= check_box_tag(:dcard, "Dcard") %>  <%= label_tag(:dcard, "Dcard", class: "theme_text") %></div>
 					<div><%= check_box_tag(:ptt, "PTT") %>  <%= label_tag(:ptt, "PTT", class: "theme_text") %></div>
@@ -33,7 +33,7 @@
 		
 		<div class="col-3">
 			<div class="theme">
-				<h2 class="theme_item">文本種類</h2>
+				<h2 class="theme_item">搜尋資料類型</h2>
 				<div class="choice_box">
 					<div><%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
 					<div><%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>

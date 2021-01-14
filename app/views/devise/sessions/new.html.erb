@@ -22,7 +22,9 @@
         
           <div class="loin_action">
             <%= f.submit "登入", class: "loin_btn" %>
-            <%= render "devise/shared/links" %> 
+            <%= link_to('註冊', new_registration_path(:user), class: "loin_btn") %> 
+            <%= link_to('Facebook登入', user_facebook_omniauth_authorize_path, class: "loin_btn") %> 
+            <%= link_to('Google登入', user_google_oauth2_omniauth_authorize_path, class: "loin_btn") %> 
           </div>
           <% end %> 
         </div>

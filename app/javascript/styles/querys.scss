@@ -3,9 +3,18 @@
   .aside{
     @apply w-1/6 bg-white text-black mt-1 rounded-lg;
     .query_link{
+      @apply pl-8;
       &:hover {
         @apply text-white bg-blue-400 rounded-lg;
       }
+      font-size: 1em;
+      .function{
+        @apply text-base my-1 inline-block;
+        margin: 10px;
+      }
+    }
+    .query_link_page{
+      @apply pl-8 text-white bg-blue-400 rounded-lg;
       font-size: 1em;
       .function{
         @apply text-base my-1 inline-block;
@@ -23,6 +32,7 @@
           width: 23%;
           .theme{
             @apply mb-1 rounded-lg bg-white;
+            box-sizing: border-box;
             &:first-child { border: none; }
             .theme_item{
               @apply bg-blue-400 text-white text-xl text-center rounded-t-lg p-2;
