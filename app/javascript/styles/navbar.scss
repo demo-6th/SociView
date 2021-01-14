@@ -1,17 +1,17 @@
 .navbar{
   @apply bg-white py-3 shadow;
   .row{
-    @apply flex justify-between px-10;
+    @apply flex justify-between px-10 pt-2;
     .logo a{
-      @apply text-4xl no-underline italic text-black;
+      @apply text-3xl tracking-tighter no-underline font-mono text-black font-bold;
       span{
-        color: #56CCF2;
+        color: #49ccf8;
       }
     }
     .login_btns{
       @apply flex justify-evenly;
       .nav_user{
-        @apply mx-1 rounded-lg  py-2 px-5 font-bold text-black;
+        @apply text-xl mx-1 rounded-lg  py-2 px-5 font-bold text-black;
       }
       .nav_btn{
         @apply mx-1 rounded-lg  py-2 px-5 font-bold shadow;

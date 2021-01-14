@@ -1,34 +1,81 @@
 <div class="aside">
+  <% if current_page?(list_queries_path) %> 
+  <div class="query_link query_link_page">
+    <%= link_to '文章列表', list_queries_path, class:"function " %>
+    <i class="fas fa-list-alt"></i>
+  </div>
+  <% else %> 
   <div class="query_link">
     <%= link_to '文章列表', list_queries_path, class:"function" %>
     <i class="fas fa-list-alt"></i>
   </div>
+  <% end %>
+
+  <% if current_page?(volume_queries_path) %> 
+  <div class="query_link query_link_page">
+    <%= link_to '媒體聲量', volume_queries_path, class:"function" %>
+    <i class="fas fa-satellite-dish"></i>
+  </div>
+  <% else %> 
   <div class="query_link">
     <%= link_to '媒體聲量', volume_queries_path, class:"function" %>
     <i class="fas fa-satellite-dish"></i>
   </div>
+  <% end %>
+
+  <% if current_page?(sentiment_queries_path) %> 
+  <div class="query_link query_link_page">
+    <%= link_to '情緒分析', sentiment_queries_path, class:"function" %>
+    <i class="fas fa-grin-squint-tears"></i>
+  </div>
+  <% else %> 
   <div class="query_link">
     <%= link_to '情緒分析', sentiment_queries_path, class:"function" %>
     <i class="fas fa-grin-squint-tears"></i>
   </div>
+  <% end %>
   <!-- <div class="query_link">
     <a href="#" class="function">競爭</a>
     <i class="fas fa-bahai"></i>
   </div> -->
+  <% if current_page?(topic_queries_path) %> 
+  <div class="query_link query_link_page">
+    <%= link_to '自動化議題', topic_queries_path, class:"function" %>
+    <i class="fas fa-laptop-code"></i>
+  </div>
+  <% else %> 
   <div class="query_link">
     <%= link_to '自動化議題', topic_queries_path, class:"function" %>
     <i class="fas fa-laptop-code"></i>
   </div>
+  <% end %>
+
+  <% if current_page?(wordcloud_queries_path) %>
+  <div class="query_link query_link_page">
+    <%= link_to '文字雲', wordcloud_queries_path, class:"function" %>
+    <i class="fas fa-cloud"></i>
+  </div>
+  <% else %> 
   <div class="query_link">
     <%= link_to '文字雲', wordcloud_queries_path, class:"function" %>
     <i class="fas fa-cloud"></i>
   </div>
+  <% end %>
+
+  <% if current_page?(diffusion_queries_path) %>
+  <div class="query_link query_link_page">
+    <%= link_to '聲量擴散', diffusion_queries_path, class:"function" %>
+    <i class="fas fa-braille"></i>
+  </div>
+  <% else %>
   <div class="query_link">
     <%= link_to '聲量擴散', diffusion_queries_path, class:"function" %>
     <i class="fas fa-braille"></i>
   </div>
+  <% end %>
+
   <div class="query_link">
-    <%= link_to '使用者設定', "#" , class:"function" %>
+    <%= link_to '使用者設定', edit_user_registration_path, class:"function" %>
     <i class="fas fa-cog"></i>
   </div>
 </div>
