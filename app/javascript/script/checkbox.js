@@ -1,7 +1,6 @@
 document.addEventListener("turbolinks:load", () => {
     const btn = document.querySelector('.check');
     btn.addEventListener('click', function(e) {
-        e.preventDefault();
         const theme_radio_len = document.querySelectorAll('.theme_btn input[type="radio"]:checked').length
         const theme_checkbox_len = document.querySelectorAll('.theme_btn input[type="checkbox"]:checked').length
         const time_check = document.querySelectorAll('.time_btn input[type="text"]')
@@ -24,7 +23,7 @@ document.addEventListener("turbolinks:load", () => {
 
         function validateremove(title) {
             const vld_d = document.getElementById(`${ title }`)
-            vld_d.classList.remove("disable")
+            vld_d.classList.remove("disable"), e.preventDefault()
         }
 
         function validateadd(title) {
