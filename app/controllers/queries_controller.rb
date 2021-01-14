@@ -3,11 +3,6 @@ class QueriesController < ApplicationController
   layout "homepage"
 
   def index
-    @wordcloud = wordcloud_queries_path
-    @sentiment = sentiment_queries_path
-    @volume = volume_queries_path
-    @list = list_queries_path
-    @topic = topic_queries_path
   end
 
   def list
