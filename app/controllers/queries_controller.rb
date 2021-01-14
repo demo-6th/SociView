@@ -12,36 +12,31 @@ class QueriesController < ApplicationController
 
   def sentpost
     # pass value down to api action
-    @theme = params[:theme].nil? ? "主題必填" : params[:theme] #魚蟬說先這樣
-    @source = params[:dcard].nil? && params[:ptt].nil? ? "來源必填" : [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date.nil? ? "起始時間必填" : params[:user][:start].to_date
-    @end = params[:user][:end].to_date.nil? ? "結束時間必填" : params[:user][:end].to_date
-    @type = params[:post].nil? && params[:comment].nil? ? "文本必填" : [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @theme = params[:theme]
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:user][:start].to_date
+    @end = params[:user][:end].to_date
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
-    if @theme.include?("必填") || @type.include?("必填") || @start.to_s.include?("必填") || @end.to_s.include?("必填")
-      @count = 0
+    #theme1
+    @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
+    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
+
+    # 計算符合搜尋條件的資料筆數
+    post_count = @post_result.count
+    comment_count = @comment_result.count
+    gon.start = @start
+    gon.end = @end
+
+    if params[:post] && params[:comment]
+      @count = post_count + comment_count
+      gon.result = @post_result + @comment_result
+    elsif params[:post] && !params[:comment]
+      @count = post_count
+      gon.result = @post_result
     else
-      #theme1
-      @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-      @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-      # 計算符合搜尋條件的資料筆數
-      post_count = @post_result.count
-      comment_count = @comment_result.count
-
-      gon.start = @start
-      gon.end = @end
-
-      if params[:post] && params[:comment]
-        @count = post_count + comment_count
-        gon.result = @post_result + @comment_result
-      elsif params[:post] && !params[:comment]
-        @count = post_count
-        gon.result = @post_result
-      else
-        @count = comment_count
-        gon.result = @comment_result
-      end
+      @count = comment_count
+      gon.result = @comment_result
     end
   end
 
@@ -107,39 +102,35 @@ class QueriesController < ApplicationController
 
   def topicpost
     # pass value down to api action
-    @theme = params[:theme].nil? ? "主題必填" : params[:theme] #魚蟬說先這樣
-    @source = params[:dcard].nil? && params[:ptt].nil? ? "來源必填" : [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date.nil? ? "起始時間必填" : params[:user][:start].to_date
-    @end = params[:user][:end].to_date.nil? ? "結束時間必填" : params[:user][:end].to_date
-    @type = params[:post].nil? && params[:comment].nil? ? "文本必填" : [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @theme = params[:theme]
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:user][:start].to_date
+    @end = params[:user][:end].to_date
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
-    if @theme.include?("必填") || @type.include?("必填") || @start.to_s.include?("必填") || @end.to_s.include?("必填")
-      @count = 0
+    #theme1
+    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
+    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
+
+    post_count = post_result.count
+    comment_count = comment_result.count
+
+    if params[:post] && params[:comment]
+      @count = post_count + comment_count
+      result = post_result.select(:token, :id) | comment_result.select(:token, :id)
+    elsif params[:post] && !params[:comment]
+      @count = post_count
+      result = post_result.select(:token, :id)
     else
-      #theme1
-      post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-      comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
+      @count = comment_count
+      result = comment_result.select(:token, :id)
+    end
 
-      post_count = post_result.count
-      comment_count = comment_result.count
-
-      if params[:post] && params[:comment]
-        @count = post_count + comment_count
-        result = post_result.select(:token, :id) | comment_result.select(:token, :id)
-      elsif params[:post] && !params[:comment]
-        @count = post_count
-        result = post_result.select(:token, :id)
-      else
-        @count = comment_count
-        result = comment_result.select(:token, :id)
+    CSV.open("data/topic_text.csv", "wb") do |csv|
+      result.find_all do |res|
+        csv << res.attributes.values
       end
-
-      CSV.open("data/topic_text.csv", "wb") do |csv|
-        result.find_all do |res|
-          csv << res.attributes.values
-        end
-        `python3 lib/tasks/Topic/main.py`
-      end
+      `python3 lib/tasks/Topic/main.py`
     end
   end
 
@@ -147,39 +138,35 @@ class QueriesController < ApplicationController
 
   def cloudpost
     # pass value down to api action
-    @theme = params[:theme].nil? ? "主題必填" : params[:theme] #魚蟬說先這樣
-    @source = params[:dcard].nil? && params[:ptt].nil? ? "來源必填" : [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date.nil? ? "起始時間必填" : params[:user][:start].to_date
-    @end = params[:user][:end].to_date.nil? ? "結束時間必填" : params[:user][:end].to_date
-    @type = params[:post].nil? && params[:comment].nil? ? "文本必填" : [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @theme = params[:theme]
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:user][:start].to_date
+    @end = params[:user][:end].to_date
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
-    if @theme.include?("必填") || @type.include?("必填") || @start.to_s.include?("必填") || @end.to_s.include?("必填")
-      @count = 0
+    #theme1
+    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
+    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
+
+    post_count = post_result.count
+    comment_count = comment_result.count
+
+    if params[:post] && params[:comment]
+      @count = post_count + comment_count
+      result = post_result.select(:token, :id) | comment_result.select(:token, :id)
+    elsif params[:post] && !params[:comment]
+      @count = post_count
+      result = post_result.select(:token, :id)
     else
-      #theme1
-      post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-      comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
+      @count = comment_count
+      result = comment_result.select(:token, :id)
+    end
 
-      post_count = post_result.count
-      comment_count = comment_result.count
-
-      if params[:post] && params[:comment]
-        @count = post_count + comment_count
-        result = post_result.select(:token, :id) | comment_result.select(:token, :id)
-      elsif params[:post] && !params[:comment]
-        @count = post_count
-        result = post_result.select(:token, :id)
-      else
-        @count = comment_count
-        result = comment_result.select(:token, :id)
+    CSV.open("data/cloud_text.csv", "wb") do |csv|
+      result.find_all do |res|
+        csv << res.attributes.values
       end
-
-      CSV.open("data/cloud_text.csv", "wb") do |csv|
-        result.find_all do |res|
-          csv << res.attributes.values
-        end
-        `python3 lib/tasks/Wordcloud/main.py`
-      end
+      `python3 lib/tasks/Wordcloud/main.py`
     end
   end
 
