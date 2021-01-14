@@ -52,7 +52,7 @@ document.addEventListener("turbolinks:load", () => {
             labels: [gon.theme, gon.theme1],
             datasets: [{
                 data: [count, count1],
-                backgroundColor: ["lightgreen", "tomato"],
+                backgroundColor: ["rgba(60,225,120,1)", "rgb(220,70,70,1)"],
             }, ],
         },
         options: {
@@ -71,7 +71,7 @@ document.addEventListener("turbolinks:load", () => {
             labels: [gon.theme, gon.theme1],
             datasets: [{
                 data: [count, count1],
-                backgroundColor: ["lightgreen", "tomato"],
+                backgroundColor: ["rgba(60,225,120,0.5)", "rgb(220,70,70,0.5)"],
             }, ],
         },
         options: {
@@ -104,18 +104,18 @@ document.addEventListener("turbolinks:load", () => {
             datasets: [{
                     label: `${theme}`,
                     data: Object.values(count_line),
-                    backgroundColor: "#8FC31F",
-                    fill: false,
+                    borderWidth: 1,
                     pointRadius: 5,
-                    borderColor: "#8FC31F",
+                    borderColor: "rgba(60,225,120,1)",
+                    backgroundColor: "rgba(60,225,120,0.2)",
                 },
                 {
                     label: `${theme1}`,
                     data: Object.values(count1_line),
-                    backgroundColor: "red",
-                    fill: false,
+                    borderWidth: 1,
                     pointRadius: 5,
-                    borderColor: "red",
+                    borderColor: "rgba(220,70,70,1)",
+                    backgroundColor: "rgb(220,70,70,0.2)",
                 },
             ],
         },

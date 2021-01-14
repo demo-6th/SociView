@@ -54,7 +54,7 @@ class QueriesController < ApplicationController
 
   def volumepost
     # pass value down to api action
-    @theme = [params[:theme1], params[:theme2], params[:theme3]].nil? ? "主題必填" : [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil } #魚蟬說先這樣
+    @theme = params[:theme1].nil? && params[:theme2].nil? && params[:theme3].nil? ? "主題必填" : [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil } #魚蟬說先這樣
     @source = params[:dcard].nil? && params[:ptt].nil? ? "來源必填" : [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:user][:start].to_date.nil? ? "起始時間必填" : params[:user][:start].to_date
     @end = params[:user][:end].to_date.nil? ? "結束時間必填" : params[:user][:end].to_date
@@ -62,6 +62,7 @@ class QueriesController < ApplicationController
 
     if @theme.include?("必填") || @type.include?("必填") || @start.to_s.include?("必填") || @end.to_s.include?("必填")
       @count = 0
+      @count1 = 0
     else
       #theme1
       @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
