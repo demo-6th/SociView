@@ -5,14 +5,16 @@
       </div>
       <div class="login_btns">
         <% if current_user %>
-          <!-- <#%= render "shared/notice" if notice %> -->
-          <div class="nav_user"><%= current_user.nickname %> 您好! </div>
-          <%= link_to('登出', destroy_user_session_path, class: "nav_btn", method: :delete) %> 
+          <!-- <#%= render "shared/notice" if notice           %> -->
+          <div class="nav_user"><%= current_user.nickname %> 您好!  <%= notice if notice %> </div>
+          <%= link_to("登出", destroy_user_session_path, class: "nav_btn", method: :delete) %> 
         <% else %>
-          <%= link_to('登入', new_session_path(:user), class: "nav_btn") %>
-          <%= link_to('註冊', new_registration_path(:user), class: "nav_btn border-double border-black bg-gray-300") %> 
+          <%= link_to("登入", new_session_path(:user), class: "nav_btn") %>
+          <%= link_to("註冊", new_registration_path(:user), class: "nav_btn border-double border-black bg-gray-300") %> 
         <% end %>
       </div>
     </div>
 </div>
 
+
+          
