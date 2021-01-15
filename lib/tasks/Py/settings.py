@@ -2,6 +2,8 @@
 import sys
 import subprocess
 
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'importlib'])
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'cloudpickle'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'requests'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pandas'])
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'Counter'])
