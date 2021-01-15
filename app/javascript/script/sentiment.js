@@ -1,13 +1,4 @@
 document.addEventListener("turbolinks:load", () => {
-    const error_search = document.getElementById("search")
-    for (let i = 0; i < error_search.children.length; i++) {
-        if (error_search.children[i].innerText.indexOf("必填") != -1) {
-            error_search.children[i].classList.add("error")
-            error_search.classList.add("error_error")
-            document.getElementById("count").classList.add("error")
-        } else {}
-    }
-
     start = gon.start;
     end = gon.end;
     let all_date = [];
@@ -17,8 +8,6 @@ document.addEventListener("turbolinks:load", () => {
     let pos_line = {};
     let neg_line = {};
     let neu_line = {};
-
-
 
     for (
         let d = new Date(start); d <= new Date(end); d.setDate(d.getDate() + 1)
