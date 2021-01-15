@@ -1,12 +1,4 @@
 document.addEventListener("turbolinks:load", () => {
-    const error_search = document.getElementById("search")
-    for (let i = 0; i < error_search.children.length; i++) {
-        if (error_search.children[i].innerText.indexOf("必填") != -1) {
-            error_search.children[i].classList.add("error")
-            error_search.classList.add("error_search")
-            document.getElementById("count").classList.add("error")
-        } else {}
-    }
     start = gon.start;
     end = gon.end;
     theme = gon.theme;

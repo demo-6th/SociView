@@ -2,11 +2,9 @@ class QueriesController < ApplicationController
   before_action :authenticate_user!
   layout "homepage"
 
-  def index
-  end
+  def index; end
 
-  def list
-  end
+  def list; end
 
   def sentiment; end
 
@@ -44,58 +42,53 @@ class QueriesController < ApplicationController
 
   def volumepost
     # pass value down to api action
-    @theme = params[:theme1].nil? && params[:theme2].nil? && params[:theme3].nil? ? "主題必填" : [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil } #魚蟬說先這樣
-    @source = params[:dcard].nil? && params[:ptt].nil? ? "來源必填" : [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date.nil? ? "起始時間必填" : params[:user][:start].to_date
-    @end = params[:user][:end].to_date.nil? ? "結束時間必填" : params[:user][:end].to_date
-    @type = params[:post].nil? && params[:comment].nil? ? "文本必填" : [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:user][:start].to_date
+    @end = params[:user][:end].to_date
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
-    if @theme.include?("必填") || @type.include?("必填") || @start.to_s.include?("必填") || @end.to_s.include?("必填")
-      @count = 0
-      @count1 = 0
+    #theme1
+    @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
+    @comment_result = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
+
+    #theme2
+    @post1_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%")
+    @comment1_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
+
+    # 計算符合搜尋條件的資料筆數
+    gon.start = @start
+    gon.end = @end
+    gon.theme = @theme[0]
+    gon.theme1 = @theme[1]
+    post_count = @post_result.count
+    comment_count = @comment_result.count
+    post1_count = @post1_result.count
+    comment1_count = @comment1_result.count
+
+    if params[:post] && params[:comment]
+      @count = post_count + comment_count
+      gon.result = @post_result + @comment_result
+    elsif params[:post] && !params[:comment]
+      @count = post_count
+      gon.result = @post_result
     else
-      #theme1
-      @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
-      @comment_result = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
-
-      #theme2
-      @post1_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%")
-      @comment1_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
-
-      # 計算符合搜尋條件的資料筆數
-      gon.start = @start
-      gon.end = @end
-      gon.theme = @theme[0]
-      gon.theme1 = @theme[1]
-      post_count = @post_result.count
-      comment_count = @comment_result.count
-      post1_count = @post1_result.count
-      comment1_count = @comment1_result.count
-
-      if params[:post] && params[:comment]
-        @count = post_count + comment_count
-        gon.result = @post_result + @comment_result
-      elsif params[:post] && !params[:comment]
-        @count = post_count
-        gon.result = @post_result
-      else
-        @count = comment_count
-        gon.result = @comment_result
-      end
-      gon.count = @count
-      #待改進
-      if params[:post] && params[:comment]
-        @count1 = post1_count + comment1_count
-        gon.result1 = @post1_result + @comment1_result
-      elsif params[:post] && !params[:comment]
-        @count1 = post1_count
-        gon.result1 = @post1_result
-      else
-        @count1 = comment1_count
-        gon.result1 = @comment1_result
-      end
-      gon.count1 = @count1
+      @count = comment_count
+      gon.result = @comment_result
     end
+    gon.count = @count
+    #待改進
+    if params[:post] && params[:comment]
+      @count1 = post1_count + comment1_count
+      gon.result1 = @post1_result + @comment1_result
+    elsif params[:post] && !params[:comment]
+      @count1 = post1_count
+      gon.result1 = @post1_result
+    else
+      @count1 = comment1_count
+      gon.result1 = @comment1_result
+    end
+    gon.count1 = @count1
   end
 
   def topic; end
@@ -170,6 +163,5 @@ class QueriesController < ApplicationController
     end
   end
 
-  def diffusion
-  end
+  def diffusion; end
 end
