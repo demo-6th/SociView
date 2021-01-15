@@ -40,6 +40,9 @@ def get_post_id(board, sleep_every, sleep_time, prev_day)
       begin
         sleep(rand(0.5..1.2))
         post_id_created_at = item["createdAt"].slice(0, 10)
+        puts item
+        puts search_end_date
+        puts post_id_created_at
         break if post_id_created_at < search_end_date
         count += 1
         total_cut += 1
