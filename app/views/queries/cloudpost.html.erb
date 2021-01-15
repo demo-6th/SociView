@@ -15,7 +15,13 @@
 
   </div>
   <div class="container">
-    <h3>文字雲（保留停用詞）</h3>
-    <%= image_pack_tag("wordcloud.png") %>
+    <br>
+    <div class="row items-center">
+      <%= @cloud %>
+      <% if FileTest.exist?("app/javascript/images/wordcloud.png")%>
+        <%= image_pack_tag("wordcloud.png") %>
+      <% end %>
+    </div>
+    <br>
   </div>
 </div>
