@@ -1,25 +1,25 @@
+<%= form_tag do %>
 <div class="section">
-	<%= form_tag do %>
 	<div class="choice_page">
 		<div class="col-3">
 			<div class="theme">
 				<h2 class="theme_item">搜尋主題分類</h2>
 				<div class="choice_box theme_btn">
-        <p id="validate_theme" class="disable"> 請選擇主題 </p>
 				<div><%= radio_button_tag(:theme, "期末", false, id: 1) %> <%= label_tag(:theme, "期末", class: "theme_text", for: 1) %></div>
 				<div><%= radio_button_tag(:theme, "筆電", false, id: 2) %> <%= label_tag(:theme, "筆電", class: "theme_text", for: 2) %></div>
 				<div><%= radio_button_tag(:theme, "貓", false, id: 3) %> <%= label_tag(:theme, "貓", class: "theme_text", for: 3) %></div>
 				</div>
+        <p id="validate_theme" class="disable"> 請選擇主題 </p>
 			</div>
 		</div>
 		<div class="col-3">
 			<div class="theme">
 				<h2 class="theme_item">時間區段</h2>
 				<div class="choice_box time_btn">
-        <p id="validate_time" class="disable"> 請選擇時間 </p>
 					<div><%= label_tag(:time1, "開始時間：", class: "theme_text", for: "start") %><%= date_field(:user, :start, class: "datepicker_start border-solid border-black", id: "start") %></div>
 					<div><%= label_tag(:time2, "結束時間：", class: "theme_text", for: "end") %><%= date_field(:user, :end, class: "datepicker_end", id: "end") %></div>
 			</div>
+        <p id="validate_time" class="disable"> 請選擇時間 </p>
 		</div>
 	</div>
     
@@ -27,10 +27,10 @@
 			<div class="theme">
 				<h2 class="theme_item">搜尋熱門社群</h2>
 				<div class="choice_box source_btn">
-        <p id="validate_source" class="disable"> 請選擇社群 </p>
 				<div><%= check_box_tag(:dcard, "Dcard") %>  <%= label_tag(:dcard, "Dcard", class: "theme_text") %></div>
 				<div><%= check_box_tag(:ptt, "PTT") %>  <%= label_tag(:ptt, "PTT", class: "theme_text") %></div>
 				</div>
+        <p id="validate_source" class="disable"> 請選擇社群 </p>
 			</div>
 		</div>
 		
@@ -38,10 +38,10 @@
 			<div class="theme">
 				<h2 class="theme_item">搜尋資料類型</h2>
 				<div class="choice_box type_btn">
-        <p id="validate_type" class="disable"> 請選擇類型 </p>
 					<div><%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
 					<div><%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
 				</div>
+        <p id="validate_type" class="disable"> 請選擇類型 </p>
 			</div>
 		</div>  	
 	</div>
