@@ -6,7 +6,7 @@
     <link rel="icon" href="/favicon.ico"/ type="image/x-icon" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_pack_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
     <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
     <%= favicon_pack_tag "logo.png" %>
@@ -15,6 +15,7 @@
   </head>
 
   <body class="font-sans">
+    <%= include_gon(:init => true) %>
     <%= render "shared/navbar" %>
     <%= yield %>
     <%= render "shared/footer" %>
