@@ -123,8 +123,8 @@ class QueriesController < ApplicationController
       result.find_all do |res|
         csv << res.attributes.values
       end
-      `python3 lib/tasks/Topic/main.py`
     end
+    `python3 lib/tasks/Topic/main.py`
   end
 
   def wordcloud; end
