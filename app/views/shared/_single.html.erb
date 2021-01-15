@@ -6,8 +6,8 @@
 				<h2 class="theme_item">搜尋主題分類</h2>
 				<div class="choice_box theme_btn">
 				<div><%= radio_button_tag(:theme, "期末", false, id: 1) %> <%= label_tag(:theme, "期末", class: "theme_text", for: 1) %></div>
-				<div><%= radio_button_tag(:theme, "筆電", false, id: 2) %> <%= label_tag(:theme, "筆電", class: "theme_text", for: 2) %></div>
-				<div><%= radio_button_tag(:theme, "貓", false, id: 3) %> <%= label_tag(:theme, "貓", class: "theme_text", for: 3) %></div>
+				<div><%= radio_button_tag(:theme, "汽車", false, id: 2) %> <%= label_tag(:theme, "汽車", class: "theme_text", for: 2) %></div>
+				<div><%= radio_button_tag(:theme, "女", false, id: 3) %> <%= label_tag(:theme, "女", class: "theme_text", for: 3) %></div>
 				</div>
         <p id="validate_theme" class="disable"> 請選擇主題 </p>
 			</div>
@@ -43,7 +43,7 @@
         <p id="validate_type" class="disable"> 請選擇類型 </p>
 			</div>
 		</div>  	
-    <div class="button_page"><%= submit_tag "開始分析", class: "search_btn check" %></div>
   </div>  
-  <% end %>
+  <div class="button_page"><%= submit_tag "開始分析", class: "search_btn check" %></div>
 </div>
+<% end %>
