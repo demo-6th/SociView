@@ -3,17 +3,25 @@ from wordcloud import WordCloud
 import pandas as pd
 import ast
 from matplotlib import pyplot as plt
+import os
 pd.options.mode.chained_assignment = None
 
-txt = pd.read_csv("data/cloud_text.csv",names=["id", "token"])
+if os.path.exists("app/javascript/images/wordcloud.png"):
+  os.remove("app/javascript/images/wordcloud.png")
 
+txt = pd.read_csv("data/cloud_text.csv",names=["id", "no_stop"])
 txt_str = ""
+
 for i in range(len(txt)):
   try:
-    txt["token"][i] = ast.literal_eval(txt["token"][i])
-    txt_str += ' '.join(txt["token"][i])
+    txt["no_stop"][i] = ast.literal_eval(txt["no_stop"][i])
+    txt_str += ' '.join(txt["no_stop"][i])
   except:
     continue
 
-cloud = WordCloud(background_color='white',font_path="app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
-cloud.to_file('app/javascript/images/wordcloud.png')
+if len(txt_str) < 50:
+  print("資料不足")
+else:
+  cloud = WordCloud(width=960, height=400,background_color='white',font_path="app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
+  cloud.to_file('app/javascript/images/wordcloud.png')
+
