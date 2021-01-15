@@ -1,5 +1,5 @@
 .login_page{
-  @apply pt-10;
+  @apply flex items-center;
   height: calc(100vh - 150px);
   .container{
     @apply m-auto;
