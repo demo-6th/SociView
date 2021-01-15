@@ -16,14 +16,14 @@
 			<div class="theme">
 				<h2 class="theme_item">時間區段</h2>
 				<div class="choice_box time_btn">
-					<div><%= label_tag(:time1, "開始時間：", class: "theme_text", for: "start") %><%= date_field(:user, :start, class: "datepicker_start border-solid border-black", id: "start") %></div>
-					<div><%= label_tag(:time2, "結束時間：", class: "theme_text", for: "end") %><%= date_field(:user, :end, class: "datepicker_end", id: "end") %></div>
+        <p id="validate_time" class="disable"> 請選擇時間 </p>
+					<div><%= label_tag(:user_start, "開始時間：", class: "theme_text") %><%= date_field(:user, :start, class: "datepicker_start border-solid border-black") %></div>
+					<div><%= label_tag(:user_end, "結束時間：", class: "theme_text") %><%= date_field(:user, :end, class: "datepicker_end") %></div>
 			</div>
         <p id="validate_time" class="disable"> 請選擇時間 </p>
 		</div>
 	</div>
-    
-		<div class="col-3">
+    <div class="col-3">
 			<div class="theme">
 				<h2 class="theme_item">搜尋熱門社群</h2>
 				<div class="choice_box source_btn">
@@ -33,7 +33,6 @@
         <p id="validate_source" class="disable"> 請選擇社群 </p>
 			</div>
 		</div>
-		
 		<div class="col-3">
 			<div class="theme">
 				<h2 class="theme_item">搜尋資料類型</h2>
@@ -44,7 +43,7 @@
         <p id="validate_type" class="disable"> 請選擇類型 </p>
 			</div>
 		</div>  	
-	</div>
+    <div class="button_page"><%= submit_tag "開始分析", class: "search_btn check" %></div>
+  </div>  
+  <% end %>
 </div>
-<div class="button_page"><%= submit_tag "開始分析", class: "search_btn check" %></div>
-<% end %>
