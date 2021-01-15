@@ -124,7 +124,7 @@ class QueriesController < ApplicationController
         csv << res.attributes.values
       end
     end
-    `python3 lib/tasks/Topic/main.py`
+    @topic = `python3 lib/tasks/Topic/main.py params`
   end
 
   def wordcloud; end
