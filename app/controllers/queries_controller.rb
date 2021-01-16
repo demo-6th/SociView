@@ -137,7 +137,6 @@ class QueriesController < ApplicationController
     @end = params[:user][:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
-    #theme1
     post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
     comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
 
@@ -146,20 +145,20 @@ class QueriesController < ApplicationController
 
     if params[:post] && params[:comment]
       @count = post_count + comment_count
-      result = post_result.select(:token, :id) | comment_result.select(:token, :id)
+      result = post_result.select(:no_stop, :id) | comment_result.select(:no_stop, :id)
     elsif params[:post] && !params[:comment]
       @count = post_count
-      result = post_result.select(:token, :id)
+      result = post_result.select(:no_stop, :id)
     else
       @count = comment_count
-      result = comment_result.select(:token, :id)
+      result = comment_result.select(:no_stop, :id)
     end
 
     CSV.open("data/cloud_text.csv", "wb") do |csv|
       result.find_all do |res|
         csv << res.attributes.values
       end
-      `python3 lib/tasks/Wordcloud/main.py`
+      @cloud = `python3 lib/tasks/Wordcloud/main.py params`
     end
   end
 
