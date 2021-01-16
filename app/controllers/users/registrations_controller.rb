@@ -19,7 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    redirect_to root_path, notice: "修改成功!"
+    redirect_to list_queries_path, notice: "修改成功!"
   end
 
   # DELETE /resource
