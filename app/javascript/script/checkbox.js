@@ -27,15 +27,39 @@ document.addEventListener("turbolinks:load", () => {
         }
 
         function validateremove(title) {
-            const vld_d = document.getElementById(`${ title }`)
+            const vld_d = document.getElementById(`${title}`)
             vld_d.classList.remove("disable")
             btn.classList.add("search_btn")
             btn.classList.remove("active")
         }
 
         function validateadd(title) {
-            const vld_d = document.getElementById(`${ title }`)
+            const vld_d = document.getElementById(`${title}`)
             vld_d.classList.add("disable")
         }
     })
+
+    //套件預設不可滑動頁面，使用absolute定位，render進來後造成文字錯位
+    //抓取DOM狀態
+    document.onreadystatechange = subSomething;
+
+    function subSomething() {
+        if (document.readyState == "complete") {
+            //DOM載入完成後抓取text內的(2)
+            var aTags = document.getElementsByTagName("text");
+            var searchText = "(2)";
+            var found;
+            for (var i = 0; i < aTags.length; i++) {
+                if (aTags[i].textContent == searchText) {
+                    found = aTags[i];
+                    break;
+                }
+            }
+            //重新定位
+            found.style.position = "relative"
+            found.style.bottom = "30px"
+            found.style.left = "200px"
+            console.log(found)
+        }
+    }
 })

@@ -11,8 +11,8 @@
             <%= label_tag(:theme1, "期末", class: "theme_text") %>
           </div>
           <div class="choice_item">
-            <%= check_box_tag(:theme2, "筆電") %> 
-            <%= label_tag(:theme2, "筆電", class: "theme_text") %>
+            <%= check_box_tag(:theme2, "手機") %> 
+            <%= label_tag(:theme2, "手機", class: "theme_text") %>
           </div>
           <div class="choice_item">
             <%= check_box_tag(:theme3, "貓") %>
@@ -49,6 +49,7 @@
         <p id="validate_source" class="disable"> 請選擇社群 </p>
       </div>
     </div>
+<<<<<<< HEAD
 		<div class="col-3">
 			<div class="theme">
 				<h2 class="theme_item">搜尋資料類型</h2>
@@ -63,7 +64,22 @@
   </div>  
     <div class="button_page"><%= submit_tag "開始分析", class: "search_btn check" %></div>
 =======
+=======
+    <div class="col-3">
+      <div class="theme">
+        <h2 class="theme_item">搜尋資料類型</h2>
+        <div class="choice_box type_btn">
+          <div>
+            <%= check_box_tag(:post, "發文") %> 
+            <%= label_tag(:post, "發文", class: "form-checkbox") %>
+          </div>
+          <div>
+            <%= check_box_tag(:comment, "留言") %>
+            <%= label_tag(:comment, "留言", class: "") %>
+          </div>
+>>>>>>> fix topic text error & loading effect
         </div>
+        <p id="validate_type" class="disable"> 請選擇類型 </p>
       </div>
     </div>
   </div>
