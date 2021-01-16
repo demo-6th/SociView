@@ -20,7 +20,7 @@ comment = pd.read_csv("lib/tasks/Crawler/PTT/comment_content.csv", names = ["ali
 board["name"] = board["url"].str.replace("https://www.ptt.cc//bbs/", "")
 board["name"] = board["name"].str.replace("/index.html","")
 board["alias"] = board["name"]
-board["source"] = 2
+# board["source"] = 2
 
 # post:  alias pid 
 post["alias"] = post["alias"].str.replace("看板 ","")
@@ -72,7 +72,7 @@ def tokenization(post):
       return ""
    
 # stopwords 
-with open("dict/stopwords.txt", encoding="utf-8") as fin:
+with open("lib/tasks/Crawler/PTT/dict/stopwords.txt", encoding="utf-8") as fin:
   stopwords = fin.read().split("\n")[1:]
 
 def no_stop(item):
@@ -89,10 +89,10 @@ def keyword(doc):
   return keywords
 
 # sentiment 
-with open("dict/pos.txt", encoding="utf-8") as pos:
+with open("lib/tasks/Crawler/PTT/dict/pos.txt", encoding="utf-8") as pos:
   pos_words = pos.read().split("\n")[1:]
 
-with open("dict/neg.txt", encoding="utf-8") as neg:
+with open("lib/tasks/Crawler/PTT/dict/neg.txt", encoding="utf-8") as neg:
   neg_words = neg.read().split("\n")[1:]
 
 def sentiment(token):
