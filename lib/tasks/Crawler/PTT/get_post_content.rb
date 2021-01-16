@@ -1,5 +1,5 @@
 def get_post_content
-  table = CSV.parse(File.read("post_url.csv"), headers: false)
+  table = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/PTT/post_url.csv"), headers: false)
 
   all_post = []
   all_comment = []
@@ -62,7 +62,8 @@ def get_post_content
       next
     end
   end 
-  
-  File.write("post_content.csv", all_post)
-  File.write("comment_content.csv", all_comment)
+
+  File.write("#{Rails.root}/lib/tasks/Crawler/PTT/post_content.csv", all_post.map(&:to_csv).join)
+  File.write("#{Rails.root}/lib/tasks/Crawler/PTT/comment_content.csv", all_comment.map(&:to_csv).join)
 end 
+
