@@ -18,8 +18,8 @@
     <br>
     <div class="row items-center">
       <%= @cloud %>
-      <% if FileTest.exist?("app/javascript/images/wordcloud.png")%>
-        <%= image_pack_tag("wordcloud.png") %>
+      <% if FileTest.exist?("app/assets/images/wordcloud.png") %>
+        <%= image_tag("wordcloud.png") %>
       <% end %>
     </div>
     <br>
