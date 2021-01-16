@@ -13,5 +13,11 @@
       </div>
     </div>
   </div>
-  <div><%= render "shared/ldavis" %></div>
+  <div class="container">
+    <br>
+    <%= @topic %>
+    <% if FileTest.exist?("app/views/shared/_ldavis.html")%>
+      <%= render "shared/ldavis" %>
+    <% end %>
+  </div>
 </div>
