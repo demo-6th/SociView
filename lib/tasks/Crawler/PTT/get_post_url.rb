@@ -1,10 +1,10 @@
 def get_post_url(date_array)
-  table = CSV.parse(File.read("./hot_boards_url.csv"), headers: false)
+  table = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/PTT/boards_url.csv"), headers: false)
   pre_url = "https://www.ptt.cc"
   post_url_all = []
 
   table.each do |t|
-    sleep(rand(0.5..1.2))
+    sleep(rand(0.1..0.4))
     next_url = t[0]
     p next_url
     post_url = []
@@ -44,7 +44,7 @@ def get_post_url(date_array)
     post_url_all << post_url
   end 
 
-  File.write("post_url.csv", post_url_all.flatten(1).map(&:to_csv).join)
+  File.write("#{Rails.root}/lib/tasks/Crawler/PTT/post_url.csv", post_url_all.flatten(1).map(&:to_csv).join)
 end
 
 
