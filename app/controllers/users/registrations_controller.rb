@@ -18,9 +18,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    redirect_to list_queries_path, notice: "修改成功!"
+  end
 
   # DELETE /resource
   # def destroy
