@@ -1,7 +1,8 @@
 document.addEventListener("turbolinks:load", () => {
     const btn = document.querySelector('.check');
     btn.addEventListener('click', function(e) {
-
+        btn.classList.remove("search_btn")
+        btn.classList.add("active")
         const theme_radio_len = document.querySelectorAll('.theme_btn input[type="radio"]:checked').length
         const theme_checkbox_len = document.querySelectorAll('.theme_btn input[type="checkbox"]:checked').length
         const time_check = document.querySelectorAll('.time_btn input[type="text"]')
@@ -18,6 +19,7 @@ document.addEventListener("turbolinks:load", () => {
 
         if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {} else {
             e.preventDefault();
+            document.querySelector
             theme_radio_len < 1 && theme_checkbox_len < 1 ? validateremove("validate_theme") : validateadd("validate_theme");
             time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
             source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
@@ -27,6 +29,8 @@ document.addEventListener("turbolinks:load", () => {
         function validateremove(title) {
             const vld_d = document.getElementById(`${ title }`)
             vld_d.classList.remove("disable")
+            btn.classList.add("search_btn")
+            btn.classList.remove("active")
         }
 
         function validateadd(title) {
