@@ -16,7 +16,6 @@ document.addEventListener("turbolinks:load", () => {
             }
         }
 
-        console.log(theme_checkbox_len)
         if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {} else {
             e.preventDefault();
             theme_radio_len < 1 && theme_checkbox_len < 1 ? validateremove("validate_theme") : validateadd("validate_theme");
@@ -24,7 +23,6 @@ document.addEventListener("turbolinks:load", () => {
             source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
             type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
         }
-
 
         function validateremove(title) {
             const vld_d = document.getElementById(`${ title }`)
