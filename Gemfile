@@ -34,6 +34,7 @@ gem "omniauth-google-oauth2", "~> 0.8.1"
 gem "figaro", "~> 1.2"
 gem "activerecord-import", "~> 1.0", ">= 1.0.7"
 gem "gon", "~> 6.1"
+gem 'elasticsearch', '~> 7.10', '>= 7.10.1'
 gem 'searchkick', '~> 4.4', '>= 4.4.2'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
