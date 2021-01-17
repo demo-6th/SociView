@@ -16,7 +16,6 @@ def get_post_url(date_array)
       next unless doc.css("#main-container .r-list-container .r-ent .meta .date")[i]
       next unless doc.css("#main-container .r-list-container .r-ent .meta .author")[i]
       next unless doc.css("#main-container .r-list-container .r-ent .title a")[i]
-  
       next unless date_array.include?(doc.css("#main-container .r-list-container .r-ent .meta .date")[i].text.strip)
       next if doc.css("#main-container .r-list-container .r-ent .title a").nil?
 

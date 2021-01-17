@@ -9,7 +9,7 @@ def get_board
   boards[10..boards.length].each do |x|
     url << ["https://www.ptt.cc/#{x.value}"]
   end
-  # p url
+
   File.write("#{Rails.root}/lib/tasks/Crawler/PTT/boards_url.csv", url.map(&:to_csv).join)
 end 
 
