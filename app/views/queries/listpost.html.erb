@@ -1,0 +1,85 @@
+<script>
+#post { 
+  padding: 30px 15px 15px 15px;
+  box-sizing: border-box;
+  border: 3px;
+}
+</script>
+<%= render "shared/single" %>
+<div class="search_list">
+  <div class="container">
+    <div class="row">
+      <div id="search" class="search_all">
+        <p id="count">查詢結果：<%= @count %>筆</p>
+        <p id="theme">查詢主題：<%= @theme %></p>
+        <p id="start">起始時間：<%= @start %></p>
+        <p id="end">結束時間：<%= @end %></p>
+        <p id="source">資料來源：<%= @source %></p>
+        <p id="type">資料種類：<%= @type %></p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <br>
+    <div class="row items-center">
+      <% if @posts %>
+        <% @posts.each do |post| %>
+          <div id = "post"> 
+          <% p post.author %>
+          <p>文章標題：<%= post.title %></p>
+          <p>本文：<%= post.content %></p>
+          <p>回文數：<%= post.comment_count %></p>
+          <p>發文者：
+              <% if post.author.nil? %>
+                <%= "Dcard匿名發文"  %>
+              <% else %>
+                <%= post.author %>
+              <% end %></p>
+          <p>文章發表時間：<%= post.created_at.to_s %></p>
+          <p>按讚數：<%= post.like_count %></p>
+          <p>情緒：
+              <% case post.sentiment %>
+              <% when "neutral" %>
+                <%= "中立" %> 
+              <% when "positive" %>
+                <%= "正面" %>
+              <% else %>
+                <%= "負面" %>
+              <% end %></p>
+          <p>出處：<%= post.board.name %>  文章連結：<a href="<%= post.url %>" title="前往來源文章" target="_blank" ><%= post.url %></a></p>
+            
+          </div>
+        <% end %>
+      <% end %>
+      
+      <% if @comment_tatal %>
+        <% @comment_tatal.each do |comment| %>
+          <div id = "comment">
+            文章標題：<%= comment.post.title %><br> 
+            回文內容：<%= comment.content %><br> 
+            回文數：<%= comment.post.comment_count %><br> 
+            回文者：
+              <% if comment.author.nil? %>
+                <%= "Dcard匿名回文"  %>
+              <% else %>
+                <%= comment.author %>
+              <% end %><br>
+            回文時間：<%= comment.created_at %><br> 
+            按讚數：<%= comment.like_count %><br> 
+            情緒：
+              <% case comment.sentiment %>
+              <% when "neutral" %>
+                <%= "中立" %> 
+              <% when "positive" %>
+                <%= "正面" %>
+              <% else %>
+                <%= "負面" %>
+              <% end %><br> 
+            出處：<%= comment.post.board.name %>  文章連結：<a href="<%= comment.post.url %>" title="前往回文所在文章" target="_blank"><%= comment.post.url %></a><br>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <br>
+  </div>
+</div>
