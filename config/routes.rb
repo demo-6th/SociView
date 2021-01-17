@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :queries, only: [:index] do
     collection do
       get :list
+      post :list, to: "queries#listpost"
       get :volume
       post :volume, to: "queries#volumepost"
       get :sentiment
