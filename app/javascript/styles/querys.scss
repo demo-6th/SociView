@@ -1,84 +1,105 @@
-.query_page{
-  height: calc(100vh - 150px);
-  .aside{
-    @apply w-1/6 bg-white text-black mt-1 rounded-lg;
-    .query_link{
-      @apply pl-8;
-      &:hover {
-        @apply text-white bg-blue-400 rounded-lg;
-      }
-      font-size: 1em;
-      .function{
-        @apply text-base my-1 inline-block;
-        margin: 10px;
-      }
-    }
-    .query_link_page{
-      @apply pl-8 text-white bg-blue-400 rounded-lg;
-      font-size: 1em;
-      .function{
-        @apply text-base my-1 inline-block;
-        margin: 10px;
-      }
-    }
-  }
-  .users_query_page{
-    @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll;
-    .section{
-      @apply rounded w-full;
-      .choice_page{
-        @apply flex justify-around pt-1;
-        .col-3{
-          width: 23%;
-          .theme{
-            @apply mb-1 rounded-lg bg-white;
-            box-sizing: border-box;
-            .theme_item{
-              @apply bg-blue-400 text-white text-xl text-center rounded-t-lg p-2;
-              border-bottom: 1px solid black;
+.query_page {
+    height: calc(100vh - 150px);
+    .aside {
+        @apply w-1/6 bg-white text-black mt-1 rounded-lg;
+        .query_link {
+            @apply pl-8;
+            &:hover {
+                @apply text-white bg-blue-400 rounded-lg;
             }
-            .choice_box{
-              @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg text-lg overflow-hidden overflow-scroll;
-              .choice_item{
-                .theme_text{
-                  @apply p-1;
+            font-size: 1em;
+            .function {
+                @apply text-base my-1 inline-block;
+                margin: 10px;
+            }
+        }
+        .query_link_page {
+            @apply pl-8 text-white bg-blue-400 rounded-lg;
+            font-size: 1em;
+            .function {
+                @apply text-base my-1 inline-block;
+                margin: 10px;
+            }
+        }
+    }
+    .users_query_page {
+        @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll;
+        .section {
+            @apply rounded w-full;
+            .choice_page {
+                @apply flex justify-around pt-1;
+                .col-3 {
+                    width: 23%;
+                    .theme {
+                        @apply mb-1 rounded-lg bg-white;
+                        box-sizing: border-box;
+                        .theme_item {
+                            @apply bg-blue-400 text-white text-xl text-center rounded-t-lg p-2;
+                            border-bottom: 1px solid black;
+                        }
+                        .choice_box {
+                            @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg text-lg overflow-hidden overflow-scroll;
+                            .choice_item {
+                                .theme_text {
+                                    @apply p-1;
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
-    }
-    .button_page{
-      @apply text-center;
-      .search_btn{
-        @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-600 cursor-pointer;
-        &:hover{
-          @apply bg-blue-600;
+        .button_page {
+            @apply text-center;
+            .search_btn {
+                @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-600 cursor-pointer;
+                &:hover {
+                    @apply bg-blue-600;
+                }
+            }
+            //loading效果
+            .active {
+                margin: 15px 0px;
+                width: 50px;
+                height: 50px;
+                font-size: 0;
+                color: transparent;
+                border: 5px solid #2563EB;
+                background-color: transparent;
+                border-radius: 50%;
+                outline: none;
+                border-left-color: transparent;
+                animation: rotate 1.3s ease 0.5s infinite;
+                transition: all ease 0.5s;
+            }
+            @keyframes rotate {
+                0% {
+                    transform: rotate(360deg);
+                }
+            }
         }
-      }
+        .analy_page {
+            @apply text-center;
+        }
     }
-    .analy_page{
-      @apply text-center;
-    }
-  }
 }
 
-.disable{
-  @apply hidden;
+.disable {
+    @apply hidden;
 }
-#validate_theme{
-  @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
+
+#validate_theme {
+    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
 }
 
 #validate_time {
-  @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
+    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
 }
 
-#validate_source{
-  @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
+#validate_source {
+    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
 }
 
-#validate_type{
-  @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
+#validate_type {
+    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
 }
