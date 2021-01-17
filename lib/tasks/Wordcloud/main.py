@@ -6,8 +6,8 @@ from matplotlib import pyplot as plt
 import os
 pd.options.mode.chained_assignment = None
 
-if os.path.exists("app/javascript/images/wordcloud.png"):
-  os.remove("app/javascript/images/wordcloud.png")
+if os.path.exists("app/assets/images/wordcloud.png"):
+  os.remove("app/assets/images/wordcloud.png")
 
 txt = pd.read_csv("data/cloud_text.csv",names=["id", "no_stop"])
 txt_str = ""
