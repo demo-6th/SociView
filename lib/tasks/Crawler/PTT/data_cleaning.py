@@ -48,15 +48,16 @@ comment["created_at"]  = comment["created_at"].str.replace("\n","")
 comment["created_at"] = comment.created_at.apply(comment_time)
 
 for i in range(len(comment)):
-  comment["created_at"][i] = comment.created_at[i].replace(year = post.loc[post.pid == comment.pid[i]].created_at.values[0].astype('datetime64[Y]').astype(int) + 1970)
+  try:
+    comment["created_at"][i] = comment.created_at[i].replace(year = post.loc[post.pid == comment.pid[i]].created_at.values[0].astype('datetime64[Y]').astype(int) + 1970)
+  except:
+    comment["created_at"][i] = "-"
 
-# forum.loc[forum.board_name == board_name].alias.values[0]
-
-# # clean symbols and spaces 
+# clean symbols and spaces 
 def cleaning(string):
   if type(string) == str:
     clean_txt = "".join(re.findall(r"[\u4E00-\u9FFF]",string))
-  else: 
+  else:
     clean_txt = ""
   return clean_txt
 

@@ -5,7 +5,7 @@ def get_post_content
   all_comment = []
   
   table.each do |x|
-    sleep(rand(0.5..1.2))
+    sleep(rand(0.2..0.5))
     url = x[2]
 
     # p url
@@ -42,7 +42,6 @@ def get_post_content
         comment_count = doc.css("#main-container .bbs-content .push").count
         # all post comment
         doc.css("#main-container .bbs-content .push").each do |comment|
-          sleep(rand(0.1..0.3))
           # board
           board = doc.xpath('//*[@id="topbar"]/a[2]').text
           # post_url
