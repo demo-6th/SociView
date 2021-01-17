@@ -6,8 +6,8 @@ from matplotlib import pyplot as plt
 import os
 pd.options.mode.chained_assignment = None
 
-if os.path.exists("app/javascript/images/wordcloud.png"):
-  os.remove("app/javascript/images/wordcloud.png")
+if os.path.exists("app/assets/images/wordcloud.png"):
+  os.remove("app/assets/images/wordcloud.png")
 
 txt = pd.read_csv("data/cloud_text.csv",names=["id", "no_stop"])
 txt_str = ""
@@ -23,5 +23,5 @@ if len(txt_str) < 50:
   print("資料不足")
 else:
   cloud = WordCloud(width=960, height=400,background_color='white',font_path="app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
-  cloud.to_file('app/javascript/images/wordcloud.png')
+  cloud.to_file('app/assets/images/wordcloud.png')
 
