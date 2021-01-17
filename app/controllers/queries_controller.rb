@@ -7,7 +7,7 @@ class QueriesController < ApplicationController
   def list; end
 
   def listpost
-    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
+    @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:user][:start].to_s
     @end = params[:user][:end].to_s
@@ -38,6 +38,7 @@ class QueriesController < ApplicationController
       @comment_tatal = @comments.uniq.sort_by{|x| x[:created_at]}
       @count = comment_count
     end
+    p "============================================"
   end
 
   def sentiment; end
