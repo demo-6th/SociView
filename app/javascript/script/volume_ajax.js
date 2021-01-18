@@ -18,9 +18,9 @@ document.addEventListener("turbolinks:load", () =>{
       axios.post('/queries/volume', object)
         .then(function(resp){
           const { count, count1, theme, start, end, type, source } = resp.data
+          const users_query_page = document.querySelector(".search_list")
 
-          const users_query_page = document.querySelector("#query_section")
-
+          console.log(gon.count1);
            users_query_page.innerHTML =`<div class="container">
            <div class="row">
              <div id="search" class="search_all">
@@ -32,6 +32,17 @@ document.addEventListener("turbolinks:load", () =>{
                <p id="type">資料種類： ${type} </p>
              </div>
            </div>
+         </div>
+         <div class="container">
+           <canvas id="volumePieChart" width="960px" height="400px"></canvas>
+         </div>
+         <br>
+         <div class="container">
+           <canvas id="volumeBarChart" width="960px" height="400px"></canvas>
+         </div>
+         <br>
+         <div class="container">
+           <canvas id="volumeLineChart" width="960px" height="400px"></canvas>
          </div>
          `
         })
