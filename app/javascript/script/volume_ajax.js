@@ -1,14 +1,19 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import volume_chart from "./volume.js";
 const axios = require('axios')
 =======
 >>>>>>> f81eca4 (解衝突)
+=======
+const axios = require('axios')
+>>>>>>> d6ebe17 (待修)
 document.addEventListener("turbolinks:load", () =>{
   const volume_btn = document.querySelector(".volume #analy")
   if (volume_btn) {
     volume_btn.addEventListener("click", (e)=>{
       e.preventDefault()
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
@@ -47,11 +52,14 @@ document.addEventListener("turbolinks:load", () =>{
          volume_chart(gon)
 =======
       const axios = require('axios')
+=======
+>>>>>>> d6ebe17 (待修)
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
-      axios.post('/queries/diffusion',{})
+      axios.post('/queries/volume', { token })
         .then(function(resp){
+          console.log(resp);
            const users_query_page = document.querySelector(".users_query_page")
            users_query_page.innerHTML =`<div class="container">
            <div class="row">
