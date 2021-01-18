@@ -18,7 +18,7 @@ document.addEventListener("turbolinks:load", () => {
         }
 
         if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
-            addData()
+
         } else {
             e.preventDefault();
             theme_radio_len < 1 && theme_checkbox_len < 2 ? validateremove("validate_theme") : validateadd("validate_theme");
@@ -37,14 +37,6 @@ document.addEventListener("turbolinks:load", () => {
         function validateadd(title) {
             const vld_d = document.getElementById(`${title}`)
             vld_d.classList.add("disable")
-        }
-
-        function addData(chart, label, data) {
-            chart.data.labels.push(label);
-            chart.data.datasets.forEach((dataset) => {
-                dataset.data.push(data);
-            });
-            chart.update();
         }
 
     })
