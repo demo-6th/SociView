@@ -6,6 +6,41 @@ class QueriesController < ApplicationController
 
   def list; end
 
+  def listpost
+    @theme = params[:theme]
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:user][:start].to_s
+    @end = params[:user][:end].to_s
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+    query = @theme.presence
+    if params[:post] && params[:comment]
+      search_post_only(query) 
+      search_comment_only(query) 
+      @comment_all = []
+      @posts.each do |post| 
+        post.comments.each do |comment| 
+          @comment_all << comment
+        end
+      end
+      @comment_all = @comment_all.select { |post_comment| post_comment.created_at >= @start and post_comment.created_at <= @end}
+      @comment_all += @comments
+      @comment_tatal = @comment_all.uniq.sort_by{|x| x[:created_at]}
+      post_count = @posts.count
+      comment_count = @comment_tatal.count
+      @count = post_count + comment_count
+    elsif params[:post] && !params[:comment]
+      search_post_only(query)
+      post_count = @posts.count
+      @count = post_count
+    else
+      search_comment_only(query)
+      comment_count = @comments.count
+      @comment_tatal = @comments.uniq.sort_by{|x| x[:created_at]}
+      @count = comment_count
+    end
+    p "============================================"
+  end
+
   def sentiment; end
 
   def sentpost
@@ -163,4 +198,12 @@ class QueriesController < ApplicationController
   end
 
   def diffusion; end
+
+  private
+  def search_post_only(query)
+    @posts = Post.search query,fields: [:title, :content], misspellings: false,where: {created_at: {gte: @start, lte: @end}},order: {created_at: {order: "asc"}}
+  end
+  def search_comment_only(query)
+    @comments = Comment.search query,fields: [:content], misspellings: false,where: {created_at: {gte: @start, lte: @end}}
+  end
 end

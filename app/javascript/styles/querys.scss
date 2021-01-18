@@ -103,3 +103,14 @@
 #validate_type {
     @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
 }
+
+#post { 
+    padding: 15px 15px 15px 15px;
+    box-sizing: border-box;
+    border: 3px red double;
+  }
+  #comment { 
+    padding: 15px 15px 15px 15px;
+    box-sizing: border-box;
+    border: 3px green double;
+  }
