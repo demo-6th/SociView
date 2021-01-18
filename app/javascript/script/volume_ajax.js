@@ -1,15 +1,16 @@
+const axios = require('axios')
 document.addEventListener("turbolinks:load", () =>{
   const volume_btn = document.querySelector(".volume #analy")
   if (volume_btn) {
     volume_btn.addEventListener("click", (e)=>{
       e.preventDefault()
 
-      const axios = require('axios')
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
-      axios.post('/queries/diffusion',{})
+      axios.post('/queries/volume', { token })
         .then(function(resp){
+          console.log(resp);
            const users_query_page = document.querySelector(".users_query_page")
            users_query_page.innerHTML =`<div class="container">
            <div class="row">
