@@ -1,6 +1,5 @@
 def update_boards()
   data_boards = CSV.read("#{Rails.root}/lib/tasks/Crawler/PTT/boards_url.csv")
-
   data_boards.each do |arr|
     colums = [:name, :alias, :source_id]
     values = [[arr[2], arr[3], 2]]
@@ -23,7 +22,6 @@ def csv_to_psql()
 
   data_comments.each do |arr|
     comment_colums = [:alias, :url, :author, :created_at, :content, :pid, :clean,:token,:no_stop, :keyword, :sentiment]
-
     comment_values = [[arr[1],arr[2],arr[3],arr[4], arr[5],arr[6],arr[7],arr[8],arr[9],arr[10],arr[11]]]
 
     Comment.import comment_colums, comment_values, validate: false

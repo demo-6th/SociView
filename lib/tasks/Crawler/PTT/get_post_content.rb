@@ -22,7 +22,7 @@ def get_post_content
 
       # post title 
       post_title = doc.xpath('//*[@id="main-content"]/div[3]/span[2]').text
-
+  
       # post time
       created_at = doc.xpath('//*[@id="main-content"]/div[4]/span[2]').text
 
