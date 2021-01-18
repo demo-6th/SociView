@@ -1,8 +1,9 @@
 <div class="aside">
   <% if current_page?(list_queries_path) %> 
   <div class="query_link query_link_page">
-    <%= link_to '文章列表', list_queries_path, class:"function " %>
-    <i class="fas fa-list-alt"></i>
+    <%= link_to 'list_queries_path', class: "flex" do %>
+    <p>文章列表</p><i class="fas fa-list-alt"></i>
+    <% end %>
   </div>
   <% else %> 
   <div class="query_link">
