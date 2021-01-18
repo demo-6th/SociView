@@ -186,6 +186,9 @@ class QueriesController < ApplicationController
       gon.result2 = @comment_result2
     end
     gon.count2 = @count2
+    gon.count1 = @count1
+
+    render json: 'hiiiiiiii'
   end
 
   def topic; end
