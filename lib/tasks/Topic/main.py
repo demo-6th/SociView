@@ -13,7 +13,7 @@ if os.path.exists("app/views/shared/_ldavis.html"):
 data = pd.read_csv("data/topic_text.csv",names=["id", "token"])
 
 if len(data.token) < 100:
-  print("資料太少")
+  print("您所選擇區間資料過少，請重新選擇")
 else:
   count_vec = CountVectorizer(max_df = 0.85, min_df = 2) 
   data_cv = count_vec.fit_transform(data["token"].dropna().values.astype('U')) 
