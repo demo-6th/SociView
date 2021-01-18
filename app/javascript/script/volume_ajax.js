@@ -17,20 +17,23 @@ document.addEventListener("turbolinks:load", () =>{
 
       axios.post('/queries/volume', object)
         .then(function(resp){
-          console.log(resp);
+          const { count, count1, theme, start, end, type, source } = resp.data
+
           const users_query_page = document.querySelector("#query_section")
+
            users_query_page.innerHTML =`<div class="container">
            <div class="row">
              <div id="search" class="search_all">
-               <p id="count">查詢結果：<%= @count + @count1 %>筆</p>
-               <p id="theme">查詢主題：<%= @theme %></p>
-               <p id="start">起始時間：<%= @start %></p>
-               <p id="end">結束時間：<%= @end %></p>
-               <p id="source">資料來源：<%= @source %></p>
-               <p id="type">資料種類：<%= @type %></p>
+               <p id="count">查詢結果： ${count + count1} 筆</p>
+               <p id="theme">查詢主題： ${theme} </p>
+               <p id="start">起始時間： ${start} </p>
+               <p id="end">結束時間： ${end} </p>
+               <p id="source">資料來源： ${source} </p>
+               <p id="type">資料種類： ${type} </p>
              </div>
            </div>
-         </div>`
+         </div>
+         `
         })
         .catch(function(err){
           console.log(err);
