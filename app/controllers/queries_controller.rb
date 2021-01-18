@@ -44,8 +44,8 @@ class QueriesController < ApplicationController
     # pass value down to api action
     @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date
-    @end = params[:user][:end].to_date
+    @start = params[:start].to_date
+    @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
@@ -89,8 +89,6 @@ class QueriesController < ApplicationController
       gon.result1 = @comment1_result
     end
     gon.count1 = @count1
-
-    render json: 'hiiiiiiii'
   end
 
   def topic; end

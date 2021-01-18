@@ -8,10 +8,17 @@ document.addEventListener("turbolinks:load", () =>{
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
-      axios.post('/queries/volume', { token })
+      var formEl = document.forms.hello
+      var formData = new FormData(formEl);
+      var object = {};
+      formData.forEach(function (value, key) {
+        object[key] = value;
+      });
+
+      axios.post('/queries/volume', object)
         .then(function(resp){
           console.log(resp);
-           const users_query_page = document.querySelector(".users_query_page")
+          const users_query_page = document.querySelector("#query_section")
            users_query_page.innerHTML =`<div class="container">
            <div class="row">
              <div id="search" class="search_all">
