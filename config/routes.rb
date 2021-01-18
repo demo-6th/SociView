@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get :wordcloud
       post :wordcloud, to: "queries#cloudpost"
       get :diffusion
+      post :diffusion, to: "queries#diffusionpost"
     end
   end
 

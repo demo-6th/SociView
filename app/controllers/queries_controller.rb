@@ -163,4 +163,7 @@ class QueriesController < ApplicationController
   end
 
   def diffusion; end
+
+  def diffusionpost
+  end
 end
