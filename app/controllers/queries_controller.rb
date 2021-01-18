@@ -84,46 +84,67 @@ class QueriesController < ApplicationController
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
-    @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
-    @comment_result = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
+    @post_result1 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
+    @comment_result1 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
 
     #theme2
-    @post1_result = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%")
-    @comment1_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
+    @post_result2 = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%")
+    @comment_result2 = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
+
+    #theme3
+    @post_result3 = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[2]}%", "%#{@theme[2]}%")
+    @comment_result3 = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[2]}%", "%#{@theme[2]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[2]}%"))
 
     # 計算符合搜尋條件的資料筆數
     gon.start = @start
     gon.end = @end
-    gon.theme = @theme[0]
-    gon.theme1 = @theme[1]
-    post_count = @post_result.count
-    comment_count = @comment_result.count
-    post1_count = @post1_result.count
-    comment1_count = @comment1_result.count
+    gon.theme1 = @theme[0]
+    gon.theme2 = @theme[1]
+    gon.theme3 = @theme[2]
+    post_count1 = @post_result1.count
+    comment_count1 = @comment_result1.count
+    post_count2 = @post_result2.count
+    comment_count2 = @comment_result2.count
+    post_count3 = @post_result3.count
+    comment_count3 = @comment_result3.count
 
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      gon.result = @post_result + @comment_result
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      gon.result = @post_result
-    else
-      @count = comment_count
-      gon.result = @comment_result
-    end
-    gon.count = @count
     #待改進
     if params[:post] && params[:comment]
-      @count1 = post1_count + comment1_count
-      gon.result1 = @post1_result + @comment1_result
+      @count1 = post_count1 + comment_count1
+      gon.result1 = @post_result1 + @comment_result1
     elsif params[:post] && !params[:comment]
-      @count1 = post1_count
-      gon.result1 = @post1_result
+      @count1 = post_count1
+      gon.result1 = @post_result1
     else
-      @count1 = comment1_count
-      gon.result1 = @comment1_result
+      @count1 = comment_count1
+      gon.result1 = @comment_result1
     end
     gon.count1 = @count1
+    #待改進
+    if params[:post] && params[:comment]
+      @count2 = post_count2 + comment_count2
+      gon.result2 = @post_result2 + @comment_result2
+    elsif params[:post] && !params[:comment]
+      @count2 = post_count2
+      gon.result2 = @post_result2
+    else
+      @count2 = comment_count2
+      gon.result2 = @comment_result2
+    end
+    gon.count2 = @count2
+
+    #待改進
+    if params[:post] && params[:comment]
+      @count3 = post_count3 + comment_count3
+      gon.result3 = @post_result3 + @comment_result3
+    elsif params[:post] && !params[:comment]
+      @count3 = post_count3
+      gon.result3 = @post_result3
+    else
+      @count3 = comment_count3
+      gon.result3 = @comment_result3
+    end
+    gon.count3 = @count3
   end
 
   def topic; end
