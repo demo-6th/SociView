@@ -16,11 +16,15 @@ board = pd.read_csv("lib/tasks/Crawler/PTT/boards_url.csv", names = ["url"])
 post = pd.read_csv("lib/tasks/Crawler/PTT/post_content.csv", names = ["alias","url","author","title", "created_at", "comment_count","content"])
 comment = pd.read_csv("lib/tasks/Crawler/PTT/comment_content.csv", names = ["alias", "url", "author", "created_at","content"])
 
+# drop 欄位對不上的資料
+post = post.dropna()
+comment = comment.dropna()
+
 # board: url name alias 
 board["name"] = board["url"].str.replace("https://www.ptt.cc//bbs/", "")
 board["name"] = board["name"].str.replace("/index.html","")
 board["alias"] = board["name"]
-# board["source"] = 2
+board["source"] = 2
 
 # post:  alias pid 
 post["alias"] = post["alias"].str.replace("看板 ","")
@@ -30,13 +34,13 @@ def post_time(string):
   try:
     return datetime.strptime(string,"%a %b %d %H:%M:%S %Y")
   except:
-    return "-"
+    return ""
 
 def comment_time(string):
   try:
     return datetime.strptime(string,"%m/%d %H:%M")
   except:
-    return "-"
+    return ""
 
 post["created_at"] = post.created_at.apply(post_time)
 
@@ -47,11 +51,15 @@ comment["created_at"] = comment["created_at"].str.strip(" ")
 comment["created_at"]  = comment["created_at"].str.replace("\n","")
 comment["created_at"] = comment.created_at.apply(comment_time)
 
+print(len(comment))
+# 把comment的年份換成他主文的發文日期年份
 for i in range(len(comment)):
   try:
     comment["created_at"][i] = comment.created_at[i].replace(year = post.loc[post.pid == comment.pid[i]].created_at.values[0].astype('datetime64[Y]').astype(int) + 1970)
   except:
-    comment["created_at"][i] = "-"
+    # print(comment["created_at"][i])
+    comment["created_at"][i] = ""
+    
 
 # clean symbols and spaces 
 def cleaning(string):
@@ -136,7 +144,7 @@ post["sentiment"] = post.token.progress_apply(sentiment)
 tqdm.pandas(desc="comment_sentiment loading... ")
 comment["sentiment"] = comment.token.progress_apply(sentiment)
 
-# save as csv
+# # save as csv
 board.to_csv("lib/tasks/Crawler/PTT/boards_url.csv",header=False)
 post.to_csv("lib/tasks/Crawler/PTT/post_content.csv",header=False)
 comment.to_csv("lib/tasks/Crawler/PTT/comment_content.csv",header=False)
