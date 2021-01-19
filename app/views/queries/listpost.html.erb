@@ -14,14 +14,9 @@
   </div>
   <div class="container">
     <br>
-
-bands.with_highlights.each do |band, highlights|
-  highlights[:name] # "Two Door <em>Cinema</em> Club"
-end
-
     <div class="row items-center">
-      <% if @posts %>
-        <% @posts.each do |post,highlights| %>
+      <% if @posts%>
+        <% @posts.each do |post| %>
           <div id = "post"> 
           <p>文章來源：<%= post.board.source_id %></p>
           <p>文章標題：<%= post.title %></p>
@@ -49,8 +44,8 @@ end
         <% end %>
       <% end %>
       
-      <% if @comment_tatal %>
-        <% @comment_tatal.each do |comment| %>
+      <% if @comment_total %>
+        <% @comment_total.each do |comment| %>
           <div id = "comment">
             文章來源：<%= comment.post.board.source_id %><br> 
             文章標題：<%= comment.post.title %><br> 
