@@ -20,7 +20,7 @@ for i in range(len(txt)):
     continue
 
 if len(txt_str) < 50:
-  print("資料不足")
+  print("您所選擇區間資料過少，請重新選擇")
 else:
   cloud = WordCloud(width=960, height=400,background_color='white',font_path="app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
   cloud.to_file('app/assets/images/wordcloud.png')
