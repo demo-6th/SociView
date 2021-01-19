@@ -10,16 +10,25 @@ class QueriesController < ApplicationController
     # @theme = params[:theme]
     @theme = "蝙蝠俠"
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_s
-    @end = params[:user][:end].to_s
+    @start = params[:user][:start].to_date.midnight.to_s
+    @end = params[:user][:end].to_date.end_of_day.to_s
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-    
-    @posts = Post.ransack(title_or_content_cont: @theme ).result
-    @comment_total = Comment.ransack(content_cont: @theme ).result
+    # @posts = Post.ransack(title_or_content_cont: @theme ).result
+    # @comment_total = Comment.ransack(content_cont: @theme ).result
+    #以上為ok
+    @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start, created_at_lteq_any: @end ).result
+    @comment_total = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start, created_at_lteq_any: @end).result
+p "=========start=========="
+p @start.class
+# p @end.end_of_day
+p "==================="
+# p 
+# p "==================="
+# p "==================="
 
-   @count = @posts.count + @comment_total.count
-
-
+    @count = @posts.count + @comment_total.count
+    # created_at_lteq_any:	@start
+    # created_at_gteq_any:	@end
   end
 
   def sentiment; end
