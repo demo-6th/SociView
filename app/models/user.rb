@@ -5,15 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
-  validates :email, presence: true
-  # uniqueness: true
   # validates :nickname, presence: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.provider = auth.provider # 登入資訊1
-      user.uid = auth.uid           # 登入資訊2
       user.email = auth.info.email
+      user.nickname = auth.info.name
       user.password = Devise.friendly_token[0, 20]
     end
   end
