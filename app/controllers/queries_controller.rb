@@ -185,13 +185,8 @@ class QueriesController < ApplicationController
     end
     gon.count2 = @count2
     gon.count1 = @count1
-
-<<<<<<< HEAD
-
+    
     render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
-=======
-    render json: 'hiiiiiiii'
->>>>>>> d6ebe17 (待修)
   end
 
   def topic; end
@@ -268,10 +263,6 @@ class QueriesController < ApplicationController
   def diffusion; end
 
   def diffusionpost
-<<<<<<< HEAD
-    
-=======
->>>>>>> f81eca4 (解衝突)
   end
 
   private
@@ -282,8 +273,5 @@ class QueriesController < ApplicationController
 
   def search_comment_only(query)
     @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
-<<<<<<< HEAD
   end
-=======
->>>>>>> f81eca4 (解衝突)
 end
