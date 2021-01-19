@@ -88,20 +88,8 @@
     @apply hidden;
 }
 
-#validate_theme {
-    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
-}
-
-#validate_time {
-    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
-}
-
-#validate_source {
-    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
-}
-
-#validate_type {
-    @apply text-red-600 font-bold bg-red-200 w-full rounded-lg text-center;
+.alert{
+    @apply text-red-600 font-bold bg-red-200 w-full rounded-b-lg text-center;
 }
 
 #post { 
@@ -109,7 +97,7 @@
     box-sizing: border-box;
     border: 3px red double;
   }
-  #comment { 
+#comment { 
     padding: 15px 15px 15px 15px;
     box-sizing: border-box;
     border: 3px green double;

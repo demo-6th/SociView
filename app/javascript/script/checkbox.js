@@ -29,12 +29,14 @@ document.addEventListener("turbolinks:load", () => {
         function validateremove(title) {
             const vld_d = document.getElementById(`${title}`)
             vld_d.classList.remove("disable")
+            vld_d.classList.add("alert")
             btn.classList.add("search_btn")
             btn.classList.remove("active")
         }
 
         function validateadd(title) {
             const vld_d = document.getElementById(`${title}`)
+            vld_d.classList.remove("alert")
             vld_d.classList.add("disable")
         }
     })
