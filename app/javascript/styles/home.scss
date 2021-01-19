@@ -48,7 +48,8 @@
         width: 20%;
         position: relative;
         .shadow_card{
-          @apply max-w-sm rounded-lg shadow-lg h-48;
+          @apply max-w-sm rounded-lg shadow-lg h-52;
+          box-sizing: border-box;
           .card_bg{
             .img{
               @apply w-full h-full;
@@ -58,10 +59,10 @@
               position: absolute;
               top: 45%;
               right: -25%;
-
             }
           }
           .card_text{
+            @apply m-3;
           }
           
         }
