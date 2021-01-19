@@ -23,11 +23,12 @@ comment = comment.dropna()
 # board: url name alias 
 board["name"] = board["url"].str.replace("https://www.ptt.cc//bbs/", "")
 board["name"] = board["name"].str.replace("/index.html","")
-board["alias"] = board["name"]
+board["alias"] = 'ptt_' + board["name"].str[:]
+board["name"] = board["alias"]
 board["source"] = 2
 
 # post:  alias pid 
-post["alias"] = post["alias"].str.replace("看板 ","")
+post["alias"] = post["alias"].str.replace("看板 ","ptt_")
 post["pid"] = post["url"].str.extract(r'M\.(.*?)\.A')
 
 def post_time(string):
@@ -45,7 +46,7 @@ def comment_time(string):
 post["created_at"] = post.created_at.apply(post_time)
 
 #comment 
-comment["alias"] = comment["alias"].str.replace("看板 ","")
+comment["alias"] = comment["alias"].str.replace("看板 ","ptt_")
 comment["pid"] = comment["url"].str.extract(r'M\.(.*?)\.A')
 comment["created_at"] = comment["created_at"].str.strip(" ")
 comment["created_at"]  = comment["created_at"].str.replace("\n","")
@@ -144,7 +145,7 @@ post["sentiment"] = post.token.progress_apply(sentiment)
 tqdm.pandas(desc="comment_sentiment loading... ")
 comment["sentiment"] = comment.token.progress_apply(sentiment)
 
-# # save as csv
+# save as csv
 board.to_csv("lib/tasks/Crawler/PTT/boards_url.csv",header=False)
 post.to_csv("lib/tasks/Crawler/PTT/post_content.csv",header=False)
 comment.to_csv("lib/tasks/Crawler/PTT/comment_content.csv",header=False)
