@@ -10,25 +10,49 @@ class QueriesController < ApplicationController
     # @theme = params[:theme]
     @theme = "蝙蝠俠"
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date.midnight.to_s
-    @end = params[:user][:end].to_date.end_of_day.to_s
+    @start = params[:user][:start].to_date
+    @start_time = params[:user][:start].to_date.midnight.to_s
+    @end = params[:user][:end].to_date
+    @end_time = params[:user][:end].to_date.end_of_day.to_s
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-    # @posts = Post.ransack(title_or_content_cont: @theme ).result
-    # @comment_total = Comment.ransack(content_cont: @theme ).result
-    #以上為ok
-    @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start, created_at_lteq_any: @end ).result
-    @comment_total = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start, created_at_lteq_any: @end).result
-p "=========start=========="
-p @start.class
-# p @end.end_of_day
-p "==================="
-# p 
-# p "==================="
-# p "==================="
+    
+    if params[:dcard] && params[:ptt] #同時搜尋Dcard & PTT
+      if params[:post] && params[:comment] #同時找Post & Comment
+        @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result
+        @comments = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result.sort_by{|x| x[:created_at]}
+      elsif params[:post] && !params[:comment]  #只找Post
+        @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result
+      else #只找Comment
+        @comments = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result.sort_by{|x| x[:created_at]}
+      end
+    elsif params[:dcard] && !params[:ptt] #只找Dcard
+      @source_id = 1
+      if params[:post] && params[:comment] #同時找Post & Comment
+        @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result
+        @comments = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,board_source_id_eq: @source_id).result.sort_by{|x| x[:created_at]}
+      elsif params[:post] && !params[:comment]  #只找Post
+        @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result
+      else  #只找Comment
+        @comments = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,board_source_id_eq: @source_id).result.sort_by{|x| x[:created_at]}
+      end
+    else #只找PTT
+      @source_id = 2
+      if params[:post] && params[:comment] #同時找Post & Comment
+        @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result
+        @comments = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,board_source_id_eq: @source_id).result.sort_by{|x| x[:created_at]}
+      elsif params[:post] && !params[:comment] #只找Post
+        @posts = Post.ransack(title_or_content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result
+      else #只找Comment
+        @comments = Comment.ransack(content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,board_source_id_eq: @source_id).result.sort_by{|x| x[:created_at]}
+      end
+    end
+    
 
+    @comment_post = Comment.ransack(post_title_or_post_content_cont: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,board_source_id_eq: @source_id).result.sort_by{|x| x[:created_at]}
+    @comment_all = @comment_post + @comments 
+p "=========start=========="
     @count = @posts.count + @comment_total.count
-    # created_at_lteq_any:	@start
-    # created_at_gteq_any:	@end
+  
   end
 
   def sentiment; end
