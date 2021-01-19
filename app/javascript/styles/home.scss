@@ -39,9 +39,13 @@
       .col-3{
         width: 20%;
         .shadow_card{
-          @apply max-w-sm rounded-lg overflow-hidden shadow-lg;
+          @apply max-w-sm rounded-lg overflow-hidden shadow-lg h-48;
           .card_bg{
             @apply overflow-hidden;
+            .img{
+              @apply w-full;
+              @apply h-full;
+            }
           }
           .card_text{
           }
