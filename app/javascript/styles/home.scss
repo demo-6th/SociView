@@ -48,7 +48,7 @@
         width: 20%;
         position: relative;
         .shadow_card{
-          @apply max-w-sm rounded-lg shadow-lg h-52;
+          @apply max-w-sm rounded-lg shadow-lg;
           box-sizing: border-box;
           .card_bg{
             .img{
@@ -62,7 +62,7 @@
             }
           }
           .card_text{
-            @apply m-3;
+            @apply m-3 pb-3;
           }
           
         }
