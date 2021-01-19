@@ -1,11 +1,15 @@
+<<<<<<< HEAD
 import volume_chart from "./volume.js";
 const axios = require('axios')
+=======
+>>>>>>> f81eca4 (解衝突)
 document.addEventListener("turbolinks:load", () =>{
   const volume_btn = document.querySelector(".volume #analy")
   if (volume_btn) {
     volume_btn.addEventListener("click", (e)=>{
       e.preventDefault()
 
+<<<<<<< HEAD
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
@@ -41,6 +45,27 @@ document.addEventListener("turbolinks:load", () =>{
            <canvas id="volumeLineChart" width="960px" height="400px"></canvas>
          </div>`
          volume_chart(gon)
+=======
+      const axios = require('axios')
+      const token = document.querySelector('[name=csrf-token]').content
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = token
+
+      axios.post('/queries/diffusion',{})
+        .then(function(resp){
+           const users_query_page = document.querySelector(".users_query_page")
+           users_query_page.innerHTML =`<div class="container">
+           <div class="row">
+             <div id="search" class="search_all">
+               <p id="count">查詢結果：<%= @count + @count1 %>筆</p>
+               <p id="theme">查詢主題：<%= @theme %></p>
+               <p id="start">起始時間：<%= @start %></p>
+               <p id="end">結束時間：<%= @end %></p>
+               <p id="source">資料來源：<%= @source %></p>
+               <p id="type">資料種類：<%= @type %></p>
+             </div>
+           </div>
+         </div>`
+>>>>>>> f81eca4 (解衝突)
         })
         .catch(function(err){
           console.log(err);
