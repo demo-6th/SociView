@@ -34,8 +34,7 @@ gem "omniauth-google-oauth2", "~> 0.8.1"
 gem "figaro", "~> 1.2"
 gem "activerecord-import", "~> 1.0", ">= 1.0.7"
 gem "gon", "~> 6.1"
-gem 'searchkick', '~> 4.4', '>= 4.4.2'
-gem 'kaminari', '~> 0.17.0'
+gem 'ransack', '~> 2.4.1'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
