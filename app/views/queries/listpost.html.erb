@@ -14,11 +14,16 @@
   </div>
   <div class="container">
     <br>
+
+bands.with_highlights.each do |band, highlights|
+  highlights[:name] # "Two Door <em>Cinema</em> Club"
+end
+
     <div class="row items-center">
       <% if @posts %>
-        <% @posts.each do |post| %>
+        <% @posts.each do |post,highlights| %>
           <div id = "post"> 
-          <% p post.author %>
+          <p>文章來源：<%= post.board.source_id %></p>
           <p>文章標題：<%= post.title %></p>
           <p>本文：<%= post.content %></p>
           <p>回文數：<%= post.comment_count %></p>
@@ -28,7 +33,7 @@
               <% else %>
                 <%= post.author %>
               <% end %></p>
-          <p>文章發表時間：<%= post.created_at.to_s %></p>
+          <p>文章發表時間：<%= post.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %></p>
           <p>按讚數：<%= post.like_count %></p>
           <p>情緒：
               <% case post.sentiment %>
@@ -47,6 +52,7 @@
       <% if @comment_tatal %>
         <% @comment_tatal.each do |comment| %>
           <div id = "comment">
+            文章來源：<%= comment.post.board.source_id %><br> 
             文章標題：<%= comment.post.title %><br> 
             回文內容：<%= comment.content %><br> 
             回文數：<%= comment.post.comment_count %><br> 
@@ -56,7 +62,7 @@
               <% else %>
                 <%= comment.author %>
               <% end %><br>
-            回文時間：<%= comment.created_at %><br> 
+            回文時間：<%= comment.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %><br> 
             按讚數：<%= comment.like_count %><br> 
             情緒：
               <% case comment.sentiment %>

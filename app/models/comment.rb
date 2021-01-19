@@ -1,6 +1,6 @@
 class Comment < ApplicationRecord
   belongs_to :post, foreign_key: "pid", primary_key: "pid"
-  searchkick callbacks: :async
+  searchkick
   scope :search_import, -> { includes(:post) }
   def search_data
     {

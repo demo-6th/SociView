@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :board, foreign_key: "alias", primary_key: "alias"
   has_many :comments, foreign_key: "pid", primary_key: "pid"
-  searchkick
+  searchkick language: "chinese"
   scope :search_import, -> { includes(:board, :comments) }
   def search_data
     {

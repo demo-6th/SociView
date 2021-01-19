@@ -12,7 +12,16 @@ class QueriesController < ApplicationController
     @start = params[:user][:start].to_s
     @end = params[:user][:end].to_s
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-    query = @theme.presence
+    # query = @theme.presence
+    query = ["五倍紅寶石"]
+    if params[:dcard] && params[:ptt]
+      @source_id = nil
+    elsif params[:dcard] && !params[:ptt]
+      @source_id = 1
+    else
+      @source_id = 2
+    end
+    
     if params[:post] && params[:comment]
       search_post_only(query) 
       search_comment_only(query) 
@@ -25,20 +34,24 @@ class QueriesController < ApplicationController
       @comment_all = @comment_all.select { |post_comment| post_comment.created_at >= @start and post_comment.created_at <= @end}
       @comment_all += @comments
       @comment_tatal = @comment_all.uniq.sort_by{|x| x[:created_at]}
+      @comment_tatal = @comment_tatal.select { |comment| comment.post.board.source_id == @source_id } if @source_id
+      @posts = @posts.select { |post| post.board.source_id == @source_id } if @source_id
       post_count = @posts.count
       comment_count = @comment_tatal.count
       @count = post_count + comment_count
     elsif params[:post] && !params[:comment]
       search_post_only(query)
+      @posts = @posts.select { |post| post.board.source_id == @source_id } if @source_id
       post_count = @posts.count
       @count = post_count
     else
       search_comment_only(query)
       comment_count = @comments.count
       @comment_tatal = @comments.uniq.sort_by{|x| x[:created_at]}
+      @comment_tatal = @comment_tatal.select { |comment| comment.post.board.source_id == @source_id } if @source_id
       @count = comment_count
     end
-    p "============================================"
+    total = @post + @comment_tatal
   end
 
   def sentiment; end
@@ -200,10 +213,15 @@ class QueriesController < ApplicationController
   def diffusion; end
 
   private
+  # def search_post_only(query)
+  #   @posts = Post.search query,fields: [:title, :content], misspellings: false, operator: "or",where: {created_at: {gte: @start, lte: @end}},order: {created_at: {order: "asc"}}
+  # end
+
   def search_post_only(query)
-    @posts = Post.search query,fields: [:title, :content], misspellings: false,where: {created_at: {gte: @start, lte: @end}},order: {created_at: {order: "asc"}}
+    @posts = Post.ransack(title_content_cont_any: %w[5xruby camp]).result
   end
+
   def search_comment_only(query)
-    @comments = Comment.search query,fields: [:content], misspellings: false,where: {created_at: {gte: @start, lte: @end}}
+    @comments = Comment.search query,fields: [:content], misspellings: false, operator: "or",where: {created_at: {gte: @start, lte: @end}}
   end
 end
