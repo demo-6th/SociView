@@ -7,51 +7,19 @@ class QueriesController < ApplicationController
   def list; end
 
   def listpost
-    @theme = params[:theme]
+    # @theme = params[:theme]
+    @theme = "蝙蝠俠"
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:user][:start].to_s
     @end = params[:user][:end].to_s
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-    # query = @theme.presence
-    query = ["蝙蝠俠"]
-    if params[:dcard] && params[:ptt]
-      @source_id = nil
-    elsif params[:dcard] && !params[:ptt]
-      @source_id = 1
-    else
-      @source_id = 2
-    end
     
-    if params[:post] && params[:comment]
-      search_post_only(query) 
-      search_comment_only(query) 
-      @comment_all = []
-      @posts.each do |post| 
-        post.comments.each do |comment| 
-          @comment_all << comment
-        end
-      end
-      @comment_all = @comment_all.select { |post_comment| post_comment.created_at >= @start and post_comment.created_at <= @end}
-      @comment_all += @comments
-      @comment_tatal = @comment_all.uniq.sort_by{|x| x[:created_at]}
-      @comment_tatal = @comment_tatal.select { |comment| comment.post.board.source_id == @source_id } if @source_id
-      @posts = @posts.select { |post| post.board.source_id == @source_id } if @source_id
-      post_count = @posts.count
-      comment_count = @comment_tatal.count
-      @count = post_count + comment_count
-    elsif params[:post] && !params[:comment]
-      search_post_only(query)
-      @posts = @posts.select { |post| post.board.source_id == @source_id } if @source_id
-      post_count = @posts.count
-      @count = post_count
-    else
-      search_comment_only(query)
-      comment_count = @comments.count
-      @comment_tatal = @comments.uniq.sort_by{|x| x[:created_at]}
-      @comment_tatal = @comment_tatal.select { |comment| comment.post.board.source_id == @source_id } if @source_id
-      @count = comment_count
-    end
-    # total = @post + @comment_tatal
+    @posts = Post.ransack(title_or_content_cont: @theme ).result
+    @comment_total = Comment.ransack(content_cont: @theme ).result
+
+   @count = @posts.count + @comment_total.count
+
+
   end
 
   def sentiment; end
@@ -212,19 +180,4 @@ class QueriesController < ApplicationController
 
   def diffusion; end
 
-  private
-  def search_post_only(query)
-    @posts = Post.search query,fields: [:title, :content], match: :phrase , operator: "or",where: {created_at: {gte: @start, lte: @end}},order: {created_at: {order: "asc"}}
-  end
-  # def search_post_only(query)
-  #   @posts = Post.search query,fields: [:title, :content], misspellings: false, operator: "or",where: {created_at: {gte: @start, lte: @end}},order: {created_at: {order: "asc"}}
-  # end
-
-  # def search_post_only(query)
-  #   @posts = Post.ransack(title_content_cont_any: %w[5xruby camp]).result
-  # end
-
-  def search_comment_only(query)
-    @comments = Comment.search query,fields: [:content], misspellings: false, operator: "or",where: {created_at: {gte: @start, lte: @end}}
-  end
 end
