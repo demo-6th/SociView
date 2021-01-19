@@ -60,7 +60,7 @@ document.addEventListener("turbolinks:load", () => {
                 labels: [theme1, theme2],
                 datasets: [{
                     data: [count1, count2],
-                    backgroundColor: ["rgba(60,225,120,1)", "rgb(220,70,70,1)"],
+                    backgroundColor: ["rgba(75,192,192,1)", "rgba(255,99,132,1)"],
                 }, ],
             },
             options: {
@@ -70,7 +70,7 @@ document.addEventListener("turbolinks:load", () => {
                 },
             },
         });
-        (theme3 == null) ? "" : addData(pieChart, theme3, count3, "rgba(54, 162, 235, 1)")
+        (theme3 == null) ? "" : addData(pieChart, theme3, count3, "rgba(58,164,235,1)")
 
         // bar chart
         const ctx_bar = document.getElementById("volumeBarChart").getContext("2d");
@@ -80,7 +80,7 @@ document.addEventListener("turbolinks:load", () => {
                 labels: [theme1, theme2],
                 datasets: [{
                     data: [count1, count2],
-                    backgroundColor: ["rgba(60,225,120,0.5)", "rgb(220,70,70,0.5)"],
+                    backgroundColor: ["rgba(75,192,192,0.5)", "rgba(255,99,132,0.5)"],
                 }, ],
             },
             options: {
@@ -103,7 +103,7 @@ document.addEventListener("turbolinks:load", () => {
                 },
             },
         });
-        (theme3 == null) ? "" : addData(barChart, theme3, count3, "rgba(54, 162, 235, 0.5)")
+        (theme3 == null) ? "" : addData(barChart, theme3, count3, "rgba(58,164,235,0.5)")
 
         // line chart
         const ctx_line = document
@@ -118,16 +118,16 @@ document.addEventListener("turbolinks:load", () => {
                         data: Object.values(count_line1),
                         borderWidth: 1,
                         pointRadius: 5,
-                        borderColor: "rgba(60,225,120,1)",
-                        backgroundColor: "rgba(60,225,120,0.2)",
+                        borderColor: "rgba(75,192,192,1)",
+                        backgroundColor: "rgba(75,192,192,0.2)",
                     },
                     {
                         label: theme2,
                         data: Object.values(count_line2),
                         borderWidth: 1,
                         pointRadius: 5,
-                        borderColor: "rgba(220,70,70,1)",
-                        backgroundColor: "rgb(220,70,70,0.2)",
+                        borderColor: "rgba(255,99,132,1)",
+                        backgroundColor: "rgba(255,99,132,0.2)",
                     },
                 ],
             },
@@ -167,8 +167,8 @@ document.addEventListener("turbolinks:load", () => {
             'data': data,
             'borderWidth': 1,
             'pointRadius': 5,
-            'borderColor': "rgba(54, 162, 235, 1)",
-            'backgroundColor': "rgba(54, 162, 235, 0.2)"
+            'borderColor': "rgba(58,164,235,1)",
+            'backgroundColor': "rgba(58,164,235,0.2)"
         }
         chart.data.datasets.push(line3);
         chart.update();
