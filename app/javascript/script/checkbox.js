@@ -17,10 +17,11 @@ document.addEventListener("turbolinks:load", () => {
             }
         }
 
-        if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {} else {
+        if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
+
+        } else {
             e.preventDefault();
-            document.querySelector
-            theme_radio_len < 1 && theme_checkbox_len < 1 ? validateremove("validate_theme") : validateadd("validate_theme");
+            theme_radio_len < 1 && theme_checkbox_len < 2 ? validateremove("validate_theme") : validateadd("validate_theme");
             time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
             source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
             type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
@@ -37,6 +38,7 @@ document.addEventListener("turbolinks:load", () => {
             const vld_d = document.getElementById(`${title}`)
             vld_d.classList.add("disable")
         }
+
     })
 
     //套件預設不可滑動頁面，使用absolute定位，render進來後造成文字錯位
@@ -52,14 +54,13 @@ document.addEventListener("turbolinks:load", () => {
             for (var i = 0; i < aTags.length; i++) {
                 if (aTags[i].textContent == searchText) {
                     found = aTags[i];
+                    //重新定位
+                    found.style.position = "relative"
+                    found.style.bottom = "30px"
+                    found.style.left = "200px"
                     break;
                 }
             }
-            //重新定位
-            found.style.position = "relative"
-            found.style.bottom = "30px"
-            found.style.left = "200px"
-            console.log(found)
         }
     }
 })
