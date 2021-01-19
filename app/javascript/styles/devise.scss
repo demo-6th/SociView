@@ -10,6 +10,14 @@
         h2{
           @apply text-2xl text-center;
         }
+        .login_img{
+          width: 100%;
+          height: 20em;
+          svg{
+            width: 100%;
+            height: 100%;
+          }
+        }
         .loin_item{
           .login_label{
             @apply leading-7 text-sm;
