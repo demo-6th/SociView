@@ -261,4 +261,15 @@ class QueriesController < ApplicationController
 
   def diffusion; end
 
+  def diffusionpost
+  end
+
+  private
+
+  def search_post_only(query)
+    @posts = Post.search query, fields: [:title, :content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }, order: { created_at: { order: "asc" } }
+  end
+
+  def search_comment_only(query)
+    @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
 end
