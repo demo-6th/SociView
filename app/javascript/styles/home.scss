@@ -35,16 +35,22 @@
   .container{
     @apply m-auto;
     .row{
-      @apply flex justify-around w-4/5 m-auto;
+      @apply flex justify-between w-4/5 m-auto;
       .col-3{
         width: 20%;
+        position: relative;
         .shadow_card{
-          @apply max-w-sm rounded-lg overflow-hidden shadow-lg h-48;
+          @apply max-w-sm rounded-lg shadow-lg h-48;
           .card_bg{
-            @apply overflow-hidden;
             .img{
-              @apply w-full;
-              @apply h-full;
+              @apply w-full h-full;
+            }
+            .arrow{
+              @apply w-10;
+              position: absolute;
+              top: 45%;
+              right: -25%;
+
             }
           }
           .card_text{
