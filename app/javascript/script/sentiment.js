@@ -59,9 +59,9 @@ document.addEventListener("turbolinks:load", () => {
             label: "（主文）情緒長條圖",
             data: [pos_count, neg_count, neutral_count],
             backgroundColor: [
-              "rgba(75,192,192,1)",
-              "rgba(255,99,132,1)",
-              "rgba(58,164,235, 1)",
+              "rgba(75,192,192,0.5)",
+              "rgba(255,99,132,0.5)",
+              "rgba(58,164,235,0.5)",
             ],
           },
         ],
