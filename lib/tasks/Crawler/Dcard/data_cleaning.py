@@ -151,6 +151,6 @@ post = post.drop(['seg'], axis=1)
 comment = comment.drop(['seg'], axis=1)
 
 # save as csv
-post_id.to_csv("data/post_id.csv",header=False)
-post.to_csv("data/post_content.csv",header=False)
-comment.to_csv("data/post_comment.csv",header=False)
+post_id.to_csv("data/dcard_post_id.csv",header=False)
+post.to_csv("data/dcard_post_content.csv",header=False)
+comment.to_csv("data/dcard_post_comment.csv",header=False)

@@ -1,4 +1,4 @@
-require("#{Rails.root}/lib/tasks/Crawler/Dcard/process_files.rb")
+require("#{Rails.root}/lib/tasks/Crawler/Dcard/dcard_process_files.rb")
 
 Source.create(name: "Dcard")
 Source.create(name: "PTT")
