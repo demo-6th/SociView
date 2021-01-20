@@ -4,10 +4,14 @@
     @apply m-auto;
     .row{
       .search_all{
-        @apply bg-blue-200 px-4 py-2 border border-blue-600 rounded-lg leading-6 flex flex-wrap;
+        @apply bg-white px-4 py-2 border border-blue-400 rounded-lg leading-6 flex flex-wrap;
         p{
           @apply w-1/2 my-1;
+          span{
+            @apply rounded bg-blue-200 text-blue-600;
+          }
         }
+        
       }
     }
   }
