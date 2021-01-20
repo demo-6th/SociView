@@ -52,9 +52,9 @@
         .button_page {
             @apply text-center;
             .search_btn {
-                @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-600 cursor-pointer;
+                @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-400 cursor-pointer;
                 &:hover {
-                    @apply bg-blue-600;
+                    @apply bg-blue-500;
                 }
             }
             //loading效果
