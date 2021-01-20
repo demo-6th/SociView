@@ -4,7 +4,7 @@ namespace :Crawler do
   desc "Crawler for Dcard"
   task :dcard => :environment do
     # get_forums()
-    # board_folder()
+    board_folder()
     loop_crawler()
   end
 end
