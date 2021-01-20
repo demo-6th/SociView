@@ -1,4 +1,4 @@
-def update_boards()
+def ptt_update_boards()
   data_boards = CSV.read("#{Rails.root}/lib/tasks/Crawler/PTT/ptt_boards_url.csv")
   data_boards.each do |arr|
     colums = [:name, :alias, :source_id]
@@ -9,7 +9,7 @@ def update_boards()
   Board.where.not(id: Board.group(:alias).select("min(id)")).destroy_all
 end
 
-def csv_to_psql()
+def ptt_csv_to_psql()
   data_posts = CSV.read("#{Rails.root}/lib/tasks/Crawler/PTT/ptt_post_content.csv")
   data_posts.each do |arr|
     post_colums = [:alias, :url, :author, :title, :created_at, :comment_count, :content, :pid, :clean, :token, :pos, :no_stop, :keyword, :sentiment]
@@ -18,7 +18,7 @@ def csv_to_psql()
     Post.import post_colums, post_values, validate: false
   end
 
-  data_comments = CSV.read("#{Rails.root}/lib/tasks/Crawler/PTT/comment_content.csv")
+  data_comments = CSV.read("#{Rails.root}/lib/tasks/Crawler/PTT/ptt_comment_content.csv")
 
   data_comments.each do |arr|
     comment_colums = [:alias, :url, :author, :created_at, :content, :pid, :clean, :token,
