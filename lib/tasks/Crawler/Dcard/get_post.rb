@@ -61,7 +61,6 @@ def get_post_id(board, sleep_every, sleep_time, prev_day)
       url = "#{line[2]}&before=#{last_id}"
       uri = URI(url)
       data = Net::HTTP.get(uri)
-      byebug
       items = JSON.parse(data)
 
       if items.size < 30
