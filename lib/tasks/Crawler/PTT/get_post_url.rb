@@ -27,6 +27,7 @@ def get_post_url(date_array)
     while true 
       doc = Nokogiri::HTML(open(next_url,'Cookie' => 'over18=1'))
       num = doc.search("#main-container .r-list-container .r-ent").size 
+      
       break unless date_array.include?(doc.css("#main-container .r-list-container .r-ent .meta .date")[num-1].text.strip)
 
       (num-1).downto(0).each { |i| 
