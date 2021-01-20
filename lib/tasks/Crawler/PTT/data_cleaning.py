@@ -53,7 +53,6 @@ comment["created_at"] = comment["created_at"].str.strip(" ")
 comment["created_at"]  = comment["created_at"].str.replace("\n","")
 comment["created_at"] = comment.created_at.apply(comment_time)
 
-print(len(comment))
 # 把comment的年份換成他主文的發文日期年份
 for i in range(len(comment)):
   try:
@@ -62,7 +61,6 @@ for i in range(len(comment)):
     # print(comment["created_at"][i])
     comment["created_at"][i] = ""
     
-
 # clean symbols and spaces 
 def cleaning(string):
   if type(string) == str:
@@ -147,16 +145,16 @@ post["clean_txt"] = post.content.progress_apply(cleaning)
 tqdm.pandas(desc="comment_clean_txt loading... ")
 comment["clean_txt"] = comment.content.progress_apply(cleaning)
 
-tqdm.pandas(desc="post_token loading... ")
+tqdm.pandas(desc="post_ckip_seg loading... ")
 post["seg"] = post.clean_txt.progress_apply(ckip_seg)
-tqdm.pandas(desc="comment_token loading... ")
+tqdm.pandas(desc="comment_ckip_seg loading... ")
 comment["seg"] = comment.clean_txt.progress_apply(ckip_seg)
 
-# split column 
 tqdm.pandas(desc="post_token loading... ")
 post["token"] = post.seg.progress_apply(token)
 tqdm.pandas(desc="comment_token loading... ")
 comment["token"] = comment.seg.progress_apply(token)
+
 tqdm.pandas(desc="post_token loading... ")
 post["pos"] = post.seg.progress_apply(pos_tagging)
 tqdm.pandas(desc="comment_token loading... ")
