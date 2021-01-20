@@ -57,7 +57,7 @@ document.addEventListener("turbolinks:load", () =>{
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
 
-      axios.post('/queries/volume', { token })
+      axios.post('/queries/diffusion', { token })
         .then(function(resp){
           console.log(resp);
            const users_query_page = document.querySelector(".search_list")

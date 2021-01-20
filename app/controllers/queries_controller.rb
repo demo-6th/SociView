@@ -263,6 +263,7 @@ class QueriesController < ApplicationController
   def diffusion; end
 
   def diffusionpost
+    
   end
 
   private
