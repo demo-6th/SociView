@@ -40,8 +40,11 @@ def get_post_content
         comment_count = 0
       else
         comment_count = doc.css("#main-container .bbs-content .push").count
+
         # all post comment
         doc.css("#main-container .bbs-content .push").each do |comment|
+          # ignore comments that has less than 3 words
+          next if comment.css(".push-content").text.length < 5
           # board
           board = doc.xpath('//*[@id="topbar"]/a[2]').text
           # post_url
@@ -53,8 +56,9 @@ def get_post_content
           comment_created_at = comment.css(".push-ipdatetime").text
           # comment content 
           comment_content = comment.css(".push-content").text
-    
+
           all_comment << [board, post_url, comment_author, comment_created_at, comment_content]
+          
         end 
       end
     rescue 
