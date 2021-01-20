@@ -6,6 +6,14 @@
       @apply flex justify-center;
       .col-4{
         @apply w-1/4;
+        .logup_img{
+          width: 20em;
+          height: 20em;
+          svg{
+            width: 100%;
+            height: 100%;
+          }
+        }
       }
       .col-6{
         @apply w-1/2 self-center;
@@ -40,7 +48,8 @@
         width: 20%;
         position: relative;
         .shadow_card{
-          @apply max-w-sm rounded-lg shadow-lg h-48;
+          @apply max-w-sm rounded-lg shadow-lg;
+          box-sizing: border-box;
           .card_bg{
             .img{
               @apply w-full h-full;
@@ -50,10 +59,10 @@
               position: absolute;
               top: 45%;
               right: -25%;
-
             }
           }
           .card_text{
+            @apply m-3 pb-3;
           }
           
         }
