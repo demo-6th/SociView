@@ -9,7 +9,7 @@
             }
             font-size: 1em;
             .function {
-                @apply text-base my-1 block w-full py-3;
+                @apply text-base my-1 block w-full py-2;
                 margin: 10px;
                 span{
                     @apply pr-2;
@@ -20,7 +20,7 @@
             @apply text-white bg-blue-400 rounded-lg;
             font-size: 1em;
             .function {
-                @apply text-base my-1 block w-full py-3;
+                @apply text-base my-1 block w-full py-2;
                 margin: 10px;
                 span{
                     @apply pr-2;
