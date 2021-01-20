@@ -5,7 +5,7 @@ SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.t
 ## 核心功能
 - 爬蟲
 - 資料清理與文字處理
-- 資料庫儲存
+- 社群資料庫
 - 文章列表查詢
 - 聲量圖表
 - 情緒分析
@@ -15,12 +15,28 @@ SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.t
 
 ## 使用技術
 ### 前端
+- HTML, CSS, Javascript
+- Tailwind CSS
+- Stimulus js 
 ### 後端
+- Ruby on Rails 
+- Python 
 ### 資料庫
+- PostgreSQL
 ### 部署
+- Heroku
+- Amazon S3
 ### 測試
+- RSpec
+### 版本控制
+- Git & GitHub
 
 ## 團隊成員
+[程從聖](https://github.com/DanteChengOUO)
+[郭思妤](https://github.com/fishkuo)
+[李漢泓](https://github.com/ryanleecoding)
+[陳緒友](https://github.com/Minoyo1111)
+[楊淞淳](https://github.com/MarlboroYang)
 
 ## 產品使用方法
 Step 0 : 左測選單選擇分析功能<br>
