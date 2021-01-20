@@ -186,6 +186,7 @@ class QueriesController < ApplicationController
     gon.count2 = @count2
     gon.count1 = @count1
 
+    render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type }
   end
 
   def topic; end
