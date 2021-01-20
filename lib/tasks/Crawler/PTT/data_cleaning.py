@@ -7,6 +7,7 @@ import time
 import numpy as np
 from tqdm import tqdm
 from datetime import datetime
+import ast
 
 # remove set copy warning 
 pd.options.mode.chained_assignment = None
@@ -70,17 +71,38 @@ def cleaning(string):
     clean_txt = ""
   return clean_txt
 
-# tokenization 
-def tokenization(post):
+# ckip_seg 
+def ckip_seg(post):
   try:
     if len(post) > 1:
       result = segmenter.seg(post)
-      return result.tok
+      result_list = [result.tok, result.pos]
+      return result_list
     else:
       return post
   except:
       return ""
-   
+
+# ast 
+def ast_lit(string):
+  result = ast.literal_eval(string)
+  return result
+
+# split columns
+def token(seg_list):
+  try:
+    seg_list = seg_list
+    return seg_list[0]
+  except:
+    return ""
+
+def pos_tagging(seg_list):
+  try:
+    seg_list = seg_list
+    return seg_list[1]
+  except:
+    return ""
+
 # stopwords 
 with open("lib/tasks/Crawler/PTT/dict/stopwords.txt", encoding="utf-8") as fin:
   stopwords = fin.read().split("\n")[1:]
@@ -126,9 +148,19 @@ tqdm.pandas(desc="comment_clean_txt loading... ")
 comment["clean_txt"] = comment.content.progress_apply(cleaning)
 
 tqdm.pandas(desc="post_token loading... ")
-post["token"] = post.clean_txt.progress_apply(tokenization)
+post["seg"] = post.clean_txt.progress_apply(ckip_seg)
 tqdm.pandas(desc="comment_token loading... ")
-comment["token"] = comment.clean_txt.progress_apply(tokenization)
+comment["seg"] = comment.clean_txt.progress_apply(ckip_seg)
+
+# split column 
+tqdm.pandas(desc="post_token loading... ")
+post["token"] = post.seg.progress_apply(token)
+tqdm.pandas(desc="comment_token loading... ")
+comment["token"] = comment.seg.progress_apply(token)
+tqdm.pandas(desc="post_token loading... ")
+post["pos"] = post.seg.progress_apply(pos_tagging)
+tqdm.pandas(desc="comment_token loading... ")
+comment["pos"] = comment.seg.progress_apply(pos_tagging)
 
 tqdm.pandas(desc="post_no_stop loading... ")
 post["no_stop"] = post.token.progress_apply(no_stop)
@@ -145,7 +177,12 @@ post["sentiment"] = post.token.progress_apply(sentiment)
 tqdm.pandas(desc="comment_sentiment loading... ")
 comment["sentiment"] = comment.token.progress_apply(sentiment)
 
+# dataframe cleanup 
+post = post.drop(['seg'], axis=1)
+comment = comment.drop(['seg'], axis=1)
+
 # save as csv
 board.to_csv("lib/tasks/Crawler/PTT/boards_url.csv",header=False)
 post.to_csv("lib/tasks/Crawler/PTT/post_content.csv",header=False)
 comment.to_csv("lib/tasks/Crawler/PTT/comment_content.csv",header=False)
+
