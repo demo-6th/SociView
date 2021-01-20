@@ -13,9 +13,9 @@ import ast
 pd.options.mode.chained_assignment = None
 segmenter = CkipSegmenter()
 
-board = pd.read_csv("lib/tasks/Crawler/PTT/boards_url.csv", names = ["url"])
-post = pd.read_csv("lib/tasks/Crawler/PTT/post_content.csv", names = ["alias","url","author","title", "created_at", "comment_count","content"])
-comment = pd.read_csv("lib/tasks/Crawler/PTT/comment_content.csv", names = ["alias", "url", "author", "created_at","content"])
+board = pd.read_csv("lib/tasks/Crawler/PTT/ptt_boards_url.csv", names = ["url"])
+post = pd.read_csv("lib/tasks/Crawler/PTT/ptt_post_content.csv", names = ["alias","url","author","title", "created_at", "comment_count","content"])
+comment = pd.read_csv("lib/tasks/Crawler/PTT/ptt_comment_content.csv", names = ["alias", "url", "author", "created_at","content"])
 
 # drop 欄位對不上的資料
 post = post.dropna()
