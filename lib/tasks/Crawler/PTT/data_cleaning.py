@@ -180,7 +180,7 @@ post = post.drop(['seg'], axis=1)
 comment = comment.drop(['seg'], axis=1)
 
 # save as csv
-board.to_csv("lib/tasks/Crawler/PTT/boards_url.csv",header=False)
-post.to_csv("lib/tasks/Crawler/PTT/post_content.csv",header=False)
-comment.to_csv("lib/tasks/Crawler/PTT/comment_content.csv",header=False)
+board.to_csv("lib/tasks/Crawler/PTT/ptt_boards_url.csv",header=False)
+post.to_csv("lib/tasks/Crawler/PTT/ptt_post_content.csv",header=False)
+comment.to_csv("lib/tasks/Crawler/PTT/ptt_comment_content.csv",header=False)
 
