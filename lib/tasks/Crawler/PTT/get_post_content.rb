@@ -1,4 +1,4 @@
-def get_post_content
+def get_content
   table = CSV.parse(File.read("#{Rails.root}/lib/tasks/Crawler/PTT/post_url.csv"), headers: false)
 
   all_post = []
