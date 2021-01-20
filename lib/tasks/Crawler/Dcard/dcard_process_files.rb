@@ -1,4 +1,4 @@
-def mv_files(table_title)
+def dcard_mv_files(table_title)
   clean_title = table_title.gsub("/", "-")
   Dir.mkdir("#{Rails.root}/data/#{clean_title}") unless Dir.exists?("#{Rails.root}/data/#{clean_title}")
   FileUtils.mv("#{Rails.root}/data/dcard_post_id.csv", "#{Rails.root}/data/#{clean_title}/")
@@ -7,12 +7,12 @@ def mv_files(table_title)
   FileUtils.mv("#{Rails.root}/data/#{clean_title}", "#{Rails.root}/data/#{@folder_name}/")
 end
 
-def board_folder()
+def dcard_board_folder()
   @folder_name = DateTime.now.strftime("%F %R").gsub(":", "-")
   Dir.mkdir("#{Rails.root}/data/#{@folder_name}")
 end
 
-def update_boards()
+def dcard_update_boards()
   data_boards = CSV.read("#{Rails.root}/data/forums.csv")
   data_boards.each do |arr|
     colums = [:name, :alias, :source_id]
@@ -23,7 +23,7 @@ def update_boards()
   Board.where.not(id: Board.group(:alias).select("min(id)")).destroy_all
 end
 
-def csv_to_psql()
+def dcard_csv_to_psql()
   data_posts = CSV.read("#{Rails.root}/data/dcard_post_content.csv")
   data_posts.each do |arr|
     post_colums = [:pid, :content, :title, :created_at, :updated_at, :comment_count, :like_count, :alias, :url, :clean, :token, :pos, :no_stop, :keyword, :sentiment]
