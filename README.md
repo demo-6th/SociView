@@ -32,10 +32,10 @@ SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.t
 - Git & GitHub
 
 ## 團隊成員
-[程從聖](https://github.com/DanteChengOUO)
-[郭思妤](https://github.com/fishkuo)
-[李漢泓](https://github.com/ryanleecoding)
-[陳緒友](https://github.com/Minoyo1111)
+[程從聖](https://github.com/DanteChengOUO)<br>
+[郭思妤](https://github.com/fishkuo)<br>
+[李漢泓](https://github.com/ryanleecoding)<br>
+[陳緒友](https://github.com/Minoyo1111)<br>
 [楊淞淳](https://github.com/MarlboroYang)
 
 ## 產品使用方法
