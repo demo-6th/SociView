@@ -9,7 +9,7 @@
           <div class="nav_user"><%= current_user.nickname %> 您好!  <%= notice if notice %> </div>
           <%= link_to("登出", destroy_user_session_path, class: "nav_btn border-solid border-blue-400 text-blue-400", method: :delete) %> 
         <% else %>
-          <%= link_to("登入", new_session_path(:user), class: "nav_btn border-solid border-blue-400 text-blue-400") %>
+          <%= link_to("登入", new_session_path(:user), class: "nav_btn border-double border-blue-400 text-blue-400") %>
           <%= link_to("註冊", new_registration_path(:user), class: "nav_btn border-double border-black bg-gray-300") %> 
         <% end %>
       </div>
