@@ -18,6 +18,12 @@
   <option value="post">主文</option>
   <option value="comment">回文</option>
 </select>
+<select id="sentiment">
+  <option value="all" selected="selected">不分情緒</option>
+  <option value="positive">正面</option>
+  <option value="negative">負面</option>
+  <option value="neutral">中立</option>
+</select>
 <button id="filter_btn">開始篩選</button>
 
 
@@ -31,7 +37,7 @@
     <div class="row items-center">
       <% if @posts%>
         <% @posts.each do |post| %>
-          <div id = "post_div" > 
+          <div id = "post_div" class = "<%=post.sentiment%>_post"> 
           <p>文章標題：<%= post.title %></p>
           <p>本文：<%= post.content %></p>
           <p>回文數：<%= post.comment_count %></p>
@@ -59,7 +65,7 @@
       
       <% if @comment_total %>
         <% @comment_total.each do |comment| %>
-          <div id = "comment_div">
+          <div id = "comment_div" class = "<%=comment.sentiment%>_comment">
             文章標題：<%= comment.post.title %><br> 
             回文內容：<%= comment.content %><br> 
             回文數：<%= comment.post.comment_count %><br> 
