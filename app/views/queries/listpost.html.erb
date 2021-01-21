@@ -28,9 +28,14 @@
   <button id="filter_btn">開始篩選</button>
 </div>
 <div>
+  文章排序方式
   <select id="sort_by_time">  
     <option value="new" selected="selected">由新到舊</option>
     <option value="old">由舊到新</option>
+  </select>
+  <select id="sort_by_like">  
+    <option value="many" selected="selected">按讚數高</option>
+    <option value="less">按讚數低</option>
   </select>
 </div>
 
@@ -43,7 +48,7 @@
     <div class="row items-center div_list">
       <% if @posts%>
         <% @posts.each do |post| %>
-          <div id = "post_div" class = "<%=post.sentiment%>_post list " data-time = "<%=post.created_at.in_time_zone("Taipei")%>""> 
+          <div id = "post_div" class = "<%=post.sentiment%>_post list " data-time = "<%=post.created_at.in_time_zone("Taipei")%>" like_count="<%=post.like_count%>"> 
           <p>文章標題：<%= post.title %></p>
           <p>本文：<%= post.content %></p>
           <p>回文數：<%= post.comment_count %></p>
@@ -71,7 +76,7 @@
       
       <% if @comment_total %>
         <% @comment_total.each do |comment| %>
-          <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>"">
+          <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>" like_count="<%=comment.like_count%>">
             文章標題：<%= comment.post.title %><br> 
             回文內容：<%= comment.content %><br> 
             回文數：<%= comment.post.comment_count %><br> 

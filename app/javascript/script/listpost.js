@@ -3,6 +3,7 @@ document.addEventListener("turbolinks:load", () => {
   const sen = document.getElementById('sentiment')
   const f_btn = document.getElementById('filter_btn')
   const sort_t = document.getElementById('sort_by_time')
+  const sort_l = document.getElementById('sort_by_like')
   if (f_btn) {
     const post_div = document.querySelectorAll('#post_div')
     const comment_div = document.querySelectorAll('#comment_div')
@@ -230,6 +231,25 @@ document.addEventListener("turbolinks:load", () => {
       })
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
+      }
+    })
+  }
+  if (sort_l) {
+    sort_l.addEventListener('change', function () {
+      var list_div = document.querySelectorAll('.list')
+      var arr = []
+      for (var i = 0; i < list_div.length; i++) {
+        arr.push(list_div[i]);
+      }
+      arr.sort(function (a, b) {
+        if (sort_l.value == "many") {
+          return -(a.getAttribute('like_count') - b.getAttribute('like_count'))
+        } else {
+          return a.getAttribute('like_count') - b.getAttribute('like_count')
+        }
+      })
+      for (var i = 0; i < arr.length; i++) {
+        document.querySelector('.div_list').appendChild(arr[i]);
       }
     })
   }
