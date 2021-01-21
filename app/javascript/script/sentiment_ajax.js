@@ -1,4 +1,4 @@
-import setiment_chart from "./volume.js";
+import setiment_chart from "./sentiment.js";
 const axios = require('axios')
 document.addEventListener("turbolinks:load", () =>{
   const setiment_btn = document.querySelector(".sentiment #analy")
@@ -18,6 +18,7 @@ document.addEventListener("turbolinks:load", () =>{
 
       axios.post('/queries/sentiment', object)
         .then(function(resp){
+          console.log(resp);
           const { count, theme, start, end, source, type, gon } = resp.data
           const search_list = document.querySelector(".search_list")
           search_list.innerHTML = `
@@ -33,7 +34,7 @@ document.addEventListener("turbolinks:load", () =>{
               </div>
             </div>
           </div>
-          
+
           <div class="container">
             <canvas id="sentimentPieChart" width="960px" height="400px"></canvas>
           </div>
