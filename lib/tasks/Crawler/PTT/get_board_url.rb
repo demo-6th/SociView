@@ -10,6 +10,6 @@ def get_board
     url << ["https://www.ptt.cc/#{x.value}"]
   end
 
-  File.write("#{Rails.root}/lib/tasks/Crawler/PTT/boards_url.csv", url.map(&:to_csv).join)
+  File.write("#{Rails.root}/lib/tasks/Crawler/PTT/ptt_boards_url.csv", url.map(&:to_csv).join)
 end 
 
