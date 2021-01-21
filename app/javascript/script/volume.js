@@ -1,41 +1,3 @@
-<<<<<<< HEAD
-document.addEventListener("turbolinks:load", () => {
-  start = gon.start;
-  end = gon.end;
-  theme1 = gon.theme1;
-  theme2 = gon.theme2;
-  theme3 = gon.theme3;
-  count1 = gon.count1;
-  count2 = gon.count2;
-  count3 = gon.count3;
-  let all_date = [];
-  let count_line1 = {};
-  let count_line2 = {};
-  let count_line3 = {};
-
-  for (
-    let d = new Date(start);
-    d <= new Date(end);
-    d.setDate(d.getDate() + 1)
-  ) {
-    formatDt = `${new Date(d).getFullYear()}-${
-      new Date(d).getMonth() + 1
-    }-${new Date(d).getDate()}`;
-    all_date.push(formatDt);
-  }
-  all_date.forEach((d) => {
-    count_line1[d] = 0;
-    count_line2[d] = 0;
-    count_line3[d] = 0;
-  });
-
-  if (gon.result1 !== undefined) {
-    gon.result1.forEach((e) => {
-      d_result1 = `${new Date(e.created_at).getFullYear()}-${
-        new Date(e.created_at).getMonth() + 1
-      }-${new Date(e.created_at).getDate()}`;
-      count_line1[d_result1] += 1;
-=======
 function volume_chart(gon) {
     start = gon.start;
     end = gon.end;
@@ -61,28 +23,9 @@ function volume_chart(gon) {
         count_line1[d] = 0;
         count_line2[d] = 0;
         count_line3[d] = 0;
->>>>>>> 90ded1a (volume_pic show)
     });
   }
 
-<<<<<<< HEAD
-  if (gon.result2 !== undefined) {
-    gon.result2.forEach((e) => {
-      d_result2 = `${new Date(e.created_at).getFullYear()}-${
-        new Date(e.created_at).getMonth() + 1
-      }-${new Date(e.created_at).getDate()}`;
-      count_line2[d_result2] += 1;
-    });
-  }
-  if (gon.result3 !== undefined) {
-    gon.result3.forEach((e) => {
-      d_result3 = `${new Date(e.created_at).getFullYear()}-${
-        new Date(e.created_at).getMonth() + 1
-      }-${new Date(e.created_at).getDate()}`;
-      count_line3[d_result3] += 1;
-    });
-  }
-=======
     //待改進
     if (gon.result1 !== undefined) {
         gon.result1.forEach((e) => {
@@ -91,7 +34,6 @@ function volume_chart(gon) {
             count_line1[d_result1] += 1;
         });
     }
->>>>>>> 90ded1a (volume_pic show)
 
   if (document.getElementById("volumeBarChart")) {
     // const ctx_pie = document.getElementById("volumePieChart").getContext("2d");
@@ -233,21 +175,6 @@ function volume_chart(gon) {
     chart.update();
   }
 
-<<<<<<< HEAD
-  function addDataline(chart, label, data) {
-    const line3 = {
-      label: label,
-      data: data,
-      borderWidth: 1,
-      pointRadius: 5,
-      borderColor: "rgba(58,164,235,1)",
-      backgroundColor: "rgba(58,164,235,0.2)",
-    };
-    chart.data.datasets.push(line3);
-    chart.update();
-  }
-});
-=======
     function addDataline(chart, label, data) {
         const line3 = {
             'label': label,
@@ -260,7 +187,5 @@ function volume_chart(gon) {
         chart.data.datasets.push(line3);
         chart.update();
     }
-}
 
 export default volume_chart;
->>>>>>> 90ded1a (volume_pic show)
