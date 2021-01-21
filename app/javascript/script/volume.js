@@ -51,7 +51,7 @@ function volume_chart(gon) {
       }-${new Date(e.created_at).getDate()}`;
       count_line3[d_result3] += 1;
     });
-  }
+
 
 
   if (document.getElementById("volumeBarChart")) {
@@ -171,6 +171,7 @@ function volume_chart(gon) {
     chart.update();
   }
 
+<<<<<<< HEAD
   function addDataline(chart, label, data) {
     const line3 = {
       label: label,
@@ -184,4 +185,19 @@ function volume_chart(gon) {
     chart.update();
   }
 });
+=======
+    function addDataline(chart, label, data) {
+        const line3 = {
+            'label': label,
+            'data': data,
+            'borderWidth': 1,
+            'pointRadius': 5,
+            'borderColor': "rgba(58,164,235,1)",
+            'backgroundColor': "rgba(58,164,235,0.2)"
+        }
+        chart.data.datasets.push(line3);
+        chart.update();
+    }
+}
+>>>>>>> 6ef77a4 (把gon放在layout的webpacker上面)
 
