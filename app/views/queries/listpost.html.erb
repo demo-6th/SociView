@@ -51,6 +51,7 @@
           <div id = "post_div" class = "<%=post.sentiment%>_post list " data-time = "<%=post.created_at.in_time_zone("Taipei")%>" like_count="<%=post.like_count%>"> 
           <p>文章標題：<%= post.title %></p>
           <p>本文：<%= post.content %></p>
+          <p>關鍵字：<%= post.keyword.gsub(/[\[\]\'\,\"]/, "") %></p>
           <p>回文數：<%= post.comment_count %></p>
           <p>發文者：
               <% if post.author.nil? %>
@@ -69,7 +70,7 @@
               <% else %>
                 <%= "負面" %>
               <% end %></p>
-          <p>出處：<%= post.board.source.name %>>><%= post.board.name %>  文章連結：<a href="<%= post.url %>" title="前往來源文章" target="_blank" ><%= post.url %></a></p>
+          <p>出處：<%= post.board.source.name %> >> <%= post.board.name %>  文章連結：<a href="<%= post.url %>" title="前往來源文章" target="_blank" ><%= post.url %></a></p>
           </div>
         <% end %>
       <% end %>
@@ -77,18 +78,19 @@
       <% if @comment_total %>
         <% @comment_total.each do |comment| %>
           <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>" like_count="<%=comment.like_count%>">
-            文章標題：<%= comment.post.title %><br> 
-            回文內容：<%= comment.content %><br> 
-            回文數：<%= comment.post.comment_count %><br> 
-            回文者：
+            <p>文章標題：<%= comment.post.title %></p>
+            <p>回文內容：<%= comment.content %></p>
+            <p>關鍵字：<%= comment.keyword.gsub(/[\[\]\'\,\"]/, "") %></p>
+            <p>回文數：<%= comment.post.comment_count %></p>
+            <p>回文者：
               <% if comment.author.nil? %>
                 <%= "Dcard匿名回文"  %>
               <% else %>
                 <%= comment.author %>
-              <% end %><br>
-            回文時間：<%= comment.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %><br> 
-            按讚數：<%= comment.like_count %><br> 
-            情緒：
+              <% end %></p>
+            <p>回文時間：<%= comment.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %></p>
+            <p>按讚數：<%= comment.like_count %></p>
+            <p>情緒：
               <% case comment.sentiment %>
               <% when "neutral" %>
                 <%= "中立" %> 
@@ -96,8 +98,8 @@
                 <%= "正面" %>
               <% else %>
                 <%= "負面" %>
-              <% end %><br> 
-            出處：<%= comment.post.board.source.name%>>><%= comment.post.board.name %>  文章連結：<a href="<%= comment.post.url %>" title="前往回文所在文章" target="_blank"><%= comment.post.url %></a><br>
+              <% end %></p>
+            <p>出處：<%= comment.post.board.source.name%> >> <%= comment.post.board.name %>  文章連結：<a href="<%= comment.post.url %>" title="前往回文所在文章" target="_blank"><%= comment.post.url %></a></p>
           </div>
         <% end %>
       <% end %>
