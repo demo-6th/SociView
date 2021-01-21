@@ -1,17 +1,13 @@
 document.addEventListener("turbolinks:load", () => {
-    const response = await fetch("data/tf_V.csv");
-    const data = await response.text();
-    const rows = data.split('\n').splice(1);
-    rows.forEach((element) => {
-      const column = element.split(',');
-      const term = column[1];
-      const freq = column[2];
-      console.log(term)
-      console.log(freq)
-
-
-
-
+  // const response = await fetch("data/tf_V.csv");
+  // const data = await response.text();
+  // const rows = data.split('\n').splice(1);
+  // rows.forEach((element) => {
+  //   const column = element.split(',');
+  //   const term = column[1];
+  //   const freq = column[2];
+  //   console.log(term)
+  //   console.log(freq)
   // if (document.getElementById("sentimentPieChart")) {
   //   // pie chart
   //   const ctx_pie = document
@@ -42,4 +38,3 @@ document.addEventListener("turbolinks:load", () => {
   //   });
   // }
 });
-
