@@ -1,5 +1,4 @@
 import volume_chart from "./volume.js";
-
 const axios = require('axios')
 document.addEventListener("turbolinks:load", () =>{
   const volume_btn = document.querySelector(".volume #analy")
@@ -33,14 +32,11 @@ document.addEventListener("turbolinks:load", () =>{
              </div>
            </div>
          </div>
-         <div class="container">
-           <canvas id="volumePieChart" width="960px" height="400px"></canvas>
-         </div>
-         <br>
+      
          <div class="container">
            <canvas id="volumeBarChart" width="960px" height="400px"></canvas>
          </div>
-         <br>
+
          <div class="container">
            <canvas id="volumeLineChart" width="960px" height="400px"></canvas>
          </div>`

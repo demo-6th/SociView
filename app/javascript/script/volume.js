@@ -24,7 +24,7 @@ function volume_chart(gon) {
         count_line2[d] = 0;
         count_line3[d] = 0;
     });
-  }
+
 
     //待改進
     if (gon.result1 !== undefined) {
@@ -36,30 +36,7 @@ function volume_chart(gon) {
     }
 
   if (document.getElementById("volumeBarChart")) {
-    // const ctx_pie = document.getElementById("volumePieChart").getContext("2d");
-    // const pieChart = new Chart(ctx_pie, {
-    //   type: "pie",
-    //   data: {
-    //     labels: [theme1, theme2],
-    //     datasets: [
-    //       {
-    //         data: [count1, count2],
-    //         backgroundColor: ["rgba(75,192,192,1)", "rgba(255,99,132,1)"],
-    //       },
-    //     ],
-    //   },
-    //   options: {
-    //     title: {
-    //       display: true,
-    //       text: "聲量圓餅圖",
-    //     },
-    //   },
-    // });
-    // theme3 == null
-    //   ? ""
-    //   : addData(pieChart, theme3, count3, "rgba(58,164,235,1)");
-
-    // bar chart
+    console.log(theme1);
     const ctx_bar = document.getElementById("volumeBarChart").getContext("2d");
     const barChart = new Chart(ctx_bar, {
       type: "bar",
@@ -187,5 +164,6 @@ function volume_chart(gon) {
         chart.data.datasets.push(line3);
         chart.update();
     }
+}
 
 export default volume_chart;

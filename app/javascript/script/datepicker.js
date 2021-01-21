@@ -16,5 +16,4 @@ document.addEventListener("turbolinks:load", () => {
     }
   });
   endPicker = flatpickr(".datepicker_end", {});
-
 })
