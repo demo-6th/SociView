@@ -11,7 +11,6 @@
       </div>
     </div>
   </div>
-<%# ========================= %>
 <div>
   文章篩選
   <select id="article">  
@@ -38,11 +37,6 @@
     <option value="less">按讚數低</option>
   </select>
 </div>
-
-
-
-
-<%# ========================== %>
   <div class="container">
     <br>
     <div class="row items-center div_list">
@@ -77,7 +71,7 @@
               <% end %></p>
           <p>出處：<%= post.board.source.name %> >> <%= post.board.name %> </p> 
           <p>文章連結：<a href="<%= post.url %>" title="前往來源文章" target="_blank" ><%= post.url %></a></p>
-          </div>
+          </div> 
         <% end %>
       <% end %>
       
