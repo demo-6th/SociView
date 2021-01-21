@@ -4,7 +4,8 @@
     <title>SociView</title>
     <%= csrf_meta_tags %> 
     <%= csp_meta_tag %> 
-
+    <%= Gon::Base.render_data %>
+    <%= include_gon(:init => true) %>
     <%= stylesheet_pack_tag 'homepage', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'homepage', 'data-turbolinks-track': 'reload' %>
     <%= favicon_pack_tag 'logo.png' %>
@@ -13,10 +14,9 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;1,200&display=swap"
       rel="stylesheet"
     />
-
   </head>
 
-  <body class="font-sans">
+  <body class="<%= action_name %>">
     <%= render "shared/navbar" %>
     <div class="query_page flex">
       <%= render "shared/aside" %>
