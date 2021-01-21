@@ -7,14 +7,15 @@ import time
 import numpy as np
 from tqdm import tqdm
 from datetime import datetime
+import ast
 
 # remove set copy warning 
 pd.options.mode.chained_assignment = None
 segmenter = CkipSegmenter()
 
-board = pd.read_csv("lib/tasks/Crawler/PTT/boards_url.csv", names = ["url"])
-post = pd.read_csv("lib/tasks/Crawler/PTT/post_content.csv", names = ["alias","url","author","title", "created_at", "comment_count","content"])
-comment = pd.read_csv("lib/tasks/Crawler/PTT/comment_content.csv", names = ["alias", "url", "author", "created_at","content"])
+board = pd.read_csv("lib/tasks/Crawler/PTT/ptt_boards_url.csv", names = ["url"])
+post = pd.read_csv("lib/tasks/Crawler/PTT/ptt_post_content.csv", names = ["alias","url","author","title", "created_at", "comment_count","content"])
+comment = pd.read_csv("lib/tasks/Crawler/PTT/ptt_comment_content.csv", names = ["alias", "url", "author", "created_at","content"])
 
 # drop 欄位對不上的資料
 post = post.dropna()
@@ -52,7 +53,6 @@ comment["created_at"] = comment["created_at"].str.strip(" ")
 comment["created_at"]  = comment["created_at"].str.replace("\n","")
 comment["created_at"] = comment.created_at.apply(comment_time)
 
-print(len(comment))
 # 把comment的年份換成他主文的發文日期年份
 for i in range(len(comment)):
   try:
@@ -61,7 +61,6 @@ for i in range(len(comment)):
     # print(comment["created_at"][i])
     comment["created_at"][i] = ""
     
-
 # clean symbols and spaces 
 def cleaning(string):
   if type(string) == str:
@@ -70,17 +69,38 @@ def cleaning(string):
     clean_txt = ""
   return clean_txt
 
-# tokenization 
-def tokenization(post):
+# ckip_seg 
+def ckip_seg(post):
   try:
     if len(post) > 1:
       result = segmenter.seg(post)
-      return result.tok
+      result_list = [result.tok, result.pos]
+      return result_list
     else:
       return post
   except:
       return ""
-   
+
+# ast 
+def ast_lit(string):
+  result = ast.literal_eval(string)
+  return result
+
+# split columns
+def token(seg_list):
+  try:
+    seg_list = seg_list
+    return seg_list[0]
+  except:
+    return ""
+
+def pos_tagging(seg_list):
+  try:
+    seg_list = seg_list
+    return seg_list[1]
+  except:
+    return ""
+
 # stopwords 
 with open("lib/tasks/Crawler/PTT/dict/stopwords.txt", encoding="utf-8") as fin:
   stopwords = fin.read().split("\n")[1:]
@@ -125,10 +145,20 @@ post["clean_txt"] = post.content.progress_apply(cleaning)
 tqdm.pandas(desc="comment_clean_txt loading... ")
 comment["clean_txt"] = comment.content.progress_apply(cleaning)
 
+tqdm.pandas(desc="post_ckip_seg loading... ")
+post["seg"] = post.clean_txt.progress_apply(ckip_seg)
+tqdm.pandas(desc="comment_ckip_seg loading... ")
+comment["seg"] = comment.clean_txt.progress_apply(ckip_seg)
+
 tqdm.pandas(desc="post_token loading... ")
-post["token"] = post.clean_txt.progress_apply(tokenization)
+post["token"] = post.seg.progress_apply(token)
 tqdm.pandas(desc="comment_token loading... ")
-comment["token"] = comment.clean_txt.progress_apply(tokenization)
+comment["token"] = comment.seg.progress_apply(token)
+
+tqdm.pandas(desc="post_token loading... ")
+post["pos"] = post.seg.progress_apply(pos_tagging)
+tqdm.pandas(desc="comment_token loading... ")
+comment["pos"] = comment.seg.progress_apply(pos_tagging)
 
 tqdm.pandas(desc="post_no_stop loading... ")
 post["no_stop"] = post.token.progress_apply(no_stop)
@@ -145,7 +175,12 @@ post["sentiment"] = post.token.progress_apply(sentiment)
 tqdm.pandas(desc="comment_sentiment loading... ")
 comment["sentiment"] = comment.token.progress_apply(sentiment)
 
+# dataframe cleanup 
+post = post.drop(['seg'], axis=1)
+comment = comment.drop(['seg'], axis=1)
+
 # save as csv
-board.to_csv("lib/tasks/Crawler/PTT/boards_url.csv",header=False)
-post.to_csv("lib/tasks/Crawler/PTT/post_content.csv",header=False)
-comment.to_csv("lib/tasks/Crawler/PTT/comment_content.csv",header=False)
+board.to_csv("lib/tasks/Crawler/PTT/ptt_boards_url.csv",header=False)
+post.to_csv("lib/tasks/Crawler/PTT/ptt_post_content.csv",header=False)
+comment.to_csv("lib/tasks/Crawler/PTT/ptt_comment_content.csv",header=False)
+

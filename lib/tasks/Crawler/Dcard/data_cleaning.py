@@ -15,8 +15,6 @@ post_id = pd.read_csv("data/post_id.csv", names = ["post_id","post_title","board
 post = pd.read_csv("data/post_content.csv", names = ["post_id","post_content","post_title","created_at", "updated_at", "comment_count","like_count","gender"])
 comment = pd.read_csv("data/post_comment.csv", names = ["comment_id", "post_id","created_at", "updated_at","floor", "comment_content","like_count", "gender"])
 
-
-
 def get_alias_by_id(p_id):
   p_id = p_id
   alias = post_id.loc[post_id.post_id == p_id].alias.values[0]
@@ -30,17 +28,33 @@ def cleaning(string):
     clean_txt = ""
   return clean_txt
 
-# tokenization 
-def tokenization(post):
+# ckip_seg 
+def ckip_seg(post):
   try:
     if len(post) > 1:
       result = segmenter.seg(post)
-      return result.tok
+      result_list = [result.tok, result.pos]
+      return result_list
     else:
       return post
   except:
       return ""
-   
+
+# split columns
+def token(seg_list):
+  try:
+    seg_list = seg_list
+    return seg_list[0]
+  except:
+    return ""
+
+def pos_tagging(seg_list):
+  try:
+    seg_list = seg_list
+    return seg_list[1]
+  except:
+    return ""
+
 # stopwords 
 with open("data/dict/stopwords.txt", encoding="utf-8") as fin:
   stopwords = fin.read().split("\n")[1:]
@@ -96,28 +110,47 @@ post["source"] = "dcard"
 comment["source"] = "dcard"
 post["type"] = "post"
 comment["type"] = "comment"
+
 tqdm.pandas(desc="post_clean_txt loading... ")
 post["clean_txt"] = post.post_content.progress_apply(cleaning)
 tqdm.pandas(desc="comment_clean_txt loading... ")
 comment["clean_txt"] = comment.comment_content.progress_apply(cleaning)
+
+tqdm.pandas(desc="post_ckip_seg loading... ")
+post["seg"] = post.clean_txt.progress_apply(ckip_seg)
+tqdm.pandas(desc="comment_ckip_seg loading... ")
+comment["seg"] = comment.clean_txt.progress_apply(ckip_seg)
+
 tqdm.pandas(desc="post_token loading... ")
-post["token"] = post.clean_txt.progress_apply(tokenization)
+post["token"] = post.seg.progress_apply(token)
 tqdm.pandas(desc="comment_token loading... ")
-comment["token"] = comment.clean_txt.progress_apply(tokenization)
+comment["token"] = comment.seg.progress_apply(token)
+
+tqdm.pandas(desc="post_token loading... ")
+post["pos"] = post.seg.progress_apply(pos_tagging)
+tqdm.pandas(desc="comment_token loading... ")
+comment["pos"] = comment.seg.progress_apply(pos_tagging)
+
 tqdm.pandas(desc="post_no_stop loading... ")
 post["no_stop"] = post.token.progress_apply(no_stop)
 tqdm.pandas(desc="comment_no_stop loading... ")
 comment["no_stop"] = comment.token.progress_apply(no_stop)
+
 tqdm.pandas(desc="post_keywords loading... ")
 post["keywords"] = post.no_stop.progress_apply(keyword)
 tqdm.pandas(desc="comment_keywords loading... ")
 comment["keywords"] = comment.no_stop.progress_apply(keyword)
+
 tqdm.pandas(desc="post_sentiment loading... ")
 post["sentiment"] = post.token.progress_apply(sentiment)
 tqdm.pandas(desc="comment_sentiment loading... ")
 comment["sentiment"] = comment.token.progress_apply(sentiment)
 
+# dataframe cleanup 
+post = post.drop(['seg'], axis=1)
+comment = comment.drop(['seg'], axis=1)
+
 # save as csv
-post_id.to_csv("data/post_id.csv",header=False)
-post.to_csv("data/post_content.csv",header=False)
-comment.to_csv("data/post_comment.csv",header=False)
+post_id.to_csv("data/dcard_post_id.csv",header=False)
+post.to_csv("data/dcard_post_content.csv",header=False)
+comment.to_csv("data/dcard_post_comment.csv",header=False)
