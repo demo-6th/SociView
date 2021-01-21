@@ -9,19 +9,26 @@
             }
             font-size: 1em;
             .function {
-                @apply text-base my-1 inline-block;
+                @apply text-base my-1 block w-full py-3;
                 margin: 10px;
+                span{
+                    @apply pr-2;
+                }
             }
         }
         .query_link_page {
-            @apply pl-8 text-white bg-blue-400 rounded-lg;
+            @apply text-white bg-blue-400 rounded-lg;
             font-size: 1em;
             .function {
-                @apply text-base my-1 inline-block;
+                @apply text-base my-1 block w-full py-3;
                 margin: 10px;
+                span{
+                    @apply pr-2;
+                }
             }
         }
-    }
+     }
+ 
     .users_query_page {
         @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll;
         .section {
