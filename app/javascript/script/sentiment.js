@@ -192,4 +192,5 @@
     };
   };
 
+export default setiment_chart;
   
