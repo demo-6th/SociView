@@ -1,5 +1,6 @@
 
   function setiment_chart(gon){
+    console.log("aaa")
     let start = gon.start;
     let end = gon.end;
     let all_date = [];
