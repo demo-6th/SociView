@@ -2,6 +2,7 @@ document.addEventListener("turbolinks:load", () => {
   const art = document.getElementById('article')
   const sen = document.getElementById('sentiment')
   const f_btn = document.getElementById('filter_btn')
+  const sort_t = document.getElementById('sort_by_time')
   if (f_btn) {
     const post_div = document.querySelectorAll('#post_div')
     const comment_div = document.querySelectorAll('#comment_div')
@@ -210,6 +211,25 @@ document.addEventListener("turbolinks:load", () => {
             neutral_comment[i].style.display = "block"
           }
         }
+      }
+    })
+  }
+  if (sort_t) {
+    sort_t.addEventListener('change', function () {
+      var list_div = document.querySelectorAll('.list')
+      var arr = []
+      for (var i = 0; i < list_div.length; i++) {
+        arr.push(list_div[i])
+      }
+      arr.sort(function (a, b) {
+        if (sort_t.value == "new") {
+          return -(Date.parse(a.dataset["time"]) - Date.parse(b.dataset["time"]))
+        } else {
+          return Date.parse(a.dataset["time"]) - Date.parse(b.dataset["time"])
+        }
+      })
+      for (var i = 0; i < arr.length; i++) {
+        document.querySelector('.div_list').appendChild(arr[i])
       }
     })
   }
