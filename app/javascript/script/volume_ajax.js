@@ -1,12 +1,10 @@
 import volume_chart from "./volume.js";
 const axios = require('axios')
-
 document.addEventListener("turbolinks:load", () =>{
   const volume_btn = document.querySelector(".volume #analy")
   if (volume_btn) {
     volume_btn.addEventListener("click", (e)=>{
       e.preventDefault()
-
 
       const token = document.querySelector('[name=csrf-token]').content
       axios.defaults.headers.common['X-CSRF-TOKEN'] = token
@@ -38,12 +36,11 @@ document.addEventListener("turbolinks:load", () =>{
          <div class="container">
            <canvas id="volumeBarChart" width="960px" height="400px"></canvas>
          </div>
-
          <div class="container">
            <canvas id="volumeLineChart" width="960px" height="400px"></canvas>
          </div>`
-        })
          volume_chart(gon)
+        })
         .catch(function(err){
           console.log(err);
         })
