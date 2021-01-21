@@ -4,6 +4,7 @@ import "./sentiment.js";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import "./volume_ajax.js";
 =======
 import "./volume.js";
@@ -20,3 +21,6 @@ import "./volume_ajax.js";
 =======
 import "./volume_ajax.js";
 >>>>>>> 0402b0a (檢查每個頁面衝突)
+=======
+import "./volume_ajax.js";
+>>>>>>> 6ef77a4 (把gon放在layout的webpacker上面)
