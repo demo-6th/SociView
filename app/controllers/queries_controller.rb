@@ -9,10 +9,8 @@ class QueriesController < ApplicationController
   def listpost
     @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date
-    @start_time = params[:user][:start].to_date.midnight.to_s
-    @end = params[:user][:end].to_date
-    @end_time = params[:user][:end].to_date.end_of_day.to_s
+    @start = params[:start].to_s
+    @end = params[:end].to_s
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
     
     if params[:dcard] && params[:ptt] #同時搜尋Dcard & PTT
@@ -80,8 +78,8 @@ class QueriesController < ApplicationController
     # pass value down to api action
     @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date
-    @end = params[:user][:end].to_date
+    @start = params[:start].to_date
+    @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
@@ -112,8 +110,8 @@ class QueriesController < ApplicationController
     # pass value down to api action
     @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date
-    @end = params[:user][:end].to_date
+    @start = params[:start].to_date
+    @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
@@ -186,6 +184,10 @@ class QueriesController < ApplicationController
       gon.result2 = @comment_result2
     end
     gon.count2 = @count2
+    gon.count1 = @count1
+
+
+    render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
   end
 
   def topic; end
@@ -194,8 +196,8 @@ class QueriesController < ApplicationController
     # pass value down to api action
     @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date
-    @end = params[:user][:end].to_date
+    @start = params[:start].to_date
+    @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
@@ -230,8 +232,8 @@ class QueriesController < ApplicationController
     # pass value down to api action
     @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:user][:start].to_date
-    @end = params[:user][:end].to_date
+    @start = params[:start].to_date
+    @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
@@ -261,4 +263,17 @@ class QueriesController < ApplicationController
 
   def diffusion; end
 
+  def diffusionpost
+    
+  end
+
+  private
+
+  def search_post_only(query)
+    @posts = Post.search query, fields: [:title, :content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }, order: { created_at: { order: "asc" } }
+  end
+
+  def search_comment_only(query)
+    @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
+  end
 end
