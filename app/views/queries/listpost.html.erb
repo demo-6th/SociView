@@ -11,12 +11,27 @@
       </div>
     </div>
   </div>
+<%# ========================= %>
+
+<select id="article">  
+  <option value="all" selected="selected">主文加回文</option>
+  <option value="post">主文</option>
+  <option value="comment">回文</option>
+</select>
+<button id="filter_btn">開始篩選</button>
+
+
+
+
+
+
+<%# ========================== %>
   <div class="container">
     <br>
     <div class="row items-center">
       <% if @posts%>
         <% @posts.each do |post| %>
-          <div id = "post"> 
+          <div id = "post_div" > 
           <p>文章標題：<%= post.title %></p>
           <p>本文：<%= post.content %></p>
           <p>回文數：<%= post.comment_count %></p>
@@ -44,7 +59,7 @@
       
       <% if @comment_total %>
         <% @comment_total.each do |comment| %>
-          <div id = "comment">
+          <div id = "comment_div">
             文章標題：<%= comment.post.title %><br> 
             回文內容：<%= comment.content %><br> 
             回文數：<%= comment.post.comment_count %><br> 
