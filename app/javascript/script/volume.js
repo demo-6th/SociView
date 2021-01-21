@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 function volume_chart(gon) {
     start = gon.start;
     end = gon.end;
@@ -12,22 +11,6 @@ function volume_chart(gon) {
     let count_line1 = {};
     let count_line2 = {};
     let count_line3 = {};
-
-=======
-<<<<<<< HEAD
-document.addEventListener("turbolinks:load", () => {
-  start = gon.start;
-  end = gon.end;
-  theme1 = gon.theme1;
-  theme2 = gon.theme2;
-  theme3 = gon.theme3;
-  count1 = gon.count1;
-  count2 = gon.count2;
-  count3 = gon.count3;
-  let all_date = [];
-  let count_line1 = {};
-  let count_line2 = {};
-  let count_line3 = {};
 
   for (
     let d = new Date(start);
@@ -51,42 +34,8 @@ document.addEventListener("turbolinks:load", () => {
         new Date(e.created_at).getMonth() + 1
       }-${new Date(e.created_at).getDate()}`;
       count_line1[d_result1] += 1;
-=======
-function volume_chart(gon) {
-    start = gon.start;
-    end = gon.end;
-    let theme1 = gon.theme1;
-    let theme2 = gon.theme2;
-    let theme3 = gon.theme3;
-    let count1 = gon.count1;
-    let count2 = gon.count2;
-    let count3 = gon.count3;
-    let all_date = [];
-    let count_line1 = {};
-    let count_line2 = {};
-    let count_line3 = {};
-
->>>>>>> d9cd996 (volume_pic show)
-    for (
-        let d = new Date(start); d <= new Date(end); d.setDate(d.getDate() + 1)
-    ) {
-        let formatDt = `${new Date(d).getFullYear()}-${new Date(d).getMonth() + 1
-      }-${new Date(d).getDate()}`;
-        all_date.push(formatDt);
-    }
-    all_date.forEach((d) => {
-        count_line1[d] = 0;
-        count_line2[d] = 0;
-        count_line3[d] = 0;
-<<<<<<< HEAD
-=======
->>>>>>> 90ded1a (volume_pic show)
->>>>>>> d9cd996 (volume_pic show)
     });
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   if (gon.result2 !== undefined) {
     gon.result2.forEach((e) => {
       d_result2 = `${new Date(e.created_at).getFullYear()}-${
@@ -103,26 +52,7 @@ function volume_chart(gon) {
       count_line3[d_result3] += 1;
     });
   }
-=======
-    //待改進
-    if (gon.result1 !== undefined) {
-        gon.result1.forEach((e) => {
-            let d_result1 = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
-        }-${new Date(e.created_at).getDate()}`;
-            count_line1[d_result1] += 1;
-        });
-    }
->>>>>>> 90ded1a (volume_pic show)
->>>>>>> d9cd996 (volume_pic show)
 
-    //待改進
-    if (gon.result1 !== undefined) {
-        gon.result1.forEach((e) => {
-            let d_result1 = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
-        }-${new Date(e.created_at).getDate()}`;
-            count_line1[d_result1] += 1;
-        });
-    }
 
   if (document.getElementById("volumeBarChart")) {
     console.log(theme1);
@@ -241,9 +171,6 @@ function volume_chart(gon) {
     chart.update();
   }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
   function addDataline(chart, label, data) {
     const line3 = {
       label: label,
@@ -257,24 +184,4 @@ function volume_chart(gon) {
     chart.update();
   }
 });
-=======
->>>>>>> d9cd996 (volume_pic show)
-    function addDataline(chart, label, data) {
-        const line3 = {
-            'label': label,
-            'data': data,
-            'borderWidth': 1,
-            'pointRadius': 5,
-            'borderColor': "rgba(58,164,235,1)",
-            'backgroundColor': "rgba(58,164,235,0.2)"
-        }
-        chart.data.datasets.push(line3);
-        chart.update();
-    }
-}
 
-export default volume_chart;
-<<<<<<< HEAD
-=======
->>>>>>> 90ded1a (volume_pic show)
->>>>>>> d9cd996 (volume_pic show)

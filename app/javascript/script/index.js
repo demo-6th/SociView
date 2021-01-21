@@ -3,6 +3,7 @@ import "./datepicker.js";
 import "./sentiment.js";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import "./volume_ajax.js";
 =======
 import "./volume.js";
@@ -16,3 +17,6 @@ import "./volume_ajax.js";
 // import "./volume.js";
 import "./volume_ajax.js";
 >>>>>>> d9cd996 (volume_pic show)
+=======
+import "./volume_ajax.js";
+>>>>>>> 0402b0a (檢查每個頁面衝突)
