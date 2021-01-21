@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get :wordcloud
       post :wordcloud, to: "queries#cloudpost"
       get :termfreq
-      post :termfreq, to: "queries#termfreq"
+      post :termfreq, to: "queries#termfreqpost"
     end
   end
 
