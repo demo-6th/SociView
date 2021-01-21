@@ -1,16 +1,16 @@
 function volume_chart(gon) {
-    start = gon.start;
-    end = gon.end;
-    let theme1 = gon.theme1;
-    let theme2 = gon.theme2;
-    let theme3 = gon.theme3;
-    let count1 = gon.count1;
-    let count2 = gon.count2;
-    let count3 = gon.count3;
-    let all_date = [];
-    let count_line1 = {};
-    let count_line2 = {};
-    let count_line3 = {};
+  let start = gon.start;
+  let end = gon.end;
+  let theme1 = gon.theme1;
+  let theme2 = gon.theme2;
+  let theme3 = gon.theme3;
+  let count1 = gon.count1;
+  let count2 = gon.count2;
+  let count3 = gon.count3;
+  let all_date = [];
+  let count_line1 = {};
+  let count_line2 = {};
+  let count_line3 = {};
 
   for (
     let d = new Date(start);
@@ -35,6 +35,7 @@ function volume_chart(gon) {
       }-${new Date(e.created_at).getDate()}`;
       count_line1[d_result1] += 1;
     });
+  }
 
   if (gon.result2 !== undefined) {
     gon.result2.forEach((e) => {
@@ -51,11 +52,9 @@ function volume_chart(gon) {
       }-${new Date(e.created_at).getDate()}`;
       count_line3[d_result3] += 1;
     });
-
-
+  }
 
   if (document.getElementById("volumeBarChart")) {
-    console.log(theme1);
     const ctx_bar = document.getElementById("volumeBarChart").getContext("2d");
     const barChart = new Chart(ctx_bar, {
       type: "bar",
@@ -171,7 +170,6 @@ function volume_chart(gon) {
     chart.update();
   }
 
-<<<<<<< HEAD
   function addDataline(chart, label, data) {
     const line3 = {
       label: label,
@@ -184,20 +182,5 @@ function volume_chart(gon) {
     chart.data.datasets.push(line3);
     chart.update();
   }
-});
-=======
-    function addDataline(chart, label, data) {
-        const line3 = {
-            'label': label,
-            'data': data,
-            'borderWidth': 1,
-            'pointRadius': 5,
-            'borderColor': "rgba(58,164,235,1)",
-            'backgroundColor': "rgba(58,164,235,0.2)"
-        }
-        chart.data.datasets.push(line3);
-        chart.update();
-    }
 }
->>>>>>> 6ef77a4 (把gon放在layout的webpacker上面)
 
