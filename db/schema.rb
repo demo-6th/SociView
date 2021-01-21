@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 2021_01_20_061139) do
     t.text "pos"
   end
 
+  create_table "identities", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer "pid"
     t.text "content"
@@ -91,4 +100,5 @@ ActiveRecord::Schema.define(version: 2021_01_20_061139) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "identities", "users"
 end

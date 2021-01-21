@@ -29,12 +29,15 @@ gem "jbuilder", "~> 2.7"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "devise", "~> 4.7", ">= 4.7.3"
 gem "omniauth", "1.9.1"
-gem "omniauth-facebook", "~> 4.0"
+gem 'omniauth-facebook', '~> 8.0'
 gem "omniauth-google-oauth2", "~> 0.8.1"
 gem "figaro", "~> 1.2"
 gem "activerecord-import", "~> 1.0", ">= 1.0.7"
 gem "gon", "~> 6.1"
 gem 'ransack', '~> 2.4.1'
+gem 'searchkick', '~> 4.4', '>= 4.4.2'
+gem 'koala', '~> 3.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
