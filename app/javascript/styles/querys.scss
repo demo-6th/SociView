@@ -30,7 +30,7 @@
      }
  
     .users_query_page {
-        @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll;
+        @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll pt-2;
         .section {
             @apply rounded w-full;
             .choice_page {
@@ -59,9 +59,9 @@
         .button_page {
             @apply text-center;
             .search_btn {
-                @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-600 cursor-pointer;
+                @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-400 cursor-pointer;
                 &:hover {
-                    @apply bg-blue-600;
+                    @apply bg-blue-500;
                 }
             }
             //loading效果

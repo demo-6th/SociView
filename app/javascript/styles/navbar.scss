@@ -5,7 +5,7 @@
     .logo a{
       @apply text-3xl tracking-tighter no-underline font-mono text-black font-bold;
       span{
-        color: #49ccf8;
+       @apply text-blue-400;
       }
     }
     .login_btns{
@@ -14,7 +14,7 @@
         @apply text-xl mx-1 rounded-lg  py-2 px-5 font-bold text-black;
       }
       .nav_btn{
-        @apply mx-1 rounded-lg  py-2 px-5 font-bold shadow;
+        @apply mx-1 rounded-lg py-2 px-5 font-bold;
       }
     }
   }
