@@ -36,7 +36,6 @@
 </div>
 
   <div class="container">
-    <br>
     <div class="row items-center div_list">
       <% if @posts%>
         <% @posts.each do |post| %>
@@ -73,6 +72,8 @@
         <% end %>
       <% end %>
       
+
+
       <% if @comment_total %>
         <% @comment_total.each do |comment| %>
           <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>" like_count="<%=comment.like_count%>">
