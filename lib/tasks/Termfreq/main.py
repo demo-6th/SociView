@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 import os
 from collections import Counter
 import csv
+import json
 
 pd.options.mode.chained_assignment = None
 
@@ -37,7 +38,8 @@ def pos_counter(data, pos_type):
   with open('data/tf_'+pos_type+'.csv','w') as csvfile:
     writer=csv.writer(csvfile)
     writer.writerows(count)
-
+  # transpose csv
+  pd.read_csv('data/tf_'+pos_type+'.csv', header=None).T.to_csv('data/tf_'+pos_type+'.csv', header=False, index=False)
 
 if len(data) < 50:
   print("您所選擇區間資料過少，請重新選擇")
