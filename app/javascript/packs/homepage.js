@@ -10,4 +10,3 @@ require("flatpickr");
 import "flatpickr/dist/flatpickr.min.css";
 require("chart.js");
 require("script");
-require("papaparse");

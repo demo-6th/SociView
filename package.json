@@ -14,7 +14,6 @@
     "chart.js": "^2.9.4",
     "flatpickr": "^4.6.9",
     "font-awesome": "^4.7.0",
-    "papaparse": "^5.3.0",
     "postcss": "^7",
     "stimulus-tabs": "^1.0.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
