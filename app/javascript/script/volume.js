@@ -1,6 +1,6 @@
 function volume_chart(gon) {
-    start = gon.start;
-    end = gon.end;
+    let start = gon.start;
+    let end = gon.end;
     let theme1 = gon.theme1;
     let theme2 = gon.theme2;
     let theme3 = gon.theme3;
