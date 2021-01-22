@@ -296,6 +296,7 @@ class QueriesController < ApplicationController
       result.find_all do |res|
         csv << res.attributes.values
       end 
+<<<<<<< HEAD
       `python3 lib/tasks/Termfreq/main.py`
     end
     v_table = CSV.read("data/tf_V.csv")
@@ -307,6 +308,10 @@ class QueriesController < ApplicationController
     gon.nfreq = n_table[1]
     gon.adjterm = adj_table[0]
     gon.adjfreq = adj_table[1]
+=======
+      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
+    end
+>>>>>>> 6eec0784a30cef58e6a123e1b4c1beae0c32883c
   end
 
   private
@@ -317,4 +322,6 @@ class QueriesController < ApplicationController
   def search_comment_only(query)
     @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
   end
+
+
 end
