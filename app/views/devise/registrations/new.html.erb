@@ -7,19 +7,25 @@
         <%= render "devise/shared/error_messages", resource: resource %>
         <div class="loin_item">
           <%= f.label :nickname, '暱稱', class: "leading-7 text-sm text-gray-600" %><br /> 
-          <%= f.text_field :nickname, class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"%>
+          <%= f.text_field :nickname, class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",  placeholder: "必填",
+          required: true%>
         </div>
         <div class="loin_item">
           <%= f.label :email, class: "leading-7 text-sm text-gray-600" %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",  placeholder: "請輸入E-mail",
+          required: true, pattern: '[^@]+@[^@]+\.[a-zA-Z]{2,6}' %>
         </div>
         <div class="loin_item">
           <%= f.label :password, '密碼', class: "leading-7 text-sm text-gray-600"%><br />
-          <%= f.password_field :password, autocomplete: "請輸入密碼", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
+          <%= f.password_field :password, autocomplete: "請輸入密碼", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",  placeholder: "至少6個字",
+          maxlength: 6,
+          required: true %>
         </div>
         <div class="loin_item">
           <%= f.label :password_confirmation, '確認密碼', class: "leading-7 text-sm text-gray-600"%><br />
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-2" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out mb-2",  placeholder: "至少6個字",
+          maxlength: 6,
+          required: true %>
         </div>
         <div class="loin_action">
           <%= f.submit "註冊", class: "loin_btn" %>

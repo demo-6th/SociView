@@ -6,11 +6,14 @@
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="login_item">
             <%= f.label :email, class: "login_label" %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",  placeholder: "請輸入E-mail",
+            required: true %>
           </div>
           <div class="loin_item mb-2">
             <%= f.label :password, '密碼', class: "login_label"%><br />
-            <%= f.password_field :password, autocomplete: "請輸入密碼", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" %>
+            <%= f.password_field :password, autocomplete: "請輸入密碼", class: "w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out",  placeholder: "至少6個字",
+            maxlength: 6,
+            required: true %>
           </div>
           
           <% if devise_mapping.rememberable? %>
