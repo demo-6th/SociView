@@ -2,8 +2,11 @@ document.addEventListener("turbolinks:load", () => {
   const art = document.getElementById('article')
   const sen = document.getElementById('sentiment')
   const f_btn = document.getElementById('filter_btn')
-  const sort_t = document.getElementById('sort_by_time')
-  const sort_l = document.getElementById('sort_by_like')
+  const sort = document.getElementById('sort')
+  const sort_n = document.getElementById('sort_new')
+  const sort_o = document.getElementById('sort_old')
+  const sort_m = document.getElementById('sort_many')
+  const sort_l = document.getElementById('sort_less')
   if (f_btn) {
     const post_div = document.querySelectorAll('#post_div')
     const comment_div = document.querySelectorAll('#comment_div')
@@ -215,41 +218,57 @@ document.addEventListener("turbolinks:load", () => {
       }
     })
   }
-  if (sort_t) {
-    sort_t.addEventListener('change', function () {
+  if (sort) {
+    sort_n.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
       var arr = []
       for (var i = 0; i < list_div.length; i++) {
         arr.push(list_div[i])
       }
       arr.sort(function (a, b) {
-        if (sort_t.value == "new") {
-          return -(Date.parse(a.dataset["time"]) - Date.parse(b.dataset["time"]))
-        } else {
-          return Date.parse(a.dataset["time"]) - Date.parse(b.dataset["time"])
-        }
+        return -(Date.parse(a.dataset["time"]) - Date.parse(b.dataset["time"]))
       })
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
     })
-  }
-  if (sort_l) {
-    sort_l.addEventListener('change', function () {
+    sort_o.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
       var arr = []
       for (var i = 0; i < list_div.length; i++) {
-        arr.push(list_div[i]);
+        arr.push(list_div[i])
       }
       arr.sort(function (a, b) {
-        if (sort_l.value == "many") {
-          return -(a.getAttribute('like_count') - b.getAttribute('like_count'))
-        } else {
-          return a.getAttribute('like_count') - b.getAttribute('like_count')
-        }
+        return Date.parse(a.dataset["time"]) - Date.parse(b.dataset["time"])
       })
       for (var i = 0; i < arr.length; i++) {
-        document.querySelector('.div_list').appendChild(arr[i]);
+        document.querySelector('.div_list').appendChild(arr[i])
+      }
+    })
+    sort_m.addEventListener('click', function () {
+      var list_div = document.querySelectorAll('.list')
+      var arr = []
+      for (var i = 0; i < list_div.length; i++) {
+        arr.push(list_div[i])
+      }
+      arr.sort(function (a, b) {
+        return -(a.getAttribute('like_count') - b.getAttribute('like_count'))
+      })
+      for (var i = 0; i < arr.length; i++) {
+        document.querySelector('.div_list').appendChild(arr[i])
+      }
+    })
+    sort_l.addEventListener('click', function () {
+      var list_div = document.querySelectorAll('.list')
+      var arr = []
+      for (var i = 0; i < list_div.length; i++) {
+        arr.push(list_div[i])
+      }
+      arr.sort(function (a, b) {
+        return a.getAttribute('like_count') - b.getAttribute('like_count')
+      })
+      for (var i = 0; i < arr.length; i++) {
+        document.querySelector('.div_list').appendChild(arr[i])
       }
     })
   }
