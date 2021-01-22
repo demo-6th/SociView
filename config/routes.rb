@@ -19,8 +19,8 @@ Rails.application.routes.draw do
       post :topic, to: "queries#topicpost"
       get :wordcloud
       post :wordcloud, to: "queries#cloudpost"
-      get :diffusion
-      post :diffusion, to: "queries#diffusionpost"
+      get :termfreq
+      post :termfreq, to: "queries#termfreqpost"
     end
   end
 
