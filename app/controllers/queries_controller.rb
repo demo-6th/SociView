@@ -102,6 +102,9 @@ class QueriesController < ApplicationController
       @count = comment_count
       gon.result = @comment_result
     end
+
+
+    render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: post_count, theme: gon.theme } }
   end
 
   def volume; end
