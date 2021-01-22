@@ -1,20 +1,16 @@
-
-// #post_div {
-//   padding: 15px 15px 15px 15px;
-//   box-sizing: border-box;
-//   border: 3px red double;
-// }
-#comment_div {
-  padding: 15px 15px 15px 15px;
-  box-sizing: border-box;
-  border: 3px green double;
-}
 .ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   white-space: normal;
   overflow: hidden;
+}
+
+.choice_post{
+  @apply flex justify-between;
+  .choice_commont{
+    @apply bg-white px-4 py-2 border rounded-lg leading-6 my-3;
+  }
 }
 
 .postlist_container{
