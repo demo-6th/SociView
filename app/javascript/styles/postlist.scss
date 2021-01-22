@@ -1,9 +1,9 @@
 
-#post_div {
-  padding: 15px 15px 15px 15px;
-  box-sizing: border-box;
-  border: 3px red double;
-}
+// #post_div {
+//   padding: 15px 15px 15px 15px;
+//   box-sizing: border-box;
+//   border: 3px red double;
+// }
 #comment_div {
   padding: 15px 15px 15px 15px;
   box-sizing: border-box;
@@ -11,8 +11,51 @@
 }
 .ellipsis {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   white-space: normal;
   overflow: hidden;
+}
+
+.postlist_container{
+  @apply m-auto;
+  .row{
+    @apply w-full px-3;
+    #post_div{
+      @apply bg-white px-4 py-2 border border-blue-400 rounded-lg leading-6 my-3;
+      .post_inner{
+        @apply flex px-2;
+      }
+      p{
+        @apply pl-2;
+      }
+      .innerflex{
+        @apply flex;
+        p{
+          @apply px-2 py-1 mr-3 border-blue-200 border-r-2 m-auto; 
+          &:last-child{
+            @apply border-none;
+          }
+        }
+      }
+    }
+    #comment_div{
+      @apply bg-white px-4 py-2 border border-red-200 rounded-lg leading-6 my-3;
+      .post_inner{
+        @apply flex px-2;
+      }
+      p{
+        @apply pl-2;
+      }
+      .innerflex{
+        @apply flex;
+        p{
+          @apply px-2 py-1 mr-3 border-red-200 border-r-2 m-auto; 
+          &:last-child{
+            @apply border-none;
+          }
+        }
+      }
+    }
+  }
 }
