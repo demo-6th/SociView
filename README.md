@@ -11,6 +11,7 @@ SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.t
 - 情緒分析
 - 文字雲
 - 主題模型
+- 詞頻分析
 - 來源分析
 
 ## 使用技術
