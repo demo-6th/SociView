@@ -6,7 +6,8 @@ require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 require("styles");
-require("flatpickr")
+require("flatpickr");
 import "flatpickr/dist/flatpickr.min.css";
 require("chart.js");
 require("script");
+require("papaparse");

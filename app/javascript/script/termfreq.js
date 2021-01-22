@@ -1,40 +1,127 @@
 document.addEventListener("turbolinks:load", () => {
-  // const response = await fetch("data/tf_V.csv");
-  // const data = await response.text();
-  // const rows = data.split('\n').splice(1);
-  // rows.forEach((element) => {
-  //   const column = element.split(',');
-  //   const term = column[1];
-  //   const freq = column[2];
-  //   console.log(term)
-  //   console.log(freq)
-  // if (document.getElementById("sentimentPieChart")) {
-  //   // pie chart
-  //   const ctx_pie = document
-  //     .getElementById("sentimentPieChart")
-  //     .getContext("2d");
-  //   const pieChart = new Chart(ctx_pie, {
-  //     type: "bar",
-  //     data: {
-  //       labels: ["正面", "負面", "中立"],
-  //       datasets: [
-  //         {
-  //           label: "（主文）情緒長條圖",
-  //           data: [pos_count, neg_count, neutral_count],
-  //           // backgroundColor: [
-  //           //   "rgba(75,192,192,0.5)",
-  //           //   "rgba(255,99,132,0.5)",
-  //           //   "rgba(58,164,235,0.5)",
-  //           // ],
-  //         },
-  //       ],
-  //     },
-  //     options: {
-  //       title: {
-  //         display: true,
-  //         text: "情緒圓餅圖",
-  //       },
-  //     },
-  //   });
-  // }
+  let vterm = gon.vterm;
+  let vfreq = gon.vfreq;
+  let nterm = gon.nterm;
+  let nfreq = gon.nfreq;
+  let adjterm = gon.adjterm;
+  let adjfreq = gon.adjfreq;
+
+  if (document.getElementById("verbCount")) {
+    const verb_bar = document.getElementById("verbCount").getContext("2d");
+    const verbBar = new Chart(verb_bar, {
+      type: "horizontalBar",
+      data: {
+        labels: vterm,
+        datasets: [
+          {
+            label: "動詞長條圖",
+            data: vfreq,
+            backgroundColor: "rgba(75,192,192,0.5)",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              barThickness: 100,
+              maxBarThickness: 150,
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "動詞詞頻長條圖",
+        },
+        legend: {
+          display: false,
+        },
+      },
+    });
+
+    const noun_bar = document.getElementById("nounCount").getContext("2d");
+    const nounBar = new Chart(noun_bar, {
+      type: "horizontalBar",
+      data: {
+        labels: nterm,
+        datasets: [
+          {
+            label: "名詞長條圖",
+            data: nfreq,
+            backgroundColor: "rgba(75,192,192,0.5)",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              barThickness: 100,
+              maxBarThickness: 150,
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "名詞詞頻長條圖",
+        },
+        legend: {
+          display: false,
+        },
+      },
+    });
+
+    const adj_bar = document.getElementById("adjCount").getContext("2d");
+    const adjBar = new Chart(adj_bar, {
+      type: "horizontalBar",
+      data: {
+        labels: adjterm,
+        datasets: [
+          {
+            label: "形容詞長條圖",
+            data: adjfreq,
+            backgroundColor: "rgba(75,192,192,0.5)",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              barThickness: 100,
+              maxBarThickness: 150,
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "形容詞詞頻長條圖",
+        },
+        legend: {
+          display: false,
+        },
+      },
+    });
+  }
 });

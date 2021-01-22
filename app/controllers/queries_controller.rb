@@ -1,6 +1,9 @@
 class QueriesController < ApplicationController
   before_action :authenticate_user!
   layout "homepage"
+  require 'csv'
+
+
 
   def index; end
 
@@ -293,8 +296,17 @@ class QueriesController < ApplicationController
       result.find_all do |res|
         csv << res.attributes.values
       end 
-      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
+      `python3 lib/tasks/Termfreq/main.py`
     end
+    v_table = CSV.read("data/tf_V.csv")
+    n_table = CSV.read("data/tf_N.csv")
+    adj_table = CSV.read("data/tf_A.csv")
+    gon.vterm = v_table[0]
+    gon.vfreq = v_table[1]
+    gon.nterm = n_table[0]
+    gon.nfreq = n_table[1]
+    gon.adjterm = adj_table[0]
+    gon.adjfreq = adj_table[1]
   end
 
   private
