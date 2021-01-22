@@ -6,122 +6,49 @@ document.addEventListener("turbolinks:load", () => {
   let adjterm = gon.adjterm;
   let adjfreq = gon.adjfreq;
 
+  function termfreqChart(pos, term, freq, pos_ch) {
+    const posbar = document.getElementById(pos + "Count").getContext("2d");
+    const barChart = new Chart(posbar, {
+      type: "horizontalBar",
+      data: {
+        labels: term,
+        datasets: [
+          {
+            data: freq,
+            backgroundColor: "rgba(75,192,192,0.5)",
+          },
+        ],
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+          xAxes: [
+            {
+              barThickness: 100,
+              maxBarThickness: 150,
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: pos_ch + "長條圖",
+        },
+        legend: {
+          display: false,
+        },
+      },
+    });
+  }
+
   if (document.getElementById("verbCount")) {
-    const verb_bar = document.getElementById("verbCount").getContext("2d");
-    const verbBar = new Chart(verb_bar, {
-      type: "horizontalBar",
-      data: {
-        labels: vterm,
-        datasets: [
-          {
-            label: "動詞長條圖",
-            data: vfreq,
-            backgroundColor: "rgba(75,192,192,0.5)",
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-          xAxes: [
-            {
-              barThickness: 100,
-              maxBarThickness: 150,
-            },
-          ],
-        },
-        title: {
-          display: true,
-          text: "動詞詞頻長條圖",
-        },
-        legend: {
-          display: false,
-        },
-      },
-    });
-
-    const noun_bar = document.getElementById("nounCount").getContext("2d");
-    const nounBar = new Chart(noun_bar, {
-      type: "horizontalBar",
-      data: {
-        labels: nterm,
-        datasets: [
-          {
-            label: "名詞長條圖",
-            data: nfreq,
-            backgroundColor: "rgba(75,192,192,0.5)",
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-          xAxes: [
-            {
-              barThickness: 100,
-              maxBarThickness: 150,
-            },
-          ],
-        },
-        title: {
-          display: true,
-          text: "名詞詞頻長條圖",
-        },
-        legend: {
-          display: false,
-        },
-      },
-    });
-
-    const adj_bar = document.getElementById("adjCount").getContext("2d");
-    const adjBar = new Chart(adj_bar, {
-      type: "horizontalBar",
-      data: {
-        labels: adjterm,
-        datasets: [
-          {
-            label: "形容詞長條圖",
-            data: adjfreq,
-            backgroundColor: "rgba(75,192,192,0.5)",
-          },
-        ],
-      },
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-          xAxes: [
-            {
-              barThickness: 100,
-              maxBarThickness: 150,
-            },
-          ],
-        },
-        title: {
-          display: true,
-          text: "形容詞詞頻長條圖",
-        },
-        legend: {
-          display: false,
-        },
-      },
-    });
+    termfreqChart("verb", vterm, vfreq, "動詞");
+    termfreqChart("noun", nterm, nfreq, "名詞");
+    termfreqChart("adj", adjterm, adjfreq, "形容詞");
   }
 });
