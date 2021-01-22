@@ -87,6 +87,14 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    elasticsearch (7.10.1)
+      elasticsearch-api (= 7.10.1)
+      elasticsearch-transport (= 7.10.1)
+    elasticsearch-api (7.10.1)
+      multi_json
+    elasticsearch-transport (7.10.1)
+      faraday (~> 1)
+      multi_json
     erubi (1.10.0)
     faraday (1.3.0)
       faraday-net_http (~> 1.0)
@@ -116,7 +124,13 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
+    json (2.5.1)
+    json (2.5.1-java)
     jwt (2.2.2)
+    koala (3.0.0)
+      addressable
+      faraday
+      json (>= 1.8)
     listen (3.4.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -163,7 +177,7 @@ GEM
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
-    omniauth-facebook (4.0.0)
+    omniauth-facebook (8.0.0)
       omniauth-oauth2 (~> 1.2)
     omniauth-google-oauth2 (0.8.1)
       jwt (>= 2.0)
@@ -243,6 +257,10 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    searchkick (4.4.2)
+      activemodel (>= 5)
+      elasticsearch (>= 6)
+      hashie
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -299,6 +317,7 @@ PLATFORMS
   x64-mingw32
   x86-mingw32
   x86-mswin32
+  x86_64-darwin-19
   x86_64-darwin-20
   x86_64-linux
 
@@ -313,15 +332,17 @@ DEPENDENCIES
   gon (~> 6.1)
   hirb-unicode
   jbuilder (~> 2.7)
+  koala (~> 3.0)
   listen (~> 3.2)
   omniauth (= 1.9.1)
-  omniauth-facebook (~> 4.0)
+  omniauth-facebook (~> 8.0)
   omniauth-google-oauth2 (~> 0.8.1)
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   ransack (~> 2.4.1)
   sass-rails (>= 6)
+  searchkick (~> 4.4, >= 4.4.2)
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
