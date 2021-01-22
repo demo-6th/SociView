@@ -45,7 +45,7 @@
               border-bottom: 1px solid black;
             }
             .choice_box {
-              @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg text-lg overflow-hidden overflow-scroll;
+              @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg text-lg;
               .choice_item {
                 .theme_text {
                   @apply p-1;
