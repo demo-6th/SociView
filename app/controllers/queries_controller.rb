@@ -317,6 +317,4 @@ class QueriesController < ApplicationController
   def search_comment_only(query)
     @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
   end
-
-
 end
