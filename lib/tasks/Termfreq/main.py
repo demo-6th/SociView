@@ -5,10 +5,6 @@ from matplotlib import pyplot as plt
 import os
 from collections import Counter
 import csv
-<<<<<<< HEAD
-import json
-=======
->>>>>>> 6eec0784a30cef58e6a123e1b4c1beae0c32883c
 
 pd.options.mode.chained_assignment = None
 
