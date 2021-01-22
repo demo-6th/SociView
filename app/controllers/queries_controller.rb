@@ -1,6 +1,9 @@
 class QueriesController < ApplicationController
   before_action :authenticate_user!
   layout "homepage"
+  require 'csv'
+
+
 
   def index; end
 
@@ -232,7 +235,6 @@ class QueriesController < ApplicationController
   def wordcloud; end
 
   def cloudpost
-    # pass value down to api action
     @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
@@ -264,14 +266,50 @@ class QueriesController < ApplicationController
     end
   end
 
-  def diffusion; end
+  def termfreq; end
 
-  def diffusionpost
-    
+  def termfreqpost
+    @theme = params[:theme]
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:start].to_date
+    @end = params[:end].to_date
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+
+    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
+    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
+
+    post_count = post_result.count
+    comment_count = comment_result.count
+
+    if params[:post] && params[:comment]
+      @count = post_count + comment_count
+      result = post_result.select(:token, :pos) | comment_result.select(:token, :pos)
+    elsif params[:post] && !params[:comment]
+      @count = post_count
+      result = post_result.select(:token, :pos)
+    else
+      @count = comment_count
+      result = comment_result.select(:token, :pos)
+    end
+
+    CSV.open("data/tf_data.csv", "wb") do |csv|
+      result.find_all do |res|
+        csv << res.attributes.values
+      end 
+      `python3 lib/tasks/Termfreq/main.py`
+    end
+    v_table = CSV.read("data/tf_V.csv")
+    n_table = CSV.read("data/tf_N.csv")
+    adj_table = CSV.read("data/tf_A.csv")
+    gon.vterm = v_table[0]
+    gon.vfreq = v_table[1]
+    gon.nterm = n_table[0]
+    gon.nfreq = n_table[1]
+    gon.adjterm = adj_table[0]
+    gon.adjfreq = adj_table[1]
   end
 
   private
-
   def search_post_only(query)
     @posts = Post.search query, fields: [:title, :content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }, order: { created_at: { order: "asc" } }
   end
@@ -279,4 +317,6 @@ class QueriesController < ApplicationController
   def search_comment_only(query)
     @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
   end
+
+
 end
