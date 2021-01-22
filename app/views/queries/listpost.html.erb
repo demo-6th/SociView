@@ -80,7 +80,6 @@
           <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>" like_count="<%=comment.like_count%>">
             <p>文章標題：<%= comment.post.title %></p>
             <p class="ellipsis">回文內容：<%= comment.content %></p>
-            <p>關鍵字：<%= comment.keyword.gsub(/[\[\]\'\,\"]/, "") %></p>
             <p>回文數：<%= comment.post.comment_count %></p>
             <p>回文者：
               <% if comment.author.nil? %>
