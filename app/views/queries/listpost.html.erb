@@ -11,30 +11,31 @@
       </div>
     </div>
   </div>
-<div>
-  文章篩選
-  <select id="article">  
-    <option value="all" selected="selected">主文加回文</option>
-    <option value="post">主文</option>
-    <option value="comment">回文</option>
-  </select>
-  <select id="sentiment">
-    <option value="all" selected="selected">不分情緒</option>
-    <option value="positive">正面</option>
-    <option value="negative">負面</option>
-    <option value="neutral">中立</option>
-  </select>
-  <button id="filter_btn">開始篩選</button>
-</div>
+  <div class="choice_post">
+    <div class="choice_commont">
+      <span>文章篩選</span>
+      <select id="article">  
+        <option value="all" selected="selected">主文加回文</option>
+        <option value="post">主文</option>
+        <option value="comment">回文</option>
+      </select>
+      <select id="sentiment">
+        <option value="all" selected="selected">不分情緒</option>
+        <option value="positive">正面</option>
+        <option value="negative">負面</option>
+        <option value="neutral">中立</option>
+      </select>
+      <button id="filter_btn">開始篩選</button>
+    </div>
 
-<div id = "sort">  
-  排序方式
-  <button id="sort_new" type="submit" value="new">由新到舊</button>
-  <button id="sort_old" type="submit" value="old">由舊到新</button>
-  <button id="sort_many" type="submit" value="many">按讚數高</button>
-  <button id="sort_less" type="submit" value="less">按讚數低</button>
-</div>
-
+    <div class="choice_commont" id = "sort">  
+      <span>排序方式</span>
+      <button id="sort_new" type="submit" value="new">由新到舊</button>
+      <button id="sort_old" type="submit" value="old">由舊到新</button>
+      <button id="sort_many" type="submit" value="many">按讚數高</button>
+      <button id="sort_less" type="submit" value="less">按讚數低</button>
+    </div>
+  </div>
 
   <div class="postlist_container">
     <div class="row">
