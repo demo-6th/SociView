@@ -11,7 +11,10 @@
   .choice_commont{
     @apply px-4 py-2 border rounded-lg leading-6 my-3;
     span{
-      @apply border-2 border-blue-200 rounded-lg p-2;
+      @apply border-2 border-blue-200 rounded-lg p-2 text-gray-700;
+    }
+    button{
+      @apply bg-blue-200 rounded-lg p-2 text-gray-700;
     }
   }
 }
