@@ -35,13 +35,13 @@ document.addEventListener("turbolinks:load", () =>{
             </div>
           </div>
 
-          <div class="container">
+          <div class="chart">
             <canvas id="sentimentPieChart" width="960px" height="400px"></canvas>
           </div>
-          <div class="container">
+          <div class="chart">
             <canvas id="sentimentBarChart" width="960px" height="400px"></canvas>
           </div>
-          <div class="container">
+          <div class="chart">
             <canvas id="sentimentLineChart" width="960px" height="400px"></canvas>
           </div>`
           setiment_chart(gon)

@@ -6,6 +6,7 @@ import "./querys.scss";
 import "./footer.scss";
 import "./search_data.scss";
 import "./postlist.scss";
+import "./chart.scss";
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import "tailwindcss/dist/tailwind.css"
