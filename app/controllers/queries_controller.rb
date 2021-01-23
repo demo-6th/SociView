@@ -73,6 +73,7 @@ class QueriesController < ApplicationController
         @count = @comment_total.count
       end
     end
+    render json: { html: render_to_string(partial: 'listpost') }
   end
 
   def sentiment; end
