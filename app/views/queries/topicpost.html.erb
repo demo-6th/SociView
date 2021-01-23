@@ -11,8 +11,7 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <br>
+  <div class="chart">
     <%= @topic %>
     <% if FileTest.exist?("app/views/shared/_ldavis.html") %>
       <%= render "shared/ldavis" %>
