@@ -1,6 +1,6 @@
 function volume_chart(gon) {
-    let start = gon.start;
-    let end = gon.end;
+    start = gon.start;
+    end = gon.end;
     let theme1 = gon.theme1;
     let theme2 = gon.theme2;
     let theme3 = gon.theme3;
@@ -73,6 +73,7 @@ function volume_chart(gon) {
         theme3 == null ?
             "" :
             addData(barChart, theme3, count3, "rgba(58,164,235,0.5)");
+        z
 
         // line chart
         const ctx_line = document
