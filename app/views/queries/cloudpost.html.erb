@@ -12,14 +12,12 @@
     </div>
 
   </div>
-  <div class="container">
-    <br>
+  <div class="chart">
     <div class="row items-center">
-      <%= @cloud %>
+      <div class="text-red-500 pl-1"><%= @cloud %></div>
       <% if FileTest.exist?("app/assets/images/wordcloud.png") %>
-        <%= image_tag("wordcloud.png") %>
+        <div><%= image_tag("wordcloud.png") %></div>
       <% end %>
     </div>
-    <br>
   </div>
 </div>

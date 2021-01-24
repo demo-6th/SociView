@@ -20,6 +20,7 @@ document.addEventListener("turbolinks:load", () =>{
         .then(function(resp){
            const { count1, count2, count3, theme, start, end, source, type, gon } = resp.data
            const users_query_page = document.querySelector(".search_list")
+           
            users_query_page.innerHTML =`<div class="container">
            <div class="row">
              <div id="search" class="search_all">
@@ -32,12 +33,17 @@ document.addEventListener("turbolinks:load", () =>{
              </div>
            </div>
          </div>
-      
-         <div class="container">
+         <div class="chart_tab">
+           <div class="tab_link">
+            <div class="tab_bar border_up" href="">聲量長條圖</div>
+            <div class="tab_line border_down" href="">聲量折線圖</div>
+           </div>
+         <div class="chart">
            <canvas id="volumeBarChart" width="960px" height="400px"></canvas>
          </div>
-         <div class="container">
+         <div class="chart">
            <canvas id="volumeLineChart" width="960px" height="400px"></canvas>
+         </div>
          </div>`
          volume_chart(gon)
         })
