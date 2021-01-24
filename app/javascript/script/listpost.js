@@ -233,6 +233,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      sort_arr = arr
       sort_page()
     })
     sort_o.addEventListener('click', function () {
@@ -247,6 +248,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      sort_arr = arr
       sort_page()
     })
     sort_m.addEventListener('click', function () {
@@ -261,6 +263,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      sort_arr = arr
       sort_page()
     })
     sort_l.addEventListener('click', function () {
@@ -275,6 +278,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      sort_arr = arr
       sort_page()
     })
   }
