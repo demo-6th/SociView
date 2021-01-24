@@ -44,7 +44,7 @@
     <div class="row div_list">
       <% if @posts%>
         <% @posts.each do |post| %>
-          <div id = "post_div" class = "<%=post.sentiment%>_post list " data-time = "<%=post.created_at.in_time_zone("Taipei")%>" like_count="<%=post.like_count%>"> 
+          <div id = "post_div" class = "<%=post.sentiment%>_post list " data-time = "<%=post.created_at.in_time_zone("Taipei")%>" like_count="<%=post.like_count%>" style="display: block;"> 
           <div class="post_inner mb-2 ">
             <p class="w-1/12">文章標題</p><p class="w-10/12"><%= post.title %></p>
           </div>
@@ -88,7 +88,7 @@
 
       <% if @comment_total %>
         <% @comment_total.each do |comment| %>
-          <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>" like_count="<%=comment.like_count%>">
+          <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>" like_count="<%=comment.like_count%>" style="display: block;">
             <div class="post_inner mb-2">
               <p class="w-1/12">文章標題：</p><p class="w-11/12"><%= comment.post.title %></p>
             </div>

@@ -1,7 +1,3 @@
-const {
-  clearCache
-} = require("turbolinks");
-
 document.addEventListener("turbolinks:load", () => {
   const art = document.getElementById('article')
   const sen = document.getElementById('sentiment')
