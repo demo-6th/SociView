@@ -272,4 +272,24 @@ document.addEventListener("turbolinks:load", () => {
       }
     })
   }
+  var btnNum = Math.ceil(arr_block.length / 10);
+  console.log(btnNum)
+
+  for (var i = 0; i < btn.length; i++) {
+    btn[i].addEventListener('click', changePage.bind(this, (i + 1), ary))
+
+    function changePage(page, data) {
+      var items = 10
+      var pageIndexStart = (page - 1) * items
+      var pageIndexEnd = page * items
+      var str = ''
+      for (var i = pageIndexStart; i < pageIndexEnd; i++) {
+        if (i >= data.length) {
+          break;
+        }
+        str += `<div class="box">${data[i]}</div>`
+      }
+      document.querySelector('.content').innerHTML = str
+    }
+  }
 })

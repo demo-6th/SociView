@@ -12,8 +12,10 @@ class QueriesController < ApplicationController
   def listpost
     @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_s
-    @end = params[:end].to_s
+    @start = params[:start].to_date
+    @start_time = params[:start].to_date.midnight.to_s
+    @end = params[:end].to_date
+    @end_time = params[:end].to_date.end_of_day.to_s
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
     
     if params[:dcard] && params[:ptt] #同時搜尋Dcard & PTT
