@@ -1,4 +1,5 @@
-function termfreq(gon) {
+function termfreq_chart(gon) {
+  console.log("aaa")
   let vterm = gon.vterm;
   let vfreq = gon.vfreq;
   let nterm = gon.nterm;
@@ -52,4 +53,4 @@ function termfreq(gon) {
     termfreqChart("adj", adjterm, adjfreq, "形容詞");
   }
 }
-export default termfreq;
+export default termfreq_chart;

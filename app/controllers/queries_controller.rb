@@ -310,7 +310,7 @@ class QueriesController < ApplicationController
     gon.adjterm = adj_table[0]
     gon.adjfreq = adj_table[1]
 
-    render "queries/termfreqpost"
+    render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, vterm: gon.vterm, vfreq: gon.vfreq, nterm: gon.nterm, nfreq: gon.nfreq, adjterm: gon.adjterm, adjfreq: gon.adjfreq} }
   end
 
   private
