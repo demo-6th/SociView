@@ -267,7 +267,10 @@ class QueriesController < ApplicationController
   def termfreq; end
 
   def termfreqpost
+    query_result()
+     # 下面可以用一行取代
     @theme = params[:theme]
+    keywords = topic(@theme) 
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @end = params[:end].to_date
@@ -325,24 +328,15 @@ class QueriesController < ApplicationController
     @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
   end
 
- 
-
-  def result_count 
+  # 查詢結果
+  def query_result
+    @theme = params[:theme]
+    keywords = topic(@theme) 
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:start].to_date
+    @end = params[:end].to_date
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
   end 
-
-  def date_range 
-  end 
-
-  def source
-  end 
-
-  def doctype
-  end 
-
-  
-
-
-
   # 根據傳入值去帶入主題關鍵字
   def topic(theme)
     result = []
