@@ -272,24 +272,58 @@ document.addEventListener("turbolinks:load", () => {
       }
     })
   }
-  var btnNum = Math.ceil(arr_block.length / 10);
-  console.log(btnNum)
 
-  for (var i = 0; i < btn.length; i++) {
-    btn[i].addEventListener('click', changePage.bind(this, (i + 1), ary))
 
-    function changePage(page, data) {
-      var items = 10
-      var pageIndexStart = (page - 1) * items
-      var pageIndexEnd = page * items
-      var str = ''
-      for (var i = pageIndexStart; i < pageIndexEnd; i++) {
-        if (i >= data.length) {
-          break;
-        }
-        str += `<div class="box">${data[i]}</div>`
+
+
+  function sort_page() {
+    var block_ary = sort_arr
+
+    function showBtn() {
+      var opt = document.getElementById('selectpage')
+      var btnNum = Math.ceil(block_ary.length / 10);
+      var str = "";
+      for (var i = 0; i < btnNum; i++) {
+        str += ` <option id ="${i + 1}" value="${i + 1}">${i + 1}</option> `;
       }
-      document.querySelector('.content').innerHTML = str
+      opt.innerHTML = str;
+      var s_btn = document.getElementById('page_btn')
+      var sel = document.getElementById('selectpage')
+      s_btn.addEventListener('click', function () {
+        var items = 10;
+        var pageIndexStart = (sel.value - 1) * items;
+        var pageIndexEnd = sel.value * items;
+        for (let i = 0; i < block_ary.length; i++) {
+          block_ary[i].style.display = "none"
+        }
+        for (var i = pageIndexStart; i < pageIndexEnd; i++) {
+          if (i >= block_ary.length) {
+            break;
+          }
+          block_ary[i].style.display = "block"
+        };
+      });
     }
+    changePage(1, block_ary);
+    showBtn();
   }
+
+  function changePage(value, ary) {
+    var items = 10;
+    var pageIndexStart = (value - 1) * items;
+    var pageIndexEnd = value * items;
+    for (let i = 0; i < ary.length; i++) {
+      ary[i].style.display = "none"
+    }
+    for (var i = pageIndexStart; i < pageIndexEnd; i++) {
+      if (i >= ary.length) {
+        break;
+      }
+      ary[i].style.display = "block"
+    };
+  }
+
+
+
+
 })
