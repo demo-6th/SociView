@@ -233,28 +233,10 @@ class QueriesController < ApplicationController
   def wordcloud; end
 
   def cloudpost
-    @theme = params[:theme]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-
-    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-    post_count = post_result.count
-    comment_count = comment_result.count
-
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      result = post_result.select(:no_stop, :id) | comment_result.select(:no_stop, :id)
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      result = post_result.select(:no_stop, :id)
-    else
-      @count = comment_count
-      result = comment_result.select(:no_stop, :id)
-    end
+    search_box()
+    search_result = doc_type(@type,:no_stop,:id)
+    result = search_result[0]
+    @count = search_result[1]
 
     CSV.open("data/cloud_text.csv", "wb") do |csv|
       result.find_all do |res|
