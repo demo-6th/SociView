@@ -4,8 +4,8 @@ document.addEventListener("turbolinks:load", () => {
     let all_date = [];
     let pos_count = 0;
     let neg_count = 0;
-    let pos_line = [];
-    let neg_line = [];
+    let ptt_line = [];
+    let dcard_line = [];
     let ptt_count = gon.ptt_count
     let dcard_count = gon.dcard_count
 
@@ -20,8 +20,8 @@ document.addEventListener("turbolinks:load", () => {
     }
 
     all_date.forEach((d) => {
-        pos_line[d] = 0;
-        neg_line[d] = 0;
+        ptt_line[d] = 0;
+        dcard_line[d] = 0;
 
     });
     if (gon.result !== undefined) {
@@ -32,20 +32,25 @@ document.addEventListener("turbolinks:load", () => {
             if (e.alias.includes('ptt')) {
 
                 pos_count += 1;
-                pos_line[d_result] += 1;
+                ptt_line[d_result] += 1;
             } else if (e.alias.includes('dcard')) {
                 neg_count += 1;
-                neg_line[d_result] += 1;
+                dcard_line[d_result] += 1;
             }
         });
     }
-    const arr1 = Object.values(pos_line)
-    const arr2 = Object.values(pos_line)
-    console.log(arr1)
-    console.log(arr2)
-    var result = arr1.map(function(n, i) { return n / arr2[i]; });
-    console.log(result)
+    const ptt_arr = Object.values(ptt_line)
+    const dcard_arr = [100, 2000, 100, 100]
+    console.log(ptt_arr)
+    console.log(dcard_arr)
+    const total_result = ptt_arr.map(function(n, i) { return n + dcard_arr[i]; });
+    const ptt_divsion = ptt_arr.map(function(n, i) { return n / total_result[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
+    const dcard_divsion = dcard_arr.map(function(n, i) { return n / total_result[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
 
+    console.log(ptt_divsion)
+    console.log(dcard_divsion)
+    const ptt_bgc = ptt_divsion.map(x => x = "rgba(0,0,0,0.5)")
+    const dcard_bgc = dcard_divsion.map(x => x = "rgba(0,106,166,0.5)")
 
     if (document.getElementById("sourcePieChart")) {
         // pie chart
@@ -83,25 +88,39 @@ document.addEventListener("turbolinks:load", () => {
             data: {
                 labels: all_date,
                 datasets: [{
-                        backgroundColor: ["rgba(75,192,192,0.5)", "rgba(75,192,192,0.5)", "rgba(75,192,192,0.5)"],
+                        label: 'PTT',
+                        backgroundColor: ptt_bgc,
                         fillColor: "#000000",
-                        data: Object.values(pos_line)
+                        data: ptt_divsion
                     },
                     {
-                        backgroundColor: ["rgba(255,99,132,0.5)", "rgba(255,99,132,0.5)", "rgba(255,99,132,0.5)"],
-                        data: Object.values(neg_line)
+                        label: 'Dcard',
+                        backgroundColor: dcard_bgc,
+                        data: dcard_divsion
                     }
                 ],
             },
             options: {
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItems, data) {
+                            return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + ' %';
+                        }
+                    }
+                },
                 scales: {
                     yAxes: [{
                         stacked: true,
                         ticks: {
                             callback: function(value, index, values) {
-                                return value * 100;
+                                return value + '%';
                             },
                             beginAtZero: true,
+                            scaleLabel: {
+                                display: true,
+                            }
                         },
                     }, ],
                     xAxes: [{
