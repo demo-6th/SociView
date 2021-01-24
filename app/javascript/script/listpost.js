@@ -233,7 +233,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      filter_page()
+      sort_page()
     })
     sort_o.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
@@ -247,7 +247,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      filter_page()
+      sort_page()
     })
     sort_m.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
@@ -261,7 +261,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      filter_page()
+      sort_page()
     })
     sort_l.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
@@ -275,7 +275,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      filter_page()
+      sort_page()
     })
   }
 
