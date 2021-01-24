@@ -16,9 +16,3 @@ document.addEventListener("turbolinks:load", () =>{
       })
     }
 })
-
-// Rails.ajax({
-//   url: "/queries/list",
-//   type: "post",
-//   success: function(data) { Rails.document.querySelector(".search_list")[0].innerHTML = data.html; }
-// })
