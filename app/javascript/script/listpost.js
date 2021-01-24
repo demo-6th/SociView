@@ -7,6 +7,7 @@ document.addEventListener("turbolinks:load", () => {
   const sort_o = document.getElementById('sort_old')
   const sort_m = document.getElementById('sort_many')
   const sort_l = document.getElementById('sort_less')
+  const s_btn = document.getElementById('page_btn')
   if (f_btn) {
     const post_div = document.querySelectorAll('#post_div')
     const comment_div = document.querySelectorAll('#comment_div')
@@ -16,8 +17,10 @@ document.addEventListener("turbolinks:load", () => {
     const neutral_comment = document.querySelectorAll('.neutral_comment')
     const positive_comment = document.querySelectorAll('.positive_comment')
     const negative_comment = document.querySelectorAll('.negative_comment')
-    filter_page()
-    f_btn.addEventListener('click', function filter() {
+    block()
+    showBtn()
+    firstPage()
+    f_btn.addEventListener('click', function () {
       if (art.value == "all") {
         if (sen.value == "all") {
           for (var i = 0; i < post_div.length; i++) {
@@ -217,7 +220,9 @@ document.addEventListener("turbolinks:load", () => {
           }
         }
       }
-      filter_page()
+      block()
+      showBtn()
+      firstPage()
     })
   }
   if (sort) {
@@ -233,8 +238,9 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      sort_arr = arr
-      sort_page()
+      filter_ary = arr
+      showBtn()
+      firstPage()
     })
     sort_o.addEventListener('click', function () {
       var list_div = filter_ary
@@ -248,8 +254,9 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      sort_arr = arr
-      sort_page()
+      filter_ary = arr
+      showBtn()
+      firstPage()
     })
     sort_m.addEventListener('click', function () {
       var list_div = filter_ary
@@ -263,8 +270,9 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      sort_arr = arr
-      sort_page()
+      filter_ary = arr
+      showBtn()
+      firstPage()
     })
     sort_l.addEventListener('click', function () {
       var list_div = filter_ary
@@ -278,31 +286,15 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
-      sort_arr = arr
-      sort_page()
+      filter_ary = arr
+      showBtn()
+      firstPage()
     })
   }
-})
-
-function filter_page() {
-  var block_ary = document.querySelectorAll("div[style^='display: block']")
-  var ary = [];
-  for (let i = 0; i < block_ary.length; i++) {
-    ary.push(block_ary[i]);
-  }
-  filter_ary = ary
-
-  function showBtn() {
-    var opt = document.getElementById('selectpage');
-    var btnNum = Math.ceil(ary.length / 10);
-    var str = "";
-    for (var i = 0; i < btnNum; i++) {
-      str += ` <option id ="${i + 1}" value="${i + 1}">${i + 1}</option> `;
-    }
-    opt.innerHTML = str;
-    var s_btn = document.getElementById('page_btn')
+  if (s_btn) {
     var sel = document.getElementById('selectpage')
     s_btn.addEventListener('click', function () {
+      var ary = filter_ary
       var items = 10;
       var pageIndexStart = (sel.value - 1) * items;
       var pageIndexEnd = sel.value * items;
@@ -315,55 +307,40 @@ function filter_page() {
         }
         ary[i].style.display = "block"
       };
-    });
+    })
   }
-  changePage(1, ary);
-  showBtn();
+})
+
+function block() {
+  filter_ary = document.querySelectorAll("div[style^='display: block']")
 }
 
-function sort_page() {
-  var block_ary = sort_arr
-
-  function showBtn() {
-    var opt = document.getElementById('selectpage')
-    var btnNum = Math.ceil(block_ary.length / 10);
-    var str = "";
-    for (var i = 0; i < btnNum; i++) {
-      str += ` <option id ="${i + 1}" value="${i + 1}">${i + 1}</option> `;
-    }
-    opt.innerHTML = str;
-    var s_btn = document.getElementById('page_btn')
-    var sel = document.getElementById('selectpage')
-    s_btn.addEventListener('click', function () {
-      var items = 10;
-      var pageIndexStart = (sel.value - 1) * items;
-      var pageIndexEnd = sel.value * items;
-      for (let i = 0; i < block_ary.length; i++) {
-        block_ary[i].style.display = "none"
-      }
-      for (var i = pageIndexStart; i < pageIndexEnd; i++) {
-        if (i >= block_ary.length) {
-          break;
-        }
-        block_ary[i].style.display = "block"
-      };
-    });
+function showBtn() {
+  var block_ary = filter_ary
+  var ary = [];
+  for (let i = 0; i < block_ary.length; i++) {
+    ary.push(block_ary[i]);
   }
-  changePage(1, block_ary);
-  showBtn();
+  filter_ary = ary
+  var opt = document.getElementById('selectpage');
+  var btnNum = Math.ceil(ary.length / 10);
+  var str = "";
+  for (var i = 0; i < btnNum; i++) {
+    str += ` <option id ="${i + 1}" value="${i + 1}">${i + 1}</option> `;
+  }
+  opt.innerHTML = str;
 }
 
-function changePage(value, ary) {
-  var items = 10;
-  var pageIndexStart = (value - 1) * items;
-  var pageIndexEnd = value * items;
-  for (let i = 0; i < ary.length; i++) {
-    ary[i].style.display = "none"
+function firstPage() {
+  var pageIndexStart = 0;
+  var pageIndexEnd = 10;
+  for (let i = 0; i < filter_ary.length; i++) {
+    filter_ary[i].style.display = "none"
   }
   for (var i = pageIndexStart; i < pageIndexEnd; i++) {
-    if (i >= ary.length) {
+    if (i >= filter_ary.length) {
       break;
     }
-    ary[i].style.display = "block"
+    filter_ary[i].style.display = "block"
   };
 }

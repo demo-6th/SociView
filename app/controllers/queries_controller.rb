@@ -10,8 +10,7 @@ class QueriesController < ApplicationController
   def list; end
 
   def listpost
-    # @theme = params[:theme]
-    @theme = ["五倍"]
+    @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @start_time = params[:start].to_date.midnight.to_s
@@ -19,56 +18,56 @@ class QueriesController < ApplicationController
     @end_time = params[:end].to_date.end_of_day.to_s
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
     
-    if params[:dcard] && params[:ptt] #同時搜尋Dcard & PTT
-      if params[:post] && params[:comment] #同時找Post & Comment
+    if params[:dcard] && params[:ptt] 
+      if params[:post] && params[:comment] 
         @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result.sort_by{|x| x[:created_at]}
         @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result
         @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result
         @comment_total = @post_comment + @comments
         @comment_total = @comment_total.uniq.sort_by{|x| x[:created_at]}
         @count = @posts.count + @comment_total.count
-      elsif params[:post] && !params[:comment]  #只找Post
+      elsif params[:post] && !params[:comment]  
         @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result.sort_by{|x| x[:created_at]}
         @count = @posts.count
-      else #只找Comment
+      else 
         @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result
         @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ).result
         @comment_total = @post_comment + @comments
         @comment_total = @comment_total.uniq.sort_by{|x| x[:created_at]}
         @count = @comment_total.count
       end
-    elsif params[:dcard] && !params[:ptt] #只找Dcard
+    elsif params[:dcard] && !params[:ptt] 
       @source_id = 1
-      if params[:post] && params[:comment] #同時找Post & Comment
+      if params[:post] && params[:comment] 
         @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result.sort_by{|x| x[:created_at]}
         @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comment_total = @post_comment + @comments
         @comment_total = @comment_total.uniq.sort_by{|x| x[:created_at]}
         @count = @posts.count + @comment_total.count
-      elsif params[:post] && !params[:comment]  #只找Post
+      elsif params[:post] && !params[:comment]  
         @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result.sort_by{|x| x[:created_at]}
         @count = @posts.count
-      else  #只找Comment
+      else  
         @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comment_total = @post_comment + @comments
         @comment_total = @comment_total.uniq.sort_by{|x| x[:created_at]}
         @count = @comment_total.count
       end
-    else #只找PTT
+    else 
       @source_id = 2
-      if params[:post] && params[:comment] #同時找Post & Comment
+      if params[:post] && params[:comment]
         @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result.sort_by{|x| x[:created_at]}
         @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comment_total = @post_comment + @comments
         @comment_total = @comment_total.uniq.sort_by{|x| x[:created_at]}
         @count = @posts.count + @comment_total.count
-      elsif params[:post] && !params[:comment]  #只找Post
+      elsif params[:post] && !params[:comment]  
         @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time ,board_source_id_eq: @source_id ).result.sort_by{|x| x[:created_at]}
         @count = @posts.count
-      else  #只找Comment
+      else 
         @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time,post_board_source_id_eq: @source_id).result
         @comment_total = @post_comment + @comments
