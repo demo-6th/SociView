@@ -10,7 +10,8 @@ class QueriesController < ApplicationController
   def list; end
 
   def listpost
-    @theme = params[:theme]
+    # @theme = params[:theme]
+    @theme = ["五倍"]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @start_time = params[:start].to_date.midnight.to_s
@@ -75,6 +76,13 @@ class QueriesController < ApplicationController
         @count = @comment_total.count
       end
     end
+    @result = @posts + @comment_total
+    p "======================"
+    p @posts.class
+    p @comment_total.class 
+    p @result.class
+    p "======================"
+      
   end
 
   def sentiment; end
