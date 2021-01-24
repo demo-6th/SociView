@@ -7,6 +7,7 @@ document.addEventListener("turbolinks:load", () => {
   const sort_o = document.getElementById('sort_old')
   const sort_m = document.getElementById('sort_many')
   const sort_l = document.getElementById('sort_less')
+  filter_page()
   if (f_btn) {
     const post_div = document.querySelectorAll('#post_div')
     const comment_div = document.querySelectorAll('#comment_div')
@@ -216,6 +217,7 @@ document.addEventListener("turbolinks:load", () => {
           }
         }
       }
+      filter_page()
     })
   }
   if (sort) {
@@ -231,6 +233,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      filter_page()
     })
     sort_o.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
@@ -244,6 +247,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      filter_page()
     })
     sort_m.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
@@ -257,6 +261,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      filter_page()
     })
     sort_l.addEventListener('click', function () {
       var list_div = document.querySelectorAll('.list')
@@ -270,6 +275,7 @@ document.addEventListener("turbolinks:load", () => {
       for (var i = 0; i < arr.length; i++) {
         document.querySelector('.div_list').appendChild(arr[i])
       }
+      filter_page()
     })
   }
 
