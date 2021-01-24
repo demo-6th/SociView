@@ -230,6 +230,8 @@ class QueriesController < ApplicationController
       end
     end
     @topic = `python3 lib/tasks/Topic/main.py params`
+
+    render "queries/topicpost"
   end
 
   def wordcloud; end
