@@ -52,7 +52,7 @@
           <div class="post_inner mb-4">
           <p class="ellipsis w-1/12">文章內容：</p><p class="w-11/12"><%= post.content %></p></div>
           <div class="innerflex">
-            <p><span>關鍵字</span><%= post.keyword.gsub(/[\[\]\'\,\"]/, "") %></p>
+            <p><span>關鍵字</span><%= post.keyword.gsub(/[\[\]\'\,\"]/, "") %></p>  
             <p><span>回文數</span><%= post.comment_count %></p>
             <p><span>發文者</span>
                 <% if post.author.nil? %>
