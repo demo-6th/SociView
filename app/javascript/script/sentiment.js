@@ -1,6 +1,7 @@
 function setiment_chart(gon) {
   let start = gon.start;
   let end = gon.end;
+  let result = gon.result;
   let all_date = [];
   let pos_count = 0;
   let neg_count = 0;
@@ -26,11 +27,11 @@ function setiment_chart(gon) {
     neu_line[d] = 0;
   });
 
-  if (gon.result !== undefined) {
-    gon.result.forEach((e) => {
+  if (result !== undefined) {
+    result.forEach((e) => {
       let d_result = `${new Date(e.created_at).getFullYear()}-${
         new Date(e.created_at).getMonth() + 1
-      }-${new Date(e.created_at).getDate()}`;
+      }-${new Date(e.created_at).getDate() - 1}`;
 
       if (e.sentiment === "positive") {
         pos_count += 1;
