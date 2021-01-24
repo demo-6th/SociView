@@ -92,7 +92,6 @@
             <div class="post_inner mb-4">
               <p class="ellipsis w-1/12">回文內容：</p><p class="w-11/12"><%= comment.content %></p></div>
             <div class="innerflex">
-            <p class="m-auto"><span>關鍵字</span><%= comment.keyword.gsub(/[\[\]\'\,\"]/, "") %></p>
             <p><span>回文數</span><%= comment.post.comment_count %></p>
             <p><span>回文者</span>
               <% if comment.author.nil? %>
