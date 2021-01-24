@@ -1,4 +1,4 @@
-document.addEventListener("turbolinks:load", () => {
+function termfreq(gon) {
   let vterm = gon.vterm;
   let vfreq = gon.vfreq;
   let nterm = gon.nterm;
@@ -51,4 +51,5 @@ document.addEventListener("turbolinks:load", () => {
     termfreqChart("noun", nterm, nfreq, "名詞");
     termfreqChart("adj", adjterm, adjfreq, "形容詞");
   }
-});
+}
+export default termfreq;
