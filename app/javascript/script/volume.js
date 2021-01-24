@@ -1,4 +1,3 @@
-
 document.addEventListener("turbolinks:load", () => {
 
     let start = gon.start;
@@ -75,6 +74,7 @@ document.addEventListener("turbolinks:load", () => {
         theme3 == null ?
             "" :
             addData(barChart, theme3, count3, "rgba(58,164,235,0.5)");
+        z
 
         // line chart
         const ctx_line = document
@@ -155,4 +155,3 @@ document.addEventListener("turbolinks:load", () => {
         chart.update();
     }
 })
-

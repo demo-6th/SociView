@@ -2,10 +2,11 @@ import "./checkbox.js";
 import "./datepicker.js";
 // import "./volume_ajax.js";
 // import "./sentiment_ajax.js";
+// import "./tab_click.js"
+// import "./sentiment_ajax.js";
+// import "./source_ajax.js";
 import "./termfreq.js";
 import "./listpost.js"
 import "./sentiment.js";
 import "./volume.js";
-
-
-// import "./tab_click.js"
+import "./source.js";
