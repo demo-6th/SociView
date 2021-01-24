@@ -14,6 +14,14 @@ data = data.dropna()
 data.reset_index(inplace=True)
 data = data.drop(['index'], axis=1)
 
+if os.path.exists("data/tf_V.csv"):
+  os.remove("data/tf_V.csv")
+if os.path.exists("data/tf_N.csv"):
+  os.remove("data/tf_N.csv")
+if os.path.exists("data/tf_A.csv"):
+  os.remove("data/tf_A.csv")
+
+
 for i in range(len(data)):
   try:
     data["token"][i] = ast.literal_eval(data["token"][i])
@@ -40,7 +48,7 @@ def pos_counter(data, pos_type):
   # transpose csv
   pd.read_csv('data/tf_'+pos_type+'.csv', header=None).T.to_csv('data/tf_'+pos_type+'.csv', header=False, index=False)
 
-if len(data) < 50:
+if len(data) < 10:
   print("您所選擇區間資料過少，請重新選擇")
 else:
   pos_counter(data, "V")

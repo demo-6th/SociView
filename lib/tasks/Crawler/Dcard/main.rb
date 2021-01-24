@@ -7,7 +7,7 @@ require("#{Rails.root}/lib/tasks/Crawler/Dcard/get_post.rb")
 require("#{Rails.root}/lib/tasks/Crawler/Dcard/dcard_process_files.rb")
 
 def loop_crawler
-  update_boards()
+  dcard_update_boards()
   all_boards = CSV.parse(File.read("#{Rails.root}/data/forums.csv"), headers: false)
 
   # 0.upto = 從第一個版開始
@@ -16,7 +16,7 @@ def loop_crawler
     table_title = all_boards["#{board}".to_i.."#{board}".to_i].first.first
 
     # n 天前的資料
-    prev_day = 1
+    prev_day = 5
 
     # 每 n 筆資料暫停 / 隨機請參考rand(n..m)
     sleep_every = 50

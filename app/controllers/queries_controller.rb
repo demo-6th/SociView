@@ -3,8 +3,6 @@ class QueriesController < ApplicationController
   layout "homepage"
   require 'csv'
 
-
-
   def index; end
 
   def list; end
@@ -296,17 +294,26 @@ class QueriesController < ApplicationController
       result.find_all do |res|
         csv << res.attributes.values
       end 
-      `python3 lib/tasks/Termfreq/main.py`
+      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
     end
-    v_table = CSV.read("data/tf_V.csv")
-    n_table = CSV.read("data/tf_N.csv")
-    adj_table = CSV.read("data/tf_A.csv")
-    gon.vterm = v_table[0]
-    gon.vfreq = v_table[1]
-    gon.nterm = n_table[0]
-    gon.nfreq = n_table[1]
-    gon.adjterm = adj_table[0]
-    gon.adjfreq = adj_table[1]
+    
+    if File.exist?("data/tf_V.csv")
+      v_table = CSV.read("data/tf_V.csv") 
+      gon.vterm = v_table[0]
+      gon.vfreq = v_table[1]
+    end 
+   
+    if File.exist?("data/tf_N.csv")
+      n_table = CSV.read("data/tf_N.csv") 
+      gon.nterm = n_table[0]
+      gon.nfreq = n_table[1]
+    end 
+
+    if File.exist?("data/tf_A.csv")
+      adj_table = CSV.read("data/tf_A.csv") 
+      gon.adjterm = adj_table[0]
+      gon.adjfreq = adj_table[1]
+    end 
   end
 
   private
@@ -318,5 +325,36 @@ class QueriesController < ApplicationController
     @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
   end
 
+ 
+
+  def result_count 
+  end 
+
+  def date_range 
+  end 
+
+  def source
+  end 
+
+  def doctype
+  end 
+
+  
+
+
+
+  # 根據傳入值去帶入主題關鍵字
+  def topic(theme)
+    result = []
+    if theme == "萊豬"
+      result = ["萊豬","萊克多巴胺","萊牛","瘦肉精","食安","受體素","美國國會","副作用","美國FDA","CODEX","聯合國國際食品法典委員會","容許量","食品安全衛生管理法","萊劑","AIT","藥物","毒豬","毒牛","溫體","冷凍豬肉","殘留"]
+    elsif theme == "新冠肺炎"
+      result = ["口罩","武漢","陳時中","鋼鐵部長","誠實中","疾病管制署","Covid","傳染","疫情","防疫","肺炎","感染","疫苗","疫情指揮中心","張上淳","陳宗彥","周志浩","莊人祥","1922","疾管","本土案例","境外案例","病例","偽出國","變種病毒","瘟疫","疫調","病毒","染疫","自主健康管理","隔離","隔離檢疫","居家隔離","居家檢疫","中國武肺","味覺喪失","嗅覺喪失","採檢","CT值","超前部署","新冠疫苗","無症狀","境外移入","確診","敦陸艦隊"]
+    end 
+    return result 
+  end 
 
 end
+
+
+
