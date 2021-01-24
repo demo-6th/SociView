@@ -268,42 +268,33 @@ class QueriesController < ApplicationController
 
   def termfreqpost
     search_box()
-    search_result = doc_type(@type)
-    # result = search_result[0].select(:token, :pos)
+    search_result = doc_type(@type,:token,:pos)
+    result = search_result[0]
     @count = search_result[1]
 
-    # CSV.open("data/tf_data.csv", "wb") do |csv|
-    #   result.find_all do |res|
-    #     csv << res.attributes.values
-    #   end 
-    #   @termfreq = `python3 lib/tasks/Termfreq/main.py params`
-    # end
-    
-    # if File.exist?("data/tf_V.csv")
-    #   v_table = CSV.read("data/tf_V.csv") 
-    #   gon.vterm = v_table[0]
-    #   gon.vfreq = v_table[1]
-    # end 
-   
-    # if File.exist?("data/tf_N.csv")
-    #   n_table = CSV.read("data/tf_N.csv") 
-    #   gon.nterm = n_table[0]
-    #   gon.nfreq = n_table[1]
-    # end 
+    CSV.open("data/tf_data.csv", "wb") do |csv|
+      result.find_all do |res|
+        csv << res.attributes.values
+      end 
+      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
+    end
 
-    # if File.exist?("data/tf_A.csv")
-    #   adj_table = CSV.read("data/tf_A.csv") 
-    #   gon.adjterm = adj_table[0]
-    #   gon.adjfreq = adj_table[1]
-    # end 
+    def tf_check(pos)
+      if File.exist?("data/tf_#{pos}.csv")
+        table = CSV.read("data/tf_#{pos}.csv") 
+        gon.term = table[0]
+        gon.freq = table[1]
+      end 
+      return gon.term, gon.freq
+    end 
+
+    v = tf_check("V")
+    n = tf_check("N")
+    a = tf_check("A")
+    gon.vterm, gon.vfreq = v
+    gon.nterm, gon.nfreq = n
+    gon.adjterm, gon.adjfreq = a
   end
-
-
-
-
-
-
-
 
 
   private
@@ -339,33 +330,33 @@ class QueriesController < ApplicationController
   end 
 
   # search based on doc_type 
-  def doc_type(array)
+  def doc_type(array, col1, col2)
     if array.length == 2
-      search_all(@start.midnight, @end.end_of_day, topic(@theme),source(@source))
+      search_all(@start.midnight, @end.end_of_day, topic(@theme),source(@source), col1, col2)
     elsif array.include?("主文") 
-      search_post(@start.midnight, @end.end_of_day, topic(@theme),source(@source))
+      search_post(@start.midnight, @end.end_of_day, topic(@theme),source(@source), col1, col2)
     else 
-      search_comment(@start.midnight, @end.end_of_day, topic(@theme),source(@source))
+      search_comment(@start.midnight, @end.end_of_day, topic(@theme),source(@source), col1, col2)
     end 
   end 
 
   # search_post (@start, @end, topic(@theme), source(@source))
-  def search_post(start_date,end_date,keywords,source)
+  def search_post(start_date,end_date,keywords,source,col1, col2)
     result = Post.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), title_or_content_cont_any:keywords).result
-    return result, result.count
+    return result.select(col1,col2), result.count
   end 
 
   # search_comment
-  def search_comment(start_date,end_date,keywords,source)
+  def search_comment(start_date,end_date,keywords,source, col1, col2)
     # comment content itself contains the keyword + comments under posts that matches the topic & drop repeated comments
     result = Comment.ransack(pid_in:Post.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), title_or_content_cont_any:keywords).result.pluck(:pid)).result.or(Comment.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), content_cont_any:keywords).result)
-    return result, result.count
+    return result.select(col1,col2), result.count
   end 
 
-  # search for post and comment
-  def search_all(start_date,end_date,keywords,source)
-    result = search_post(start_date,end_date,keywords,source)[0]|search_comment(start_date,end_date,keywords,source)[0]
-    return result, result.count
+  def search_all(start_date,end_date,keywords,source, col1, col2)
+    count = search_post(@start.midnight, @end.end_of_day, topic(@theme),source(@source), col1, col2)[1]+search_comment(@start.midnight, @end.end_of_day, topic(@theme),source(@source), col1, col2)[1]
+    result = search_post(@start.midnight, @end.end_of_day, topic(@theme),source(@source), col1, col2)[0]|search_comment(@start.midnight, @end.end_of_day, topic(@theme),source(@source), col1, col2)[0]
+    return result, count 
   end 
 end
 
