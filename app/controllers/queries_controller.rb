@@ -309,6 +309,8 @@ class QueriesController < ApplicationController
     gon.nfreq = n_table[1]
     gon.adjterm = adj_table[0]
     gon.adjfreq = adj_table[1]
+
+    render "queries/termfreqpost"
   end
 
   private
