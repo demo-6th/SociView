@@ -56,7 +56,6 @@ function setiment_chart(gon) {
         labels: ["正面", "負面", "中立"],
         datasets: [
           {
-            label: "（主文）情緒長條圖",
             data: [pos_count, neg_count, neutral_count],
             backgroundColor: [
               "rgba(75,192,192,0.5)",
@@ -84,7 +83,6 @@ function setiment_chart(gon) {
         labels: ["正面", "負面", "中立"],
         datasets: [
           {
-            label: "情緒長條圖",
             data: [pos_count, neg_count, neutral_count],
             backgroundColor: [
               "rgba(75,192,192,0.5)",
