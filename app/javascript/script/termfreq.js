@@ -46,7 +46,7 @@ document.addEventListener("turbolinks:load", () => {
     });
   }
 
-  if (document.getElementById("verbCount")) {
+  if (document.getElementById("verbCount") && vterm) {
     termfreqChart("verb", vterm, vfreq, "動詞");
     termfreqChart("noun", nterm, nfreq, "名詞");
     termfreqChart("adj", adjterm, adjfreq, "形容詞");

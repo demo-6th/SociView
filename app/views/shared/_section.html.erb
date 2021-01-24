@@ -9,23 +9,23 @@
         <div class="choice_box theme_btn">
         <% if current_page?(volume_queries_path) %> 
           <div class="choice_item ">
-            <%= check_box_tag(:theme1, "期末") %>
-            <%= label_tag(:theme1, "期末", class: "theme_text") %>
+            <%= check_box_tag(:theme1, "新冠肺炎") %>
+            <%= label_tag(:theme1, "新冠肺炎", class: "theme_text") %>
           </div>
           <div class="choice_item">
-            <%= check_box_tag(:theme2, "手機") %> 
-            <%= label_tag(:theme2, "手機", class: "theme_text") %>
+            <%= check_box_tag(:theme2, "萊豬") %> 
+            <%= label_tag(:theme2, "萊豬", class: "theme_text") %>
           </div>
           <div class="choice_item">
-            <%= check_box_tag(:theme3, "貓") %>
-            <%= label_tag(:theme3, "貓", class: "theme_text") %>
+            <!-- <%= check_box_tag(:theme3, "貓") %>
+            <%= label_tag(:theme3, "貓", class: "theme_text") %> -->
           </div>
         </div>
             <p id="validate_theme" class="disable"> 請選擇至少兩種以上主題 </p>
         <% else %> 
-          <div><%= radio_button_tag(:theme, "", false, id: 1) %> <%= label_tag(:theme, "", class: "theme_text", for: 1) %></div>
-          <div><%= radio_button_tag(:theme, "手機", false, id: 2) %> <%= label_tag(:theme, "手機", class: "theme_text", for: 2) %></div>
-          <div><%= radio_button_tag(:theme, "貓", false, id: 3) %> <%= label_tag(:theme, "貓", class: "theme_text", for: 3) %></div>
+          <div><%= radio_button_tag(:theme, "新冠肺炎", false, id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
+          <div><%= radio_button_tag(:theme, "萊豬", false, id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
+          <!-- <div><%= radio_button_tag(:theme, "貓", false, id: 3) %> <%= label_tag(:theme, "貓", class: "theme_text", for: 3) %></div> -->
           </div>
           <p id="validate_theme" class="disable"> 請選擇至少一種主題 </p>
         <% end %>
