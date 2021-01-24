@@ -267,77 +267,56 @@ class QueriesController < ApplicationController
   def termfreq; end
 
   def termfreqpost
-    query_result()
-     # 下面可以用一行取代
-    @theme = params[:theme]
-    keywords = topic(@theme) 
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+    search_box()
+    search_result = doc_type(@type)
+    # result = search_result[0].select(:token, :pos)
+    @count = search_result[1]
 
-    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-    post_count = post_result.count
-    comment_count = comment_result.count
-
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      result = post_result.select(:token, :pos) | comment_result.select(:token, :pos)
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      result = post_result.select(:token, :pos)
-    else
-      @count = comment_count
-      result = comment_result.select(:token, :pos)
-    end
-
-    CSV.open("data/tf_data.csv", "wb") do |csv|
-      result.find_all do |res|
-        csv << res.attributes.values
-      end 
-      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
-    end
+    # CSV.open("data/tf_data.csv", "wb") do |csv|
+    #   result.find_all do |res|
+    #     csv << res.attributes.values
+    #   end 
+    #   @termfreq = `python3 lib/tasks/Termfreq/main.py params`
+    # end
     
-    if File.exist?("data/tf_V.csv")
-      v_table = CSV.read("data/tf_V.csv") 
-      gon.vterm = v_table[0]
-      gon.vfreq = v_table[1]
-    end 
+    # if File.exist?("data/tf_V.csv")
+    #   v_table = CSV.read("data/tf_V.csv") 
+    #   gon.vterm = v_table[0]
+    #   gon.vfreq = v_table[1]
+    # end 
    
-    if File.exist?("data/tf_N.csv")
-      n_table = CSV.read("data/tf_N.csv") 
-      gon.nterm = n_table[0]
-      gon.nfreq = n_table[1]
-    end 
+    # if File.exist?("data/tf_N.csv")
+    #   n_table = CSV.read("data/tf_N.csv") 
+    #   gon.nterm = n_table[0]
+    #   gon.nfreq = n_table[1]
+    # end 
 
-    if File.exist?("data/tf_A.csv")
-      adj_table = CSV.read("data/tf_A.csv") 
-      gon.adjterm = adj_table[0]
-      gon.adjfreq = adj_table[1]
-    end 
+    # if File.exist?("data/tf_A.csv")
+    #   adj_table = CSV.read("data/tf_A.csv") 
+    #   gon.adjterm = adj_table[0]
+    #   gon.adjfreq = adj_table[1]
+    # end 
   end
+
+
+
+
+
+
+
+
 
   private
-  def search_post_only(query)
-    @posts = Post.search query, fields: [:title, :content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }, order: { created_at: { order: "asc" } }
-  end
-
-  def search_comment_only(query)
-    @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
-  end
-
-  # 查詢結果
-  def query_result
+  # search box 
+  def search_box 
     @theme = params[:theme]
-    keywords = topic(@theme) 
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
   end 
-  # 根據傳入值去帶入主題關鍵字
+
+  # topic keywords array
   def topic(theme)
     result = []
     if theme == "萊豬"
@@ -348,7 +327,45 @@ class QueriesController < ApplicationController
     return result 
   end 
 
+  # source array 
+  def source(array)
+    if array.length == 2
+      return [1,2]
+    elsif array.include?("Dcard")
+      return [1]
+    else 
+      return [2]
+    end 
+  end 
+
+  # search based on doc_type 
+  def doc_type(array)
+    if array.length == 2
+      search_all(@start.midnight, @end.end_of_day, topic(@theme),source(@source))
+    elsif array.include?("主文") 
+      search_post(@start.midnight, @end.end_of_day, topic(@theme),source(@source))
+    else 
+      search_comment(@start.midnight, @end.end_of_day, topic(@theme),source(@source))
+    end 
+  end 
+
+  # search_post (@start, @end, topic(@theme), source(@source))
+  def search_post(start_date,end_date,keywords,source)
+    result = Post.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), title_or_content_cont_any:keywords).result
+    return result, result.count
+  end 
+
+  # search_comment
+  def search_comment(start_date,end_date,keywords,source)
+    # comment content itself contains the keyword + comments under posts that matches the topic & drop repeated comments
+    result = Comment.ransack(pid_in:Post.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), title_or_content_cont_any:keywords).result.pluck(:pid)).result.or(Comment.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), content_cont_any:keywords).result)
+    return result, result.count
+  end 
+
+  # search for post and comment
+  def search_all(start_date,end_date,keywords,source)
+    result = search_post(start_date,end_date,keywords,source)[0]|search_comment(start_date,end_date,keywords,source)[0]
+    return result, result.count
+  end 
 end
-
-
 
