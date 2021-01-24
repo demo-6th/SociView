@@ -35,11 +35,13 @@
       <button id="sort_many" type="submit" value="many">按讚數高</button>
       <button id="sort_less" type="submit" value="less">按讚數低</button>
     </div>
-  </div>
-  <div>
-    <select id="selectpage"></select>
+    <div class="choice_commont">
+    <span>選擇頁數</span>
+    <select class="bg-wite text-gray-700 border-none inline-block py-1 rounded leading-tight"  id="selectpage"></select>
     <button id="page_btn">跳頁</button>
   </div>
+  </div>
+  
   <div class="postlist_container">
     <div class="row div_list">
       <% if @posts%>
@@ -49,7 +51,7 @@
             <p class="w-1/12">文章標題</p><p class="w-10/12"><%= post.title %></p>
           </div>
           <div class="post_inner mb-4">
-          <p class="ellipsis w-1/12">文章內容：</p><p class="w-11/12"><%= post.content %></p></div>
+          <p class="w-1/12">文章內容：</p><p class="ellipsis w-11/12"><%= post.content %></p></div>
           <div class="innerflex">
             <p><span>關鍵字</span><%= post.keyword.gsub(/[\[\]\'\,\"]/, "") %></p>  
             <p><span>回文數</span><%= post.comment_count %></p>
@@ -93,7 +95,7 @@
               <p class="w-1/12">文章標題：</p><p class="w-11/12"><%= comment.post.title %></p>
             </div>
             <div class="post_inner mb-4">
-              <p class="ellipsis w-1/12">回文內容：</p><p class="w-11/12"><%= comment.content %></p></div>
+              <p class="ellipsis w-1/12">回文內容：</p><p class="ellipsis w-11/12"><%= comment.content %></p></div>
             <div class="innerflex">
             <p><span>回文數</span><%= comment.post.comment_count %></p>
             <p><span>回文者</span>
