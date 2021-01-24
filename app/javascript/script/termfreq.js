@@ -21,15 +21,11 @@ document.addEventListener("turbolinks:load", () => {
       },
       options: {
         scales: {
-          yAxes: [
+          xAxes: [
             {
               ticks: {
                 beginAtZero: true,
               },
-            },
-          ],
-          xAxes: [
-            {
               barThickness: 100,
               maxBarThickness: 150,
             },
