@@ -4,4 +4,4 @@ import "./volume_ajax.js";
 import "./sentiment_ajax.js";
 import "./termfreq.js";
 import "./listpost.js"
-// import "./tab_click.js"
+// import "./listpost_ajax.js"

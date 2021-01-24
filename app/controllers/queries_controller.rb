@@ -3,8 +3,6 @@ class QueriesController < ApplicationController
   layout "homepage"
   require 'csv'
 
-
-
   def index; end
 
   def list; end
@@ -73,7 +71,7 @@ class QueriesController < ApplicationController
         @count = @comment_total.count
       end
     end
-    render json: { html: render_to_string(partial: 'listpost') }
+    render "queries/listpost"
   end
 
   def sentiment; end
