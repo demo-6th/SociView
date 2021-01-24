@@ -76,36 +76,16 @@ class QueriesController < ApplicationController
   def sentiment; end
 
   def sentpost
-    # pass value down to api action
-    @theme = params[:theme]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+    search_box()
+    search_result = doc_type(@type,:sentiment,:created_at)
+    result = search_result[0]
+    @count = search_result[1]
 
-    #theme1
-    @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-    # 計算符合搜尋條件的資料筆數
-    post_count = @post_result.count
-    comment_count = @comment_result.count
     gon.start = @start
     gon.end = @end
+    gon.result = result
 
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      gon.result = @post_result + @comment_result
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      gon.result = @post_result
-    else
-      @count = comment_count
-      gon.result = @comment_result
-    end
-
-
-    render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: post_count, theme: gon.theme } }
+    render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: @count, theme: gon.theme } }
   end
 
   def volume; end
@@ -198,7 +178,7 @@ class QueriesController < ApplicationController
 
   def topicpost
     search_box()
-    search_result = doc_type(@type,:no_stop,:id)
+    search_result = doc_type(@type,:token,:id)
     result = search_result[0]
     @count = search_result[1]
 
