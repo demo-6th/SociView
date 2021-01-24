@@ -228,9 +228,8 @@ class QueriesController < ApplicationController
       result.find_all do |res|
         csv << res.attributes.values
       end
+     @topic = `python3 lib/tasks/Topic/main.py params`
     end
-    @topic = `python3 lib/tasks/Topic/main.py params`
-
     render "queries/topicpost"
   end
 
@@ -266,6 +265,7 @@ class QueriesController < ApplicationController
       end
       @cloud = `python3 lib/tasks/Wordcloud/main.py params`
     end
+    render "queries/cloudpost"
   end
 
   def termfreq; end
