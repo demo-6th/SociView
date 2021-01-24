@@ -41,7 +41,7 @@
     <button id="page_btn">跳頁</button>
   </div>
   <div class="postlist_container">
-    <div class="row">
+    <div class="row div_list">
       <% if @posts%>
         <% @posts.each do |post| %>
           <div id = "post_div" class = "<%=post.sentiment%>_post list " data-time = "<%=post.created_at.in_time_zone("Taipei")%>" like_count="<%=post.like_count%>"> 

@@ -1,3 +1,7 @@
+const {
+  clearCache
+} = require("turbolinks");
+
 document.addEventListener("turbolinks:load", () => {
   const art = document.getElementById('article')
   const sen = document.getElementById('sentiment')
@@ -7,7 +11,6 @@ document.addEventListener("turbolinks:load", () => {
   const sort_o = document.getElementById('sort_old')
   const sort_m = document.getElementById('sort_many')
   const sort_l = document.getElementById('sort_less')
-  filter_page()
   if (f_btn) {
     const post_div = document.querySelectorAll('#post_div')
     const comment_div = document.querySelectorAll('#comment_div')
@@ -17,7 +20,8 @@ document.addEventListener("turbolinks:load", () => {
     const neutral_comment = document.querySelectorAll('.neutral_comment')
     const positive_comment = document.querySelectorAll('.positive_comment')
     const negative_comment = document.querySelectorAll('.negative_comment')
-    f_btn.addEventListener('click', function () {
+    filter_page()
+    f_btn.addEventListener('click', function filter() {
       if (art.value == "all") {
         if (sen.value == "all") {
           for (var i = 0; i < post_div.length; i++) {
@@ -222,7 +226,7 @@ document.addEventListener("turbolinks:load", () => {
   }
   if (sort) {
     sort_n.addEventListener('click', function () {
-      var list_div = document.querySelectorAll('.list')
+      var list_div = filter_ary
       var arr = []
       for (var i = 0; i < list_div.length; i++) {
         arr.push(list_div[i])
@@ -237,7 +241,7 @@ document.addEventListener("turbolinks:load", () => {
       sort_page()
     })
     sort_o.addEventListener('click', function () {
-      var list_div = document.querySelectorAll('.list')
+      var list_div = filter_ary
       var arr = []
       for (var i = 0; i < list_div.length; i++) {
         arr.push(list_div[i])
@@ -252,7 +256,7 @@ document.addEventListener("turbolinks:load", () => {
       sort_page()
     })
     sort_m.addEventListener('click', function () {
-      var list_div = document.querySelectorAll('.list')
+      var list_div = filter_ary
       var arr = []
       for (var i = 0; i < list_div.length; i++) {
         arr.push(list_div[i])
@@ -267,7 +271,7 @@ document.addEventListener("turbolinks:load", () => {
       sort_page()
     })
     sort_l.addEventListener('click', function () {
-      var list_div = document.querySelectorAll('.list')
+      var list_div = filter_ary
       var arr = []
       for (var i = 0; i < list_div.length; i++) {
         arr.push(list_div[i])
@@ -320,7 +324,6 @@ function filter_page() {
   changePage(1, ary);
   showBtn();
 }
-
 
 function sort_page() {
   var block_ary = sort_arr
