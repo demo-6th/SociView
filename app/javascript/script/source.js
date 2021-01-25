@@ -1,20 +1,22 @@
 document.addEventListener("turbolinks:load", () => {
     let start = gon.start;
     let end = gon.end;
+    let board = gon.board;
+    let dcard = gon.dcard_result;
+    let ptt = gon.ptt_result;
     let all_date = [];
-    let pos_count = 0;
-    let neg_count = 0;
     let ptt_line = [];
     let dcard_line = [];
-    let ptt_count = gon.ptt_count
-    let dcard_count = gon.dcard_count
+    let all_board = [];
+    let ptt_board = []
+    let dcard_board = []
 
-
+    //source
     for (
         let d = new Date(start); d <= new Date(end); d.setDate(d.getDate() + 1)
     ) {
         let formatDt = `${new Date(d).getFullYear()}-${
-        new Date(d).getMonth() + 1
+          new Date(d).getMonth() + 1
       }-${new Date(d).getDate()}`;
         all_date.push(formatDt);
     }
@@ -22,7 +24,6 @@ document.addEventListener("turbolinks:load", () => {
     all_date.forEach((d) => {
         ptt_line[d] = 0;
         dcard_line[d] = 0;
-
     });
     if (gon.result !== undefined) {
         gon.result.forEach((e) => {
@@ -30,60 +31,125 @@ document.addEventListener("turbolinks:load", () => {
               new Date(e.created_at).getMonth() + 1
             }-${new Date(e.created_at).getDate()}`;
             if (e.alias.includes('ptt')) {
-
-                pos_count += 1;
                 ptt_line[d_result] += 1;
             } else if (e.alias.includes('dcard')) {
-                neg_count += 1;
                 dcard_line[d_result] += 1;
             }
         });
     }
-    const ptt_arr = Object.values(ptt_line)
-    const dcard_arr = [100, 2000, 100, 100]
-    console.log(ptt_arr)
-    console.log(dcard_arr)
-    const total_result = ptt_arr.map(function(n, i) { return n + dcard_arr[i]; });
-    const ptt_divsion = ptt_arr.map(function(n, i) { return n / total_result[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
-    const dcard_divsion = dcard_arr.map(function(n, i) { return n / total_result[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
 
-    console.log(ptt_divsion)
-    console.log(dcard_divsion)
+    //board
+    board.forEach((e) => {
+        all_board.push(e.alias)
+    })
+
+    all_board.forEach((e) => {
+        ptt_board[e] = 0;
+        dcard_board[e] = 0;
+    });
+
+    if (dcard !== undefined) {
+        dcard.forEach((e) => {
+            board.forEach((b) => {
+                if (e.alias === b.alias) {
+                    dcard_board[e.alias] += 1;
+                }
+            })
+        })
+    }
+    if (ptt !== undefined) {
+        ptt.forEach((e) => {
+            board.forEach((b) => {
+                if (e.alias === b.alias) {
+                    ptt_board[e.alias] += 1;
+                }
+            })
+        })
+    }
+    // console.log(Object.values(dcard_board))
+
+    let keysSorted = Object.keys(dcard_board).sort(function(a, b) { return dcard_board[a] - dcard_board[b] })
+    console.log(keysSorted.reverse().map(key => dcard_board[key]));
+
+    //source
+    const total_result = Object.values(ptt_line).map(function(n, i) { return n + Object.values(dcard_line)[i]; });
+    const ptt_divsion = Object.values(ptt_line).map(function(n, i) { return n / total_result[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
+    const dcard_divsion = Object.values(dcard_line).map(function(n, i) { return n / total_result[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
     const ptt_bgc = ptt_divsion.map(x => x = "rgba(0,0,0,0.5)")
     const dcard_bgc = dcard_divsion.map(x => x = "rgba(0,106,166,0.5)")
 
-    if (document.getElementById("sourcePieChart")) {
-        // pie chart
-        const ctx_pie = document
-            .getElementById("sourcePieChart")
-            .getContext("2d");
-        const pieChart = new Chart(ctx_pie, {
-            type: "pie",
-            data: {
-                labels: ["正面", "負面", "中立"],
-                datasets: [{
-                    label: "（主文）情緒長條圖",
-                    data: [pos_count, neg_count],
-                    backgroundColor: [
-                        "rgba(75,192,192,0.5)",
-                        "rgba(255,99,132,0.5)",
+    //board
 
-                    ],
-                }, ],
+
+
+
+
+
+    ///
+    if (document.getElementById("sourceBarChart")) {
+        // source
+        const ctx_bar = document
+            .getElementById("sourceBarChart")
+            .getContext("2d");
+        const sourcebarChart = new Chart(ctx_bar, {
+            type: "bar",
+            data: {
+                labels: all_date,
+                datasets: [{
+                        label: 'PTT',
+                        backgroundColor: ptt_bgc,
+                        fillColor: "#000000",
+                        data: ptt_divsion
+                    },
+                    {
+                        label: 'Dcard',
+                        backgroundColor: dcard_bgc,
+                        data: dcard_divsion
+                    }
+                ],
             },
             options: {
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItems, data) {
+                            return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + ' A';
+                        }
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        stacked: true,
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value + '%';
+                            },
+                            beginAtZero: true,
+                            scaleLabel: {
+                                display: true,
+                            }
+                        },
+                    }, ],
+                    xAxes: [{
+                        stacked: true,
+                    }, ],
+                },
                 title: {
                     display: true,
-                    text: "情緒圓餅圖",
+                    text: "社群來源長條圖",
+                },
+                legend: {
+                    display: false,
                 },
             },
         });
 
-        // bar chart
-        const ctx_bar = document
-            .getElementById("sourceBarChart")
+        // board
+        const ctx_bar_ptt = document
+            .getElementById("pttBarChart")
             .getContext("2d");
-        const barChart = new Chart(ctx_bar, {
+        const pttbarChart = new Chart(ctx_bar_ptt, {
             type: "bar",
             data: {
                 labels: all_date,
@@ -124,14 +190,12 @@ document.addEventListener("turbolinks:load", () => {
                         },
                     }, ],
                     xAxes: [{
-                        barThickness: 160,
-                        maxBarThickness: 200,
                         stacked: true,
                     }, ],
                 },
                 title: {
                     display: true,
-                    text: "來源長條圖",
+                    text: "PTT討論版來源長條圖",
                 },
                 legend: {
                     display: false,
@@ -139,55 +203,75 @@ document.addEventListener("turbolinks:load", () => {
             },
         });
 
-        // line chart
-        const ctx_line = document
-            .getElementById("sourceLineChart")
+        // board
+        const ctx_bar_dcard = document
+            .getElementById("dcardBarChart")
             .getContext("2d");
-
-        const lineChart = new Chart(ctx_line, {
-            type: "line",
+        const dcardbarChart = new Chart(ctx_bar_dcard, {
+            type: "bar",
             data: {
                 labels: all_date,
                 datasets: [{
-                        label: "正面聲量",
-                        data: Object.values(pos_line),
-                        borderWidth: 1,
-                        pointRadius: 5,
-                        borderColor: "rgba(75,192,192,1)",
-                        backgroundColor: "rgba(75,192,192,0.2)",
+                        label: 'PTT',
+                        backgroundColor: ptt_bgc,
+                        fillColor: "#000000",
+                        data: ptt_divsion
                     },
                     {
-                        label: "負面聲量",
-                        data: Object.values(neg_line),
-                        borderWidth: 1,
-                        pointRadius: 5,
-                        borderColor: "rgba(220,70,70,1)",
-                        backgroundColor: "rgba(255,99,132,0.2)",
+                        label: 'Dcard',
+                        backgroundColor: dcard_bgc,
+                        data: dcard_divsion
                     },
+                    {
+                        label: 'Dcard',
+                        backgroundColor: dcard_bgc,
+                        data: dcard_divsion
+                    },
+                    {
+                        label: 'Dcard',
+                        backgroundColor: dcard_bgc,
+                        data: dcard_divsion
+                    },
+                    {
+                        label: 'Dcard',
+                        backgroundColor: dcard_bgc,
+                        data: dcard_divsion
+                    }
                 ],
             },
             options: {
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function(tooltipItems, data) {
+                            return data.datasets[tooltipItems.datasetIndex].label + ': ' + tooltipItems.yLabel + ' %';
+                        }
+                    }
+                },
                 scales: {
-                    xAxes: [{
-                        gridLines: {
-                            borderDash: [8, 4],
-                            color: "white",
-                            drawBorder: true,
-                        },
-                    }, ],
                     yAxes: [{
+                        stacked: true,
                         ticks: {
                             callback: function(value, index, values) {
-                                return value + " 則";
+                                return value + '%';
                             },
                             beginAtZero: true,
-                            stepSize: 1,
+                            scaleLabel: {
+                                display: true,
+                            }
                         },
+                    }, ],
+                    xAxes: [{
+                        stacked: true,
                     }, ],
                 },
                 title: {
                     display: true,
-                    text: "情緒折線圖",
+                    text: "Dcard討論版來源長條圖",
+                },
+                legend: {
+                    display: false,
                 },
             },
         });

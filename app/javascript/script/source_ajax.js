@@ -36,14 +36,15 @@ document.addEventListener("turbolinks:load", () => {
           </div>
 
           <div class="container">
-            <canvas id="sourcePieChart" width="960px" height="400px"></canvas>
-          </div>
-          <div class="container">
             <canvas id="sourceBarChart" width="960px" height="400px"></canvas>
           </div>
           <div class="container">
-            <canvas id="sourceLineChart" width="960px" height="400px"></canvas>
-          </div>`
+            <canvas id="pttBarChart" width="960px" height="400px"></canvas>
+          </div>
+          <div class="container">
+            <canvas id="dcardBarChart" width="960px" height="400px"></canvas>
+          </div>         
+          `
                     source_chart(gon)
                 })
                 .catch(function(err) {
