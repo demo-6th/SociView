@@ -6,6 +6,7 @@
   <% end %>
     <%= link_to volume_queries_path, class: "function" do %>
     <span>聲量分析</span><i class="fas fa-satellite-dish"></i>
+<<<<<<< HEAD
     <% end %>
   </div>
 
@@ -16,6 +17,8 @@
   <% end %>
     <%= link_to source_queries_path, class: "function" do %>
     <span>來源分析</span><i class="fas fa-satellite-dish"></i>
+=======
+>>>>>>> move aside
     <% end %>
   </div>
 
@@ -39,6 +42,16 @@
     <span>文章列表</span><i class="fas fa-list-alt"></i>
     <% end %>
   </div>
+
+  <% if current_page?(source_queries_path) %> 
+  <div class="query_link query_link_page">
+  <% else %> 
+  <div class="query_link">
+  <% end %>
+    <%= link_to source_queries_path, class: "function" do %>
+    <span>來源分析</span><i class="fas fa-satellite-dish"></i>
+    <% end %>
+  </div>
  
   <% if current_page?(wordcloud_queries_path) %>
   <div class="query_link query_link_page">
@@ -49,17 +62,7 @@
     <span>文字雲</span><i class="fas fa-cloud"></i>
     <% end %>
   </div>
-   
-  <% if current_page?(termfreq_queries_path) %>
-  <div class="query_link query_link_page">
-  <% else %>
-  <div class="query_link">
-  <% end %>
-    <%= link_to termfreq_queries_path, class: "function" do %>
-    <span>詞頻分析</span><i class="far fa-chart-bar"></i>
-  <% end %>
-  </div>
-   
+
   <% if current_page?(topic_queries_path) %> 
   <div class="query_link query_link_page">
   <% else %> 
@@ -68,6 +71,16 @@
     <%= link_to topic_queries_path, class: "function" do %>
     <span>自動化議題</span><i class="fas fa-laptop-code"></i>
     <% end %>
+  </div>
+
+  <% if current_page?(diffusion_queries_path) %>
+  <div class="query_link query_link_page">
+  <% else %>
+  <div class="query_link">
+  <% end %>
+    <%= link_to diffusion_queries_path, class: "function" do %>
+    <span>聲量擴散</span><i class="fas fa-braille"></i>
+  <% end %>
   </div>
 
   <div class="query_link">
