@@ -279,33 +279,46 @@ class QueriesController < ApplicationController
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 
     #theme1
-    @post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: @source } })
+    post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: @source } })
 
     comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
 
-    @comment_result = comment_search.ransack(content_cont_any: @theme).result.or(comment_search.where(:pid => @post_result.pluck(:pid)))
+    comment_result = comment_search.ransack(content_cont_any: @theme).result.or(comment_search.where(:pid => post_result.pluck(:pid)))
 
     ###ptt_source
-    @ptt_post = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: "PTT" } })
+    ptt_post = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: "PTT" } })
 
     comment_ptt_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: "PTT" } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
 
-    @ptt_comment = comment_ptt_search.ransack(content_cont_any: @theme).result.or(comment_ptt_search.where(:pid => @ptt_post.pluck(:pid)))
+    ptt_comment = comment_ptt_search.ransack(content_cont_any: @theme).result.or(comment_ptt_search.where(:pid => ptt_post.pluck(:pid)))
 
     ###dcard_source
-    @dcard_post = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: "Dcard" } })
+    dcard_post = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: "Dcard" } })
 
     comment_dcard_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: "Dcard" } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
 
-    @dcard_comment = comment_dcard_search.ransack(content_cont_any: @theme).result.or(comment_dcard_search.where(:pid => @dcard_post.pluck(:pid)))
+    dcard_comment = comment_dcard_search.ransack(content_cont_any: @theme).result.or(comment_dcard_search.where(:pid => dcard_post.pluck(:pid)))
+
+    if params[:post] && params[:comment]
+      @count = post_result.count + comment_result.count
+      gon.result = post_result + comment_result
+      gon.ptt_result = ptt_post + ptt_comment
+      gon.dcard_result = dcard_post + dcard_comment
+    elsif params[:post] && !params[:comment]
+      @count = post_result.count
+      gon.result = post_result
+      gon.ptt_result = ptt_post
+      gon.dcard_result = dcard_post
+    else
+      @count = comment_result.count
+      gon.result = comment_result
+      gon.ptt_result = ptt_comment
+      gon.dcard_result = dcard_comment
+    end
 
     # 計算符合搜尋條件的資料筆數
-    @count = @post_result.count + @comment_result.count
     gon.start = @start
     gon.end = @end
-    gon.result = @post_result + @comment_result
-    gon.ptt_result = @ptt_post + @ptt_comment
-    gon.dcard_result = @dcard_post + @dcard_comment
     gon.board = Board.all
 
     render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, theme: gon.theme, ptt_result: gon.ptt_result, dcard_result: gon.dcard_result, board: gon.board } }
