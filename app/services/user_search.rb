@@ -35,7 +35,8 @@ end
 
 def search_all(start_date, end_date,keywords, col1, col2)
   result = search_post(start_date, end_date, keywords, col1, col2)[0]| search_comment(start_date, end_date, keywords, col1, col2)[0]
-  return result, result.count 
+  count = search_post(start_date, end_date, keywords, col1, col2)[1] + search_comment(start_date, end_date, keywords, col1, col2)[1]
+  return result, count 
 end 
 
 # search based on doc_type 
