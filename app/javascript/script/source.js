@@ -72,9 +72,8 @@ document.addEventListener("turbolinks:load", () => {
     const dcard_divsion = Object.values(dcard_line).map(function(n, i) { return n / Object.values(total_result)[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
     const ptt_bgc = ptt_divsion.map(x => x = "rgba(0,0,0,0.5)")
     const dcard_bgc = dcard_divsion.map(x => x = "rgba(0,106,166,0.5)")
-    console.log(total_result)
-    console.log(ptt_divsion)
-        //board
+
+    //board
     board.forEach((e) => {
         all_board.push(e.alias)
     })

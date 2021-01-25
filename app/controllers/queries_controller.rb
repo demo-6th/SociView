@@ -158,7 +158,6 @@ class QueriesController < ApplicationController
       gon.result2 = @comment_result2
     end
     gon.count2 = @count2
-    gon.count1 = @count1
 
     # render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, theme3: gon.theme3, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
   end
@@ -292,7 +291,7 @@ class QueriesController < ApplicationController
     gon.end = @end
     gon.board = Board.all
 
-    render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, theme: gon.theme, ptt_result: gon.ptt_result, dcard_result: gon.dcard_result, board: gon.board } }
+    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, theme: gon.theme, ptt_result: gon.ptt_result, dcard_result: gon.dcard_result, board: gon.board } }
   end
 
   private

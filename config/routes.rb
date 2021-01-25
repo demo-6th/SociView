@@ -30,6 +30,6 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get "/users/sign_out" => "devise/sessions#destroy"
-    get "/user" => "queries#list", :as => :user_root
+    get "/user" => "queries#volume", :as => :user_root
   end
 end

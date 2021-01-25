@@ -35,6 +35,20 @@ document.addEventListener("turbolinks:load", () => {
             count_line1[d_result1] += 1;
         });
     }
+    if (gon.result2 !== undefined) {
+        gon.result2.forEach((e) => {
+            let d_result1 = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
+      }-${new Date(e.created_at).getDate()}`;
+            count_line2[d_result1] += 1;
+        });
+    }
+    if (gon.result3 !== undefined) {
+        gon.result3.forEach((e) => {
+            let d_result1 = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
+      }-${new Date(e.created_at).getDate()}`;
+            count_line3[d_result1] += 1;
+        });
+    }
 
     if (document.getElementById("volumeBarChart")) {
         const ctx_bar = document.getElementById("volumeBarChart").getContext("2d");
@@ -74,7 +88,6 @@ document.addEventListener("turbolinks:load", () => {
         theme3 == null ?
             "" :
             addData(barChart, theme3, count3, "rgba(58,164,235,0.5)");
-        z
 
         // line chart
         const ctx_line = document
