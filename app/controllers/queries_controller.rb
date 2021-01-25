@@ -10,8 +10,7 @@ class QueriesController < ApplicationController
   def list; end
 
   def listpost
-    # @theme = params[:theme]
-    @theme = ["五倍"]
+    @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @start_time = params[:start].to_date.midnight.to_s

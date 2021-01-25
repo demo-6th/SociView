@@ -44,90 +44,93 @@
   
   <div class="postlist_container">
     <div class="row div_list">
-      <% if @posts%>
-        <% @posts.each do |post| %>
-          <div id = "post_div" class = "<%=post.sentiment%>_post list " data-time = "<%=post.created_at.in_time_zone("Taipei")%>" like_count="<%=post.like_count%>" style="display: block;"> 
-          <div class="post_inner mb-2 ">
-            <p class="w-1/12">文章標題</p><p class="w-10/12"><%= post.title %></p>
-          </div>
-          <div class="post_inner mb-4">
-          <p class="w-1/12">文章內容：</p><p class="ellipsis w-11/12"><%= post.content %></p></div>
-          <div class="innerflex">
-            <p><span>關鍵字</span><%= post.keyword.gsub(/[\[\]\'\,\"]/, "") if post.keyword %></p>  
-            <p><span>回文數</span><%= post.comment_count %></p>
-            <p><span>發文者</span>
-                <% if post.author.nil? %>
-                  <%= "Dcard匿名發文"  %>
-                <% else %>
-                  <%= post.author %>
-                <% end %></p>
-            <p><span>發文時間</span><%= post.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %></p>
-            <p><span>按讚數</span>
-              <% if post.like_count %>
-                <%= post.like_count %>
-              <% else %>
-                <%= "-" %>
-              <% end %></p>
-            <p><span>情緒</span>
-                <% case post.sentiment %>
-                <% when "neutral" %>
-                  <%= "中立" %> 
-                <% when "positive" %>
-                  <%= "正面" %>
-                <% else %>
-                  <%= "負面" %>
-                <% end %></p>
-            <p><span>出處</span><%= post.board.source.name %> >> <%= post.board.name %> </p> 
-          </div>
-          <div class="px-3">
-            <span class="mr-2">文章連結</span>
-            <a class="text-blue-400" href="<%= post.url %>" title="前往來源文章" target="_blank" ><%= post.url %></a></div>
-          </div> 
-        <% end %>
-      <% end %>
+    <% if @result %>
+      <% @result.each do |result|%>
+        <% if result.model_name.name == "Comment" %>
+              <div id = "comment_div" class = "<%=result.sentiment%>_comment list" data-time = "<%=result.created_at.in_time_zone("Taipei")%>" like_count="<%=result.like_count%>" style="display: block;">
+                <div class="post_inner mb-2">
+                  <p class="w-1/12">文章標題：</p><p class="w-11/12"><%= result.post.title %></p>
+                </div>
+                <div class="post_inner mb-4">
+                  <p class="ellipsis w-1/12">回文內容：</p><p class="ellipsis w-11/12"><%= result.content %></p></div>
+                <div class="innerflex">
+                <p><span>回文數</span><%= result.post.comment_count %></p>
+                <p><span>回文者</span>
+                  <% if result.author.nil? %>
+                    <%= "Dcard匿名回文"  %>
+                  <% else %>
+                    <%= result.author %>
+                  <% end %></p>
+                <p><span>回文時間</span><%= result.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %></p>
+                <p><span>按讚數</span>
+                  <% if result.like_count %>
+                    <%= result.like_count %>
+                  <% else %>
+                    <%= "-" %>
+                  <% end %></p>
+                <p><span>情緒</span>
+                  <% case result.sentiment %>
+                  <% when "neutral" %>
+                    <%= "中立" %> 
+                  <% when "positive" %>
+                    <%= "正面" %>
+                  <% else %>
+                    <%= "負面" %>
+                  <% end %></p>
+                <p><span>出處</span><%= result.post.board.source.name%> >> <%= result.post.board.name %> </p>
+                </div>
+                <div class="px-3">
+                <span class="mr-2">文章連結</span><a class="text-red-400" href="<%= result.post.url %>" title="前往回文所在文章" target="_blank"><%= result.post.url %></a>
+                </div>
+              </div>
+           
+         
+        <% else %>
+              <div id = "post_div" class = "<%=result.sentiment%>_post list " data-time = "<%=result.created_at.in_time_zone("Taipei")%>" like_count="<%=result.like_count%>" style="display: block;"> 
+              <div class="post_inner mb-2 ">
+                <p class="w-1/12">文章標題</p><p class="w-10/12"><%= result.title %></p>
+              </div>
+              <div class="post_inner mb-4">
+              <p class="w-1/12">文章內容：</p><p class="ellipsis w-11/12"><%= result.content %></p></div>
+              <div class="innerflex">
+                <p><span>關鍵字</span><%= result.keyword.gsub(/[\[\]\'\,\"]/, "") if result.keyword %></p>  
+                <p><span>回文數</span><%= result.comment_count %></p>
+                <p><span>發文者</span>
+                    <% if result.author.nil? %>
+                      <%= "Dcard匿名發文"  %>
+                    <% else %>
+                      <%= result.author %>
+                    <% end %></p>
+                <p><span>發文時間</span><%= result.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %></p>
+                <p><span>按讚數</span>
+                  <% if result.like_count %>
+                    <%= result.like_count %>
+                  <% else %>
+                    <%= "-" %>
+                  <% end %></p>
+                <p><span>情緒</span>
+                    <% case result.sentiment %>
+                    <% when "neutral" %>
+                      <%= "中立" %> 
+                    <% when "positive" %>
+                      <%= "正面" %>
+                    <% else %>
+                      <%= "負面" %>
+                    <% end %></p>
+                <p><span>出處</span><%= result.board.source.name %> >> <%= result.board.name %> </p> 
+              </div>
+              <div class="px-3">
+                <span class="mr-2">文章連結</span>
+                <a class="text-blue-400" href="<%= result.url %>" title="前往來源文章" target="_blank" ><%= result.url %></a></div>
+              </div> 
+           
+          
+        <%end%>
+      <%end%>
+    <%end%>
+
       
 
-
-      <% if @comment_total %>
-        <% @comment_total.each do |comment| %>
-          <div id = "comment_div" class = "<%=comment.sentiment%>_comment list" data-time = "<%=comment.created_at.in_time_zone("Taipei")%>" like_count="<%=comment.like_count%>" style="display: block;">
-            <div class="post_inner mb-2">
-              <p class="w-1/12">文章標題：</p><p class="w-11/12"><%= comment.post.title %></p>
-            </div>
-            <div class="post_inner mb-4">
-              <p class="ellipsis w-1/12">回文內容：</p><p class="ellipsis w-11/12"><%= comment.content %></p></div>
-            <div class="innerflex">
-            <p><span>回文數</span><%= comment.post.comment_count %></p>
-            <p><span>回文者</span>
-              <% if comment.author.nil? %>
-                <%= "Dcard匿名回文"  %>
-              <% else %>
-                <%= comment.author %>
-              <% end %></p>
-            <p><span>回文時間</span><%= comment.created_at.in_time_zone("Taipei").strftime('%Y-%m-%d %H:%M:%S') %></p>
-            <p><span>按讚數</span>
-              <% if comment.like_count %>
-                 <%= comment.like_count %>
-               <% else %>
-                 <%= "-" %>
-               <% end %></p>
-            <p><span>情緒</span>
-              <% case comment.sentiment %>
-              <% when "neutral" %>
-                <%= "中立" %> 
-              <% when "positive" %>
-                <%= "正面" %>
-              <% else %>
-                <%= "負面" %>
-              <% end %></p>
-            <p><span>出處</span><%= comment.post.board.source.name%> >> <%= comment.post.board.name %> </p>
-            </div>
-            <div class="px-3">
-            <span class="mr-2">文章連結</span><a class="text-red-400" href="<%= comment.post.url %>" title="前往回文所在文章" target="_blank"><%= comment.post.url %></a>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
     </div>
     <br>
   </div>
