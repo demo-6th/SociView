@@ -1,3 +1,11 @@
+# search
+def search_box 
+  @theme = params[:theme]
+  @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+  @start = params[:start].to_date
+  @end = params[:end].to_date
+  @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+end 
 
 # topic keywords array
 def theme_keywords(theme)
@@ -10,50 +18,41 @@ def theme_keywords(theme)
   return result 
 end 
 
-# source array 
-def source(array)
-  if array.length == 2
-    return [1,2]
-  elsif array.include?("Dcard")
-    return [1]
-  else 
-    return [2]
-  end 
+# search_post (@start, @end, topic(@theme), source(@source))
+def search_post(start_date,end_date,keywords,col1, col2)
+  result = Post.ransack(created_at_gt: start_date, created_at_lt: end_date, title_or_content_cont_any: keywords).result.joins(board: :source).where(boards: { sources: { name: @source } })
+  return result.select(col1,col2), result.count, result
+end 
+
+# search_comment
+def search_comment(start_date,end_date,keywords,col1, col2)
+  comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: start_date, created_at_lt: end_date).result
+
+  result = comment_search.ransack(content_cont_any: keywords).result.or(comment_search.where(:pid => search_post(start_date,end_date,keywords,col1, col2)[2].pluck(:pid)))
+
+  return result.select(col1,col2), result.count
+end 
+
+def search_all(start_date, end_date,keywords, col1, col2)
+  result = search_post(start_date, end_date, keywords, col1, col2)[0]| search_comment(start_date, end_date, keywords, col1, col2)[0]
+  return result, result.count 
 end 
 
 # search based on doc_type 
 def doc_type(array, col1, col2)
   if array.length == 2
-    search_all(@start.midnight, @end.end_of_day, theme_keywords(@theme),source(@source), col1, col2)
+    search_all(@start.midnight, @end.end_of_day, theme_keywords(@theme), col1, col2)
   elsif array.include?("主文") 
-    search_post(@start.midnight, @end.end_of_day, theme_keywords(@theme),source(@source), col1, col2)
+    search_post(@start.midnight, @end.end_of_day, theme_keywords(@theme), col1, col2)
   else 
-    search_comment(@start.midnight, @end.end_of_day, theme_keywords(@theme),source(@source), col1, col2)
+    search_comment(@start.midnight, @end.end_of_day, theme_keywords(@theme), col1, col2)
   end 
 end 
 
-# search_post (@start, @end, topic(@theme), source(@source))
-def search_post(start_date,end_date,keywords,source,col1, col2)
-  result = Post.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), title_or_content_cont_any:keywords).result
-  return result.select(col1,col2), result.count
-end 
 
-# search_comment
-def search_comment(start_date,end_date,keywords,source,col1, col2)
-  # comment content itself contains the keyword + comments under posts that matches the topic & drop repeated comments
+
+
+
+
+
   
-  return result.select(col1,col2), result.count
-end 
-
-def search_all(start_date,end_date,keywords,source, col1, col2)
-  count = search_post(start_date, end_date, keywords,source, col1, col2)[1]+search_comment(start_date, end_date, keywords,source, col1, col2)[1]
-  result = search_post(start_date, end_date, keywords,source, col1, col2)[0]|search_comment(start_date, end_date, keywords,source, col1, col2)[0]
-  return result, count 
-end 
-
-# comment content itself contains the keyword + comments under posts that matches the topic & drop repeated comments
-# Comment.ransack(pid_in:Post.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), title_or_content_cont_any:keywords).result.pluck(:pid)).result
-
-# Comment.ransack(created_at_gt: start_date,created_at_lt: end_date, alias_in: Board.ransack(source_id_in:source).result.pluck(:alias), content_cont_any:keywords).result
-
-
