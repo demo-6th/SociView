@@ -15,6 +15,7 @@
     <div class="choice_commont">
       <span>文章篩選</span>
       <select class="bg-wite text-gray-700 border-none inline-block py-1 rounded leading-tight" id="article">  
+
         <option value="all" selected="selected">主文加回文</option>
         <option value="post">主文</option>
         <option value="comment">回文</option>
@@ -44,8 +45,8 @@
   
   <div class="postlist_container">
     <div class="row div_list">
-    <% if @result %>
-      <% @result.each do |result|%>
+    <% if @results %>
+      <% @results.each do |result|%>
         <% if result.model_name.name == "Comment" %>
               <div id = "comment_div" class = "<%=result.sentiment%>_comment list" data-time = "<%=result.created_at.in_time_zone("Taipei")%>" like_count="<%=result.like_count%>" style="display: block;">
                 <div class="post_inner mb-2">
@@ -129,7 +130,7 @@
       <%end%>
     <%end%>
 
-      
+      <%= paginate @results %>
 
     </div>
     <br>

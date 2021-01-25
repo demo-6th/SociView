@@ -127,6 +127,9 @@ GEM
     json (2.5.1)
     json (2.5.1-java)
     jwt (2.2.2)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     koala (3.0.0)
       addressable
       faraday
@@ -332,6 +335,7 @@ DEPENDENCIES
   gon (~> 6.1)
   hirb-unicode
   jbuilder (~> 2.7)
+  kaminari (~> 0.17.0)
   koala (~> 3.0)
   listen (~> 3.2)
   omniauth (= 1.9.1)
