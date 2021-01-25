@@ -68,9 +68,10 @@ class QueriesController < ApplicationController
       end
     end
     @result = @posts + @comment_total
-    @result = @result.sort_by{|x| x[:created_at]}
     @count = @result.count
-    @results = Kaminari.paginate_array(@result).page(params[:page]).per(5)
+    @result = @result.sample(2000).sort_by{|x| x[:created_at]}
+    # @results = Kaminari.paginate_array(@result).page(params[:page]).per(5)
+    @results = @result
   end
 
   def sentiment; end
