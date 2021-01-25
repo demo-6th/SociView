@@ -1,4 +1,6 @@
-function volume_chart(gon) {
+
+document.addEventListener("turbolinks:load", () => {
+
     let start = gon.start;
     let end = gon.end;
     let theme1 = gon.theme1;
@@ -152,6 +154,5 @@ function volume_chart(gon) {
         chart.data.datasets.push(line3);
         chart.update();
     }
-}
+})
 
-export default volume_chart;

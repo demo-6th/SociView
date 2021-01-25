@@ -1,5 +1,5 @@
 class QueriesController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   layout "homepage"
   require 'csv'
 
@@ -107,7 +107,7 @@ class QueriesController < ApplicationController
     end
 
 
-    render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: post_count, theme: gon.theme } }
+    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: post_count, theme: gon.theme } }
   end
 
   def volume; end
@@ -193,7 +193,7 @@ class QueriesController < ApplicationController
     gon.count1 = @count1
 
 
-    render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, theme3: gon.theme3, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
+    # render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, theme3: gon.theme3, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
   end
 
   def topic; end
