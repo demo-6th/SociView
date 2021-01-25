@@ -1,4 +1,6 @@
-function setiment_chart(gon) {
+
+document.addEventListener("turbolinks:load", () => {
+
   let start = gon.start;
   let end = gon.end;
   let all_date = [];
@@ -189,6 +191,6 @@ function setiment_chart(gon) {
       },
     });
   }
-}
+})
 
-export default setiment_chart;
+
