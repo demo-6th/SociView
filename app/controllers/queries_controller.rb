@@ -211,33 +211,48 @@ class QueriesController < ApplicationController
 
   def termfreqpost
     search_box()
-    search_result = doc_type(@type,:token,:pos)
-    result = search_result[0]
-    @count = search_result[1]
+    # search_result = doc_type(@type,:token,:pos)
+    # result = search_result[0]
+    # @count = search_result[1]
 
-    CSV.open("data/tf_data.csv", "wb") do |csv|
-      result.find_all do |res|
-        csv << res.attributes.values
-      end 
-      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
-    end
+    puts @theme
+    puts @source
+    puts @start
+    puts @end
+    puts @type
 
-    def tf_check(pos)
-      if File.exist?("data/tf_#{pos}.csv")
-        table = CSV.read("data/tf_#{pos}.csv") 
-        gon.term = table[0]
-        gon.freq = table[1]
-      end 
-      return gon.term, gon.freq
-    end 
+    # CSV.open("data/tf_data.csv", "wb") do |csv|
+    #   result.find_all do |res|
+    #     csv << res.attributes.values
+    #   end 
+    #   @termfreq = `python3 lib/tasks/Termfreq/main.py params`
+    # end
 
-    v = tf_check("V")
-    n = tf_check("N")
-    a = tf_check("A")
-    gon.vterm, gon.vfreq = v
-    gon.nterm, gon.nfreq = n
-    gon.adjterm, gon.adjfreq = a
+    # def tf_check(pos)
+    #   if File.exist?("data/tf_#{pos}.csv")
+    #     table = CSV.read("data/tf_#{pos}.csv") 
+    #     gon.term = table[0]
+    #     gon.freq = table[1]
+    #   end 
+    #   return gon.term, gon.freq
+    # end 
+
+    # v = tf_check("V")
+    # n = tf_check("N")
+    # a = tf_check("A")
+    # gon.vterm, gon.vfreq = v
+    # gon.nterm, gon.nfreq = n
+    # gon.adjterm, gon.adjfreq = a
   end
 
+  private
+  # search box 
+  def search_box 
+    @theme = params[:theme]
+    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+    @start = params[:start].to_date
+    @end = params[:end].to_date
+    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+  end 
 end
 
