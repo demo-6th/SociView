@@ -15,7 +15,6 @@
     <div class="choice_commont">
       <span>文章篩選</span>
       <select class="bg-wite text-gray-700 border-none inline-block py-1 rounded leading-tight" id="article">  
-
         <option value="all" selected="selected">主文加回文</option>
         <option value="post">主文</option>
         <option value="comment">回文</option>
@@ -84,8 +83,6 @@
                 <span class="mr-2">文章連結</span><a class="text-red-400" href="<%= result.post.url %>" title="前往回文所在文章" target="_blank"><%= result.post.url %></a>
                 </div>
               </div>
-           
-         
         <% else %>
               <div id = "post_div" class = "<%=result.sentiment%>_post list " data-time = "<%=result.created_at.in_time_zone("Taipei")%>" like_count="<%=result.like_count%>" style="display: block;"> 
               <div class="post_inner mb-2 ">
@@ -129,9 +126,6 @@
         <%end%>
       <%end%>
     <%end%>
-
-      <%# <%= paginate @results %> %>
-
     </div>
     <br>
   </div>

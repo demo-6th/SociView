@@ -295,7 +295,7 @@ document.addEventListener("turbolinks:load", () => {
     var sel = document.getElementById('selectpage')
     s_btn.addEventListener('click', function () {
       var ary = filter_ary
-      var items = 10;
+      var items = 20;
       var pageIndexStart = (sel.value - 1) * items;
       var pageIndexEnd = sel.value * items;
       for (let i = 0; i < ary.length; i++) {
@@ -323,7 +323,7 @@ function showBtn() {
   }
   filter_ary = ary
   var opt = document.getElementById('selectpage');
-  var btnNum = Math.ceil(ary.length / 10);
+  var btnNum = Math.ceil(ary.length / 20);
   var str = "";
   for (var i = 0; i < btnNum; i++) {
     str += ` <option id ="${i + 1}" value="${i + 1}">${i + 1}</option> `;
@@ -333,7 +333,7 @@ function showBtn() {
 
 function firstPage() {
   var pageIndexStart = 0;
-  var pageIndexEnd = 10;
+  var pageIndexEnd = 20;
   for (let i = 0; i < filter_ary.length; i++) {
     filter_ary[i].style.display = "none"
   }
@@ -344,3 +344,16 @@ function firstPage() {
     filter_ary[i].style.display = "block"
   };
 }
+
+
+// function loading() {
+//   const btn = document.querySelector('.check');
+//   btn.classList.remove("search_btn")
+//   btn.classList.add("active")
+// }
+
+// function finish() {
+//   const btn = document.querySelector('.check');
+//   btn.classList.add("search_btn")
+//   btn.classList.remove("active")
+// }
