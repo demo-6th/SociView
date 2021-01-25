@@ -40,7 +40,7 @@ def pos_counter(data, pos_type):
     for n in range(len(data.pos[i])):
       if data.pos[i][n].startswith(pos_type) and data.token[i][n] not in stopwords:
         result.append(data.token[i][n])
-    count = Counter(result).most_common(20)
+    count = Counter(result).most_common(15)
 
   with open('data/tf_'+pos_type+'.csv','w') as csvfile:
     writer=csv.writer(csvfile)
@@ -52,5 +52,5 @@ if len(data) < 10:
   print("您所選擇區間資料過少，請重新選擇")
 else:
   pos_counter(data, "V")
-  pos_counter(data, "A")
   pos_counter(data, "N")
+  pos_counter(data, "A")
