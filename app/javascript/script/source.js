@@ -190,11 +190,11 @@ document.addEventListener("turbolinks:load", () => {
     const dcard_source3_divsion = Object.values(dcard_source3).map(function(n, i) { return n / Object.values(dcard_result)[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
     const dcard_source4_divsion = Object.values(dcard_source4).map(function(n, i) { return n / Object.values(dcard_result)[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
     const dcard_source5_divsion = Object.values(dcard_source5).map(function(n, i) { return n / Object.values(dcard_result)[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
-    const dcard_source1_bgc = dcard_source1_divsion.map(x => x = "rgba(244,143,177,0.5)")
-    const dcard_source2_bgc = dcard_source2_divsion.map(x => x = "rgba(129,212,250,0.5)")
-    const dcard_source3_bgc = dcard_source3_divsion.map(x => x = "rgba(178,151,196,0.5)")
-    const dcard_source4_bgc = dcard_source4_divsion.map(x => x = "rgba(245,203,116,0.5)")
-    const dcard_source5_bgc = dcard_source5_divsion.map(x => x = "rgba(55,71,79,0.5)")
+    const dcard_source1_bgc = dcard_source1_divsion.map(x => x = "rgba(244,143,177,0.7)")
+    const dcard_source2_bgc = dcard_source2_divsion.map(x => x = "rgba(129,212,250,0.7)")
+    const dcard_source3_bgc = dcard_source3_divsion.map(x => x = "rgba(178,151,196,0.7)")
+    const dcard_source4_bgc = dcard_source4_divsion.map(x => x = "rgba(245,203,116,0.7)")
+    const dcard_source5_bgc = dcard_source5_divsion.map(x => x = "rgba(55,71,79,0.7)")
 
     const ptt_source1_divsion = Object.values(ptt_source1).map(function(n, i) { return n / Object.values(ptt_result)[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
     const ptt_source2_divsion = Object.values(ptt_source2).map(function(n, i) { return n / Object.values(ptt_result)[i]; }).map(x => Math.round(x * 10000) / 100 || 0);
