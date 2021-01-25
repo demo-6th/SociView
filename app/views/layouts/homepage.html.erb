@@ -2,8 +2,11 @@
 <html>
   <head>
     <title>SociView</title>
+    <link rel="shortcut icon" href="/favicon.ico"/ type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico"/ type="image/x-icon" />
     <%= csrf_meta_tags %> 
     <%= csp_meta_tag %> 
+    
     <%= Gon::Base.render_data %>
     <%= include_gon(:init => true) %>
     <%= stylesheet_pack_tag 'homepage', media: 'all', 'data-turbolinks-track': 'reload' %>
