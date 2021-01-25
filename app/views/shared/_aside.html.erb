@@ -1,14 +1,13 @@
 <div class="aside">
-  <% if current_page?(list_queries_path) %> 
+  <% if current_page?(volume_queries_path) %> 
   <div class="query_link query_link_page">
   <% else %> 
   <div class="query_link">
   <% end %>
-    <%= link_to list_queries_path, class: "function" do %>
-    <span>文章列表</span><i class="fas fa-list-alt"></i>
+    <%= link_to volume_queries_path, class: "function" do %>
+    <span>聲量分析</span><i class="fas fa-satellite-dish"></i>
     <% end %>
   </div>
- 
 
   <% if current_page?(sentiment_queries_path) %> 
   <div class="query_link query_link_page">
@@ -18,6 +17,36 @@
     <%= link_to sentiment_queries_path, class: "function" do %>
     <span>情緒分析</span>
     <i class="fas fa-grin-squint-tears"></i>
+    <% end %>
+  </div>
+
+  <% if current_page?(list_queries_path) %> 
+  <div class="query_link query_link_page">
+  <% else %> 
+  <div class="query_link">
+  <% end %>
+    <%= link_to list_queries_path, class: "function" do %>
+    <span>文章列表</span><i class="fas fa-list-alt"></i>
+    <% end %>
+  </div>
+
+  <% if current_page?(source_queries_path) %> 
+  <div class="query_link query_link_page">
+  <% else %> 
+  <div class="query_link">
+  <% end %>
+    <%= link_to source_queries_path, class: "function" do %>
+    <span>來源分析</span><i class="fas fa-satellite-dish"></i>
+    <% end %>
+  </div>
+ 
+  <% if current_page?(wordcloud_queries_path) %>
+  <div class="query_link query_link_page">
+  <% else %> 
+  <div class="query_link">
+  <% end %>
+    <%= link_to wordcloud_queries_path, class: "function" do %>
+    <span>文字雲</span><i class="fas fa-cloud"></i>
     <% end %>
   </div>
 
@@ -31,18 +60,6 @@
     <% end %>
   </div>
 
-
-  <% if current_page?(wordcloud_queries_path) %>
-  <div class="query_link query_link_page">
-  <% else %> 
-  <div class="query_link">
-  <% end %>
-    <%= link_to wordcloud_queries_path, class: "function" do %>
-    <span>文字雲</span><i class="fas fa-cloud"></i>
-    <% end %>
-  </div>
-    
-
   <% if current_page?(diffusion_queries_path) %>
   <div class="query_link query_link_page">
   <% else %>
@@ -52,28 +69,6 @@
     <span>聲量擴散</span><i class="fas fa-braille"></i>
   <% end %>
   </div>
-   
-
-  <% if current_page?(volume_queries_path) %> 
-  <div class="query_link query_link_page">
-  <% else %> 
-  <div class="query_link">
-  <% end %>
-    <%= link_to volume_queries_path, class: "function" do %>
-    <span>聲量分析</span><i class="fas fa-satellite-dish"></i>
-    <% end %>
-  </div>
-
-  <% if current_page?(source_queries_path) %> 
-  <div class="query_link query_link_page">
-  <% else %> 
-  <div class="query_link">
-  <% end %>
-    <%= link_to source_queries_path, class: "function" do %>
-    <span>來源分析</span><i class="fas fa-satellite-dish"></i>
-    <% end %>
-  </div>
-
 
   <div class="query_link">
     <%= link_to edit_user_registration_path, class: "function" do %>
