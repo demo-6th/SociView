@@ -1,6 +1,4 @@
-
 document.addEventListener("turbolinks:load", () => {
-
   let start = gon.start;
   let end = gon.end;
   let result = gon.result;
@@ -70,6 +68,7 @@ document.addEventListener("turbolinks:load", () => {
       },
       options: {
         title: {
+          fontSize: 30,
           display: true,
           text: "情緒圓餅圖",
         },
@@ -115,6 +114,7 @@ document.addEventListener("turbolinks:load", () => {
           ],
         },
         title: {
+          fontSize: 30,
           display: true,
           text: "情緒長條圖",
         },
@@ -184,12 +184,11 @@ document.addEventListener("turbolinks:load", () => {
           ],
         },
         title: {
+          fontSize: 30,
           display: true,
           text: "情緒折線圖",
         },
       },
     });
   }
-})
-
-
+});
