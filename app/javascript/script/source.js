@@ -74,9 +74,11 @@ document.addEventListener("turbolinks:load", () => {
     const dcard_bgc = dcard_divsion.map(x => x = "rgba(0,106,166,0.5)")
 
     //board
-    board.forEach((e) => {
-        all_board.push(e.alias)
-    })
+    if (board !== undefined) {
+        board.forEach((e) => {
+            all_board.push(e.alias)
+        })
+    }
 
     all_board.forEach((e) => {
         ptt_board_cal[e] = 0;
