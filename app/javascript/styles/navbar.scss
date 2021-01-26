@@ -1,5 +1,5 @@
 .navbar{
-  @apply bg-white py-3 shadow max-w-screen-2xl m-auto py-8;
+  @apply bg-white shadow max-w-screen-2xl m-auto py-8 lg:py-2;
   .row{
     @apply flex justify-between px-10 pt-2;
     .logo a{
