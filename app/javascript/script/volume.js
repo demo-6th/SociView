@@ -42,6 +42,13 @@ document.addEventListener("turbolinks:load", () => {
             count_line2[d_result2] += 1;
         });
     }
+    if (gon.result3 !== undefined) {
+        gon.result3.forEach((e) => {
+            let d_result3 = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
+      }-${new Date(e.created_at).getDate()}`;
+            count_line3[d_result3] += 1;
+        });
+    }
 
     if (document.getElementById("volumeBarChart")) {
         const ctx_bar = document.getElementById("volumeBarChart").getContext("2d");
