@@ -166,8 +166,6 @@ class QueriesController < ApplicationController
     gon.start = @start
     gon.end = @end
     gon.result = result
-
-    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: @count, theme: gon.theme } }
   end
 
   def topic; end
@@ -263,6 +261,7 @@ class QueriesController < ApplicationController
 
     dcard_comment = comment_dcard_search.ransack(content_cont_any: @theme).result.or(comment_dcard_search.where(:pid => dcard_post.pluck(:pid)))
 
+    # 計算符合搜尋條件的資料筆數
     if params[:post] && params[:comment]
       @count = post_result.count + comment_result.count
       gon.result = post_result + comment_result
