@@ -25,7 +25,6 @@ SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.t
 - PostgreSQL
 ### 部署
 - Heroku
-- Amazon S3
 ### 測試
 - RSpec
 ### 版本控制
