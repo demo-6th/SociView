@@ -1,12 +1,8 @@
 class QueriesController < ApplicationController
   # before_action :authenticate_user!
   layout "homepage"
-<<<<<<< HEAD
-  require 'csv'
-  load "app/services/user_search.rb"
-=======
   require "csv"
->>>>>>> backpoint
+  load "app/services/user_search.rb"
 
   def index; end
 
@@ -166,7 +162,7 @@ class QueriesController < ApplicationController
 
   def sentpost
     search_box()
-    search_result = doc_type(@type,:sentiment,:created_at)
+    search_result = doc_type(@type, :sentiment, :created_at)
     result = search_result[0]
     @count = search_result[1]
 
@@ -181,7 +177,7 @@ class QueriesController < ApplicationController
 
   def topicpost
     search_box()
-    search_result = doc_type(@type,:token,:id)
+    search_result = doc_type(@type, :token, :id)
     result = search_result[0]
     @count = search_result[1]
 
@@ -197,7 +193,7 @@ class QueriesController < ApplicationController
 
   def cloudpost
     search_box()
-    search_result = doc_type(@type,:no_stop,:id)
+    search_result = doc_type(@type, :no_stop, :id)
     result = search_result[0]
     @count = search_result[1]
 
@@ -213,7 +209,7 @@ class QueriesController < ApplicationController
 
   def termfreqpost
     search_box()
-    search_result = doc_type(@type,:token,:pos)
+    search_result = doc_type(@type, :token, :pos)
     result = search_result[0]
     @count = search_result[1]
 
@@ -223,18 +219,22 @@ class QueriesController < ApplicationController
       end
       @termfreq = `python3 lib/tasks/Termfreq/main.py params`
     end
-    v_table = CSV.read("data/tf_V.csv")
-    n_table = CSV.read("data/tf_N.csv")
-    adj_table = CSV.read("data/tf_A.csv")
-    gon.vterm = v_table[0]
-    gon.vfreq = v_table[1]
-    gon.nterm = n_table[0]
-    gon.nfreq = n_table[1]
-    gon.adjterm = adj_table[0]
-    gon.adjfreq = adj_table[1]
-  end
 
-  def diffusionpost
+    def tf_check(pos)
+      if File.exist?("data/tf_#{pos}.csv")
+        table = CSV.read("data/tf_#{pos}.csv")
+        gon.term = table[0]
+        gon.freq = table[1]
+      end
+      return gon.term, gon.freq
+    end
+
+    v = tf_check("V")
+    n = tf_check("N")
+    a = tf_check("A")
+    gon.vterm, gon.vfreq = v
+    gon.nterm, gon.nfreq = n
+    gon.adjterm, gon.adjfreq = a
   end
 
   def source; end
@@ -291,7 +291,7 @@ class QueriesController < ApplicationController
     gon.end = @end
     gon.board = Board.all
 
-    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, theme: gon.theme, ptt_result: gon.ptt_result, dcard_result: gon.dcard_result, board: gon.board } }
+    render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, theme: gon.theme, ptt_result: gon.ptt_result, dcard_result: gon.dcard_result, board: gon.board } }
   end
 
   private
@@ -299,22 +299,4 @@ class QueriesController < ApplicationController
   def search_post_only(query)
     @posts = Post.search query, fields: [:title, :content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }, order: { created_at: { order: "asc" } }
   end
-
-    def tf_check(pos)
-      if File.exist?("data/tf_#{pos}.csv")
-        table = CSV.read("data/tf_#{pos}.csv") 
-        gon.term = table[0]
-        gon.freq = table[1]
-      end 
-      return gon.term, gon.freq
-    end 
-
-    v = tf_check("V")
-    n = tf_check("N")
-    a = tf_check("A")
-    gon.vterm, gon.vfreq = v
-    gon.nterm, gon.nfreq = n
-    gon.adjterm, gon.adjfreq = a
-  end
 end
-
