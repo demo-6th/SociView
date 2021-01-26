@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
-  resources :queries, only: [:index] do
+  resources :queries, only: [] do
     collection do
       get :list
       post :list, to: "queries#listpost"
