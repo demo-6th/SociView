@@ -1,9 +1,6 @@
 .footer{
-  @apply py-3 bg-blue-400 max-w-screen-2xl m-auto py-8;
+  @apply py-3 bg-blue-400;
   .row{
     @apply flex justify-between px-10;
-    .logo{
-      @apply h-7;
-    }
   }
 }
