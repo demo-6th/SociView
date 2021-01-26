@@ -2,8 +2,7 @@ class QueriesController < ApplicationController
   # before_action :authenticate_user!
   layout "homepage"
   require 'csv'
-
-
+  load "app/services/user_search.rb"
 
   def index; end
 
@@ -73,41 +72,6 @@ class QueriesController < ApplicationController
         @count = @comment_total.count
       end
     end
-  end
-
-  def sentiment; end
-
-  def sentpost
-    # pass value down to api action
-    @theme = params[:theme]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-
-    #theme1
-    @post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-    @comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-    # 計算符合搜尋條件的資料筆數
-    post_count = @post_result.count
-    comment_count = @comment_result.count
-    gon.start = @start
-    gon.end = @end
-
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      gon.result = @post_result + @comment_result
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      gon.result = @post_result
-    else
-      @count = comment_count
-      gon.result = @comment_result
-    end
-
-
-    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: post_count, theme: gon.theme } }
   end
 
   def volume; end
@@ -196,33 +160,28 @@ class QueriesController < ApplicationController
     # render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, theme3: gon.theme3, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
   end
 
+  def sentiment; end
+
+  def sentpost
+    search_box()
+    search_result = doc_type(@type,:sentiment,:created_at)
+    result = search_result[0]
+    @count = search_result[1]
+
+    gon.start = @start
+    gon.end = @end
+    gon.result = result
+
+    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: @count, theme: gon.theme } }
+  end
+
   def topic; end
 
   def topicpost
-    # pass value down to api action
-    @theme = params[:theme]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-
-    #theme1
-    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-    post_count = post_result.count
-    comment_count = comment_result.count
-
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      result = post_result.select(:token, :id) | comment_result.select(:token, :id)
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      result = post_result.select(:token, :id)
-    else
-      @count = comment_count
-      result = comment_result.select(:token, :id)
-    end
+    search_box()
+    search_result = doc_type(@type,:token,:id)
+    result = search_result[0]
+    @count = search_result[1]
 
     CSV.open("data/topic_text.csv", "wb") do |csv|
       result.find_all do |res|
@@ -235,28 +194,10 @@ class QueriesController < ApplicationController
   def wordcloud; end
 
   def cloudpost
-    @theme = params[:theme]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-
-    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-    post_count = post_result.count
-    comment_count = comment_result.count
-
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      result = post_result.select(:no_stop, :id) | comment_result.select(:no_stop, :id)
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      result = post_result.select(:no_stop, :id)
-    else
-      @count = comment_count
-      result = comment_result.select(:no_stop, :id)
-    end
+    search_box()
+    search_result = doc_type(@type,:no_stop,:id)
+    result = search_result[0]
+    @count = search_result[1]
 
     CSV.open("data/cloud_text.csv", "wb") do |csv|
       result.find_all do |res|
@@ -269,54 +210,33 @@ class QueriesController < ApplicationController
   def termfreq; end
 
   def termfreqpost
-    @theme = params[:theme]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-
-    post_result = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%")
-    comment_result = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme}%", "%#{@theme}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme}%"))
-
-    post_count = post_result.count
-    comment_count = comment_result.count
-
-    if params[:post] && params[:comment]
-      @count = post_count + comment_count
-      result = post_result.select(:token, :pos) | comment_result.select(:token, :pos)
-    elsif params[:post] && !params[:comment]
-      @count = post_count
-      result = post_result.select(:token, :pos)
-    else
-      @count = comment_count
-      result = comment_result.select(:token, :pos)
-    end
+    search_box()
+    search_result = doc_type(@type,:token,:pos)
+    result = search_result[0]
+    @count = search_result[1]
 
     CSV.open("data/tf_data.csv", "wb") do |csv|
       result.find_all do |res|
         csv << res.attributes.values
       end 
-      `python3 lib/tasks/Termfreq/main.py`
+      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
     end
-    v_table = CSV.read("data/tf_V.csv")
-    n_table = CSV.read("data/tf_N.csv")
-    adj_table = CSV.read("data/tf_A.csv")
-    gon.vterm = v_table[0]
-    gon.vfreq = v_table[1]
-    gon.nterm = n_table[0]
-    gon.nfreq = n_table[1]
-    gon.adjterm = adj_table[0]
-    gon.adjfreq = adj_table[1]
+
+    def tf_check(pos)
+      if File.exist?("data/tf_#{pos}.csv")
+        table = CSV.read("data/tf_#{pos}.csv") 
+        gon.term = table[0]
+        gon.freq = table[1]
+      end 
+      return gon.term, gon.freq
+    end 
+
+    v = tf_check("V")
+    n = tf_check("N")
+    a = tf_check("A")
+    gon.vterm, gon.vfreq = v
+    gon.nterm, gon.nfreq = n
+    gon.adjterm, gon.adjfreq = a
   end
-
-  private
-  def search_post_only(query)
-    @posts = Post.search query, fields: [:title, :content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }, order: { created_at: { order: "asc" } }
-  end
-
-  def search_comment_only(query)
-    @comments = Comment.search query, fields: [:content], misspellings: false, where: { created_at: { gte: @start, lte: @end } }
-  end
-
-
 end
+

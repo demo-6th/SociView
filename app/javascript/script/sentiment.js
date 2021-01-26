@@ -3,6 +3,7 @@ document.addEventListener("turbolinks:load", () => {
 
   let start = gon.start;
   let end = gon.end;
+  let result = gon.result;
   let all_date = [];
   let pos_count = 0;
   let neg_count = 0;
@@ -28,11 +29,11 @@ document.addEventListener("turbolinks:load", () => {
     neu_line[d] = 0;
   });
 
-  if (gon.result !== undefined) {
-    gon.result.forEach((e) => {
+  if (result !== undefined) {
+    result.forEach((e) => {
       let d_result = `${new Date(e.created_at).getFullYear()}-${
         new Date(e.created_at).getMonth() + 1
-      }-${new Date(e.created_at).getDate()}`;
+      }-${new Date(e.created_at).getDate() - 1}`;
 
       if (e.sentiment === "positive") {
         pos_count += 1;
@@ -58,7 +59,6 @@ document.addEventListener("turbolinks:load", () => {
         labels: ["正面", "負面", "中立"],
         datasets: [
           {
-            label: "（主文）情緒長條圖",
             data: [pos_count, neg_count, neutral_count],
             backgroundColor: [
               "rgba(75,192,192,0.5)",
@@ -86,7 +86,6 @@ document.addEventListener("turbolinks:load", () => {
         labels: ["正面", "負面", "中立"],
         datasets: [
           {
-            label: "情緒長條圖",
             data: [pos_count, neg_count, neutral_count],
             backgroundColor: [
               "rgba(75,192,192,0.5)",
