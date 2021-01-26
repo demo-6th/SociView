@@ -5,11 +5,14 @@ import ast
 from matplotlib import pyplot as plt
 import os
 pd.options.mode.chained_assignment = None
+import sys 
 
-if os.path.exists("app/assets/images/wordcloud.png"):
-  os.remove("app/assets/images/wordcloud.png")
+rails_root = sys.argv[1]
 
-txt = pd.read_csv("data/cloud_text.csv",names=["id", "no_stop"])
+if os.path.exists(f"{rails_root}/app/assets/images/wordcloud.png"):
+  os.remove(f"{rails_root}/app/assets/images/wordcloud.png")
+
+txt = pd.read_csv(f"{rails_root}/data/cloud_text.csv",names=["id", "no_stop"])
 txt_str = ""
 
 for i in range(len(txt)):
@@ -22,6 +25,6 @@ for i in range(len(txt)):
 if len(txt_str) < 50:
   print("您所選擇區間資料過少，請重新選擇")
 else:
-  cloud = WordCloud(width=960, height=400,background_color='white',font_path="app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
-  cloud.to_file('app/assets/images/wordcloud.png')
+  cloud = WordCloud(width=960, height=400,background_color='white',font_path=f"{rails_root}/app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
+  cloud.to_file(f'{rails_root}/app/assets/images/wordcloud.png')
 
