@@ -1,9 +1,5 @@
 .query_page {
-<<<<<<< HEAD
   @apply max-w-screen-2xl m-auto;
-=======
-  @apply max-w-screen-2xl m-auto py-8;
->>>>>>> 82bc9aa (初步完成)
   .aside {
     @apply w-full flex justify-around lg:w-1/6 lg:block bg-white text-black mt-1 rounded-lg;
     .query_link {
@@ -32,7 +28,7 @@
   }
 
   .users_query_page {
-    @apply w-full leading-4  py-8 bg-gray-200 rounded-lg lg:w-10/12 overflow-hidden overflow-y-scroll lg:py-2 lg:text-left;
+    @apply w-full leading-4  bg-gray-200 rounded-lg lg:w-10/12 overflow-hidden overflow-y-scroll lg:py-2 lg:text-left;
     .section {
       @apply rounded w-full px-2 lg:p-0;
       .choice_page {
