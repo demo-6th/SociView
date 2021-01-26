@@ -83,18 +83,14 @@ class QueriesController < ApplicationController
     @start = params[:start].to_date
     @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-    puts "===================="
-    puts @count1
-    puts @count2
-    puts "===================="
 
     #theme1
     @post_result1 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
-    @comment_result1 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("content like ?", "%#{@theme[0]}%"))
+    @comment_result1 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%"))
 
     #theme2
-    @post_result2 = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%")
-    @comment_result2 = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
+    @post_result2 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%")
+    @comment_result2 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
 
     #theme3
     if @theme[2].nil?
@@ -158,7 +154,6 @@ class QueriesController < ApplicationController
       gon.result2 = @comment_result2
     end
     gon.count2 = @count2
-    gon.count1 = @count1
 
     # render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, theme3: gon.theme3, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
   end
@@ -271,6 +266,7 @@ class QueriesController < ApplicationController
 
     dcard_comment = comment_dcard_search.ransack(content_cont_any: @theme).result.or(comment_dcard_search.where(:pid => dcard_post.pluck(:pid)))
 
+    # 計算符合搜尋條件的資料筆數
     if params[:post] && params[:comment]
       @count = post_result.count + comment_result.count
       gon.result = post_result + comment_result
@@ -288,11 +284,8 @@ class QueriesController < ApplicationController
       gon.dcard_result = dcard_comment
     end
 
-    # 計算符合搜尋條件的資料筆數
     gon.start = @start
     gon.end = @end
     gon.board = Board.all
-
-    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, theme: gon.theme, ptt_result: gon.ptt_result, dcard_result: gon.dcard_result, board: gon.board } }
   end
 end
