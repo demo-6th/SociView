@@ -1,12 +1,13 @@
 .home_page{
-  @apply m-auto py-8;
+  @apply m-auto py-8 max-w-screen-2xl;
   .container{
     @apply m-auto;
     .row{
-      @apply flex justify-center;
+      @apply flex-wrap lg:flex justify-center ;
       .col-4{
-        @apply w-1/4;
+        @apply w-full lg:w-1/4 ;
         .logup_img{
+          @apply sm:m-auto;
           width: 20em;
           height: 20em;
           svg{
@@ -16,11 +17,11 @@
         }
       }
       .col-6{
-        @apply w-1/2 self-center;
+        @apply w-full lg:w-1/2 self-center ;
         .logup_text{
           @apply text-center;
           h2{
-            @apply text-base lg:text-4xl p-8 font-bold tracking-widest;
+            @apply text-2xl pt-3 pb-8 lg:text-4xl lg:p-8 font-bold tracking-widest;
           }
           .home_btn{
             @apply text-2xl bg-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow animate-bounce text-blue-400 cursor-pointer ;
@@ -33,7 +34,7 @@
 }
 
 .step_teach{
-  @apply bg-gray-100 font-serif text-center pt-5 pb-10 ;
+  @apply hidden lg:block bg-gray-100 font-serif text-center pt-5 pb-10 max-w-screen-2xl m-auto py-8 mb-2;
   .teach_text{
     .text{
       @apply text-4xl text-black py-5 font-bold;
