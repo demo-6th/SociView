@@ -1,11 +1,69 @@
 document.addEventListener("turbolinks:load", () => {
+
+    const input = document.querySelector(".input_check")
+    input.type = "hidden"
+    const check_box = document.querySelector('.choice_item_input input[type="checkbox"]');
+    check_box.addEventListener('click', function() {
+        if (check_box.checked == true) {
+            input.type = "text"
+            input.focus();
+        } else {
+            input.type = "hidden"
+        }
+    })
+
+    const source_box = document.querySelector('.source_select_all input[type="checkbox"]')
+    const source_btn = document.querySelectorAll('.source_btn input[type="checkbox"]')
+
+    source_box.addEventListener('click', function() {
+        if (source_box.checked == "") {
+            source_btn[0].checked = ""
+            source_btn[1].checked = ""
+        } else {
+            source_btn[0].checked = "checked"
+            source_btn[1].checked = "checked"
+        }
+    })
+
+    source_btn[0].addEventListener('click', function() {
+        source_box.checked = ""
+    })
+    source_btn[1].addEventListener('click', function() {
+        source_box.checked = ""
+    })
+
+    const type_box = document.querySelector('.type_select_all input[type="checkbox"]')
+    const type_btn = document.querySelectorAll('.type_btn input[type="checkbox"]')
+
+    type_box.addEventListener('click', function() {
+        if (type_box.checked == "") {
+            type_btn[0].checked = ""
+            type_btn[1].checked = ""
+        } else {
+            type_btn[0].checked = "checked"
+            type_btn[1].checked = "checked"
+        }
+    })
+
+    type_btn[0].addEventListener('click', function() {
+        type_box.checked = ""
+    })
+    type_btn[1].addEventListener('click', function() {
+        type_box.checked = ""
+    })
+
+
+
+
     const btn = document.querySelector('.check');
     btn.addEventListener('click', function(e) {
         btn.classList.remove("search_btn")
         btn.classList.add("active")
         const theme_radio_len = document.querySelectorAll('.theme_btn input[type="radio"]:checked').length
         const theme_checkbox_len = document.querySelectorAll('.theme_btn input[type="checkbox"]:checked').length
+        const theme_checkbox_input_len = document.querySelectorAll('.choice_item_input input[type="checkbox"]:checked').length
         const time_check = document.querySelectorAll('.time_btn input[type="text"]')
+        const input_check = document.querySelectorAll('.theme_btn input[type="text"]')
         const source_len = document.querySelectorAll('.source_btn input[type="checkbox"]:checked').length
         const type_len = document.querySelectorAll('.type_btn input[type="checkbox"]:checked').length
         let time_len = 0
@@ -16,15 +74,35 @@ document.addEventListener("turbolinks:load", () => {
                 time_len += 1
             }
         }
+        let input_len = 0
+        for (var i = 0; i < input_check.length; i++) {
+            if (input_check[i].value == '') {
 
-        if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
+            } else {
+                input_len += 1
+            }
+        }
 
-        } else {
-            e.preventDefault();
-            theme_radio_len < 1 && theme_checkbox_len < 2 ? validateremove("validate_theme") : validateadd("validate_theme");
-            time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
-            source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
-            type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
+        if (input.type == "hidden") {
+            if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
+
+            } else {
+                e.preventDefault();
+                theme_radio_len < 1 && theme_checkbox_len < 2 ? validateremove("validate_theme") : validateadd("validate_theme");
+                time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
+                source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
+                type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
+            }
+        } else if (input.type == "text") {
+            if ((theme_radio_len > 0 || theme_checkbox_len > 1 && input_len > 0) && time_len == time_check.length && source_len > 0 && type_len > 0) {
+
+            } else {
+                e.preventDefault()
+                theme_radio_len < 1 && (theme_checkbox_len < 2 || input_len < 1) ? validateremove("validate_theme") : validateadd("validate_theme");
+                time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
+                source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
+                type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
+            }
         }
 
         function validateremove(title) {

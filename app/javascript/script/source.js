@@ -52,10 +52,12 @@ document.addEventListener("turbolinks:load", () => {
             let d_result = `${new Date(e.created_at).getFullYear()}-${
               new Date(e.created_at).getMonth() + 1
             }-${new Date(e.created_at).getDate()}`;
-            if (e.alias.includes('ptt')) {
-                ptt_line[d_result] += 1;
-            } else if (e.alias.includes('dcard')) {
-                dcard_line[d_result] += 1;
+            if (e.alias.includes('ptt') !== undefined) {
+                if (e.alias.includes('ptt')) {
+                    ptt_line[d_result] += 1;
+                } else if (e.alias.includes('dcard')) {
+                    dcard_line[d_result] += 1;
+                }
             }
         });
     }

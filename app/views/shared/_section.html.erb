@@ -17,9 +17,12 @@
             <%= check_box_tag(:theme2, "萊豬") %> 
             <%= label_tag(:theme2, "萊豬", class: "theme_text") %>
           </div>
-          <div class="choice_item">
-            <!-- <%= check_box_tag(:theme3, "貓") %>
-            <%= label_tag(:theme3, "貓", class: "theme_text") %> -->
+          <div class="choice_item_input">
+            <%= form_tag("/search", method: "get") do %>
+            <%= check_box_tag(:theme3, "自選主題") %> 
+          	<%= label_tag(:theme3, "自選主題", class: "theme_text") %>
+            <%= text_field_tag(:theme3, "", class: "border border-gray-200 w-full rounded input_check") %>
+            <% end %>
           </div>
         </div>
             <p id="validate_theme" class="disable"> 請選擇至少兩種以上主題 </p>
@@ -55,6 +58,10 @@
             <%= check_box_tag(:ptt, "PTT") %>   
             <%= label_tag(:ptt, "PTT", class: "theme_text") %>
           </div>
+          <div class="source_select_all">
+            <%= check_box_tag(:source_all, "全選") %>   
+            <%= label_tag(:source_all, "全選", class: "theme_text") %>
+          </div>
         </div>
         <p id="validate_source" class="disable"> 請選擇至少一種社群 </p>
       </div>
@@ -63,8 +70,9 @@
 			<div class="theme">
 				<h2 class="theme_item">搜尋資料類型</h2>
 				<div class="choice_box type_btn">
-					<div class="choice_item"><%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
-					<div class="choice_item"><%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
+					<div><%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
+					<div><%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
+					<div class="type_select_all"><%= check_box_tag(:type_all, "全選") %> <%= label_tag(:type_all, "全選", class: "theme_text") %></div>
 				</div>
         <p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
 			</div>

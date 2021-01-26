@@ -83,7 +83,10 @@ class QueriesController < ApplicationController
     @start = params[:start].to_date
     @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-
+    puts "========================="
+    puts @source
+    puts @type
+    puts "========================="
     #theme1
     @post_result1 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
     @comment_result1 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%"))
@@ -93,7 +96,7 @@ class QueriesController < ApplicationController
     @comment_result2 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
 
     #theme3
-    if @theme[2].nil?
+    if @theme[2].nil? || @theme[2].empty?
       @count3 = 0
     else
       gon.theme3 = @theme[2]
@@ -154,8 +157,6 @@ class QueriesController < ApplicationController
       gon.result2 = @comment_result2
     end
     gon.count2 = @count2
-
-    # render json: { count1: @count1, count2: @count2, count3: @count3, theme: @theme, start: @start, end: @end, source: @source, type: @type, gon: { start: gon.start, end: gon.end, theme1: gon.theme1, theme2: gon.theme2, theme3: gon.theme3, result1: gon.result1, count1: gon.count1, count2:  gon.count2  } }
   end
 
   def sentiment; end
