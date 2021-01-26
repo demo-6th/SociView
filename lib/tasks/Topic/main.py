@@ -6,11 +6,14 @@ import scipy.sparse
 import importlib
 import os
 from sklearn.feature_extraction.text import CountVectorizer
+import sys 
 
-if os.path.exists("app/views/shared/_ldavis.html"):
-  os.remove("app/views/shared/_ldavis.html")
+rails_root = sys.argv[1]
 
-data = pd.read_csv("data/topic_text.csv",names=["id", "token"])
+if os.path.exists(f"{rails_root}/app/views/shared/_ldavis.html"):
+  os.remove(f"{rails_root}/app/views/shared/_ldavis.html")
+
+data = pd.read_csv(f"{rails_root}/data/topic_text.csv",names=["id", "token"])
 
 if len(data.token) < 100:
   print("您所選擇區間資料過少，請重新選擇")
@@ -28,4 +31,4 @@ else:
   d.token2id = word2id
   lda = models.LdaModel(corpus = corpus, id2word = id2word, num_topics = 10, passes= 5, minimum_probability=0.01,random_state=123)
   lda_vis = pyLDAvis.gensim.prepare(lda, corpus, d)
-  pyLDAvis.save_html(lda_vis,"app/views/shared/_ldavis.html")
+  pyLDAvis.save_html(lda_vis,f"{rails_root}/app/views/shared/_ldavis.html")
