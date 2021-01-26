@@ -13,8 +13,8 @@
   </div>
   <div class="chart">
     <div class="text-red-500 pl-1"><%= @topic %></div>
-    <% if FileTest.exist?("app/views/shared/_ldavis.html") %>
-      <%= render "shared/ldavis" %>
+    <% if FileTest.exist?("#{Rails.root}/app/views/shared/_ldavis.html") %>
+      <%= render "shared/ldavis.html" %>
     <% end %>
   </div>
 </div>
