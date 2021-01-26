@@ -24,6 +24,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    list_queries_path
+    volume_queries_path
   end
 end

@@ -1,4 +1,25 @@
 <div class="aside">
+  <% if current_page?(volume_queries_path) %> 
+  <div class="query_link query_link_page">
+  <% else %> 
+  <div class="query_link">
+  <% end %>
+    <%= link_to volume_queries_path, class: "function" do %>
+    <span>聲量分析</span><i class="fas fa-satellite-dish"></i>
+    <% end %>
+  </div>
+
+  <% if current_page?(sentiment_queries_path) %> 
+  <div class="query_link query_link_page">
+  <% else %> 
+  <div class="query_link">
+  <% end %>
+    <%= link_to sentiment_queries_path, class: "function" do %>
+    <span>情緒分析</span>
+    <i class="fas fa-grin-squint-tears"></i>
+    <% end %>
+  </div>
+
   <% if current_page?(list_queries_path) %> 
   <div class="query_link query_link_page">
   <% else %> 
@@ -9,35 +30,12 @@
     <% end %>
   </div>
  
-
-  <% if current_page?(sentiment_queries_path) %> 
-  <div class="query_link query_link_page">
-  <% else %> 
-  <div class="query_link">
-  <% end %>
-    <%= link_to sentiment_queries_path, class:"function" do %>
-    <span>情緒分析</span>
-    <i class="fas fa-grin-squint-tears"></i>
-    <% end %>
-  </div>
-
-  <% if current_page?(topic_queries_path) %> 
-  <div class="query_link query_link_page">
-  <% else %> 
-  <div class="query_link">
-  <% end %>
-    <%= link_to topic_queries_path, class:"function" do %>
-    <span>自動化議題</span><i class="fas fa-laptop-code"></i>
-    <% end %>
-  </div>
-
-
   <% if current_page?(wordcloud_queries_path) %>
   <div class="query_link query_link_page">
   <% else %> 
   <div class="query_link">
   <% end %>
-    <%= link_to wordcloud_queries_path, class:"function" do %>
+    <%= link_to wordcloud_queries_path, class: "function" do %>
     <span>文字雲</span><i class="fas fa-cloud"></i>
     <% end %>
   </div>
@@ -48,25 +46,25 @@
   <% else %>
   <div class="query_link">
   <% end %>
-    <%= link_to termfreq_queries_path, class:"function" do %>
+    <%= link_to termfreq_queries_path, class: "function" do %>
     <span>詞頻分析</span><i class="far fa-chart-bar"></i>
   <% end %>
   </div>
    
 
-  <% if current_page?(volume_queries_path) %> 
+
+  <% if current_page?(topic_queries_path) %> 
   <div class="query_link query_link_page">
   <% else %> 
   <div class="query_link">
   <% end %>
-    <%= link_to volume_queries_path, class:"function" do %>
-    <span>聲量分析</span><i class="fas fa-satellite-dish"></i>
+    <%= link_to topic_queries_path, class: "function" do %>
+    <span>自動化議題</span><i class="fas fa-laptop-code"></i>
     <% end %>
   </div>
 
-
   <div class="query_link">
-    <%= link_to edit_user_registration_path, class:"function" do %>
+    <%= link_to edit_user_registration_path, class: "function" do %>
     <span>使用者設定</span><i class="fas fa-cog"></i>
   </div>
   <% end %>
