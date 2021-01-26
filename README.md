@@ -18,7 +18,6 @@ SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.t
 ### 前端
 - HTML, CSS, Javascript
 - Tailwind CSS
-- Stimulus js 
 ### 後端
 - Ruby on Rails 
 - Python 
