@@ -15,7 +15,7 @@
   <div class="chart">
     <div class="row items-center">
       <div class="text-red-500 pl-1"><%= @cloud %></div>
-      <% if FileTest.exist?("app/assets/images/wordcloud.png") %>
+      <% if FileTest.exist?("#{Rails.root}/app/assets/images/wordcloud.png") %>
         <div><%= image_tag("wordcloud.png") %></div>
       <% end %>
     </div>
