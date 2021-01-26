@@ -183,12 +183,12 @@ class QueriesController < ApplicationController
     result = search_result[0]
     @count = search_result[1]
 
-    CSV.open("data/topic_text.csv", "wb") do |csv|
+    CSV.open("#{Rails.root}/data/topic_text.csv", "wb") do |csv|
       result.find_all do |res|
         csv << res.attributes.values
       end
     end
-    @topic = `python3 lib/tasks/Topic/main.py params`
+    @topic = `python3 #{Rails.root}/lib/tasks/Topic/main.py #{Rails.root}`
   end
 
   def wordcloud; end
@@ -199,11 +199,11 @@ class QueriesController < ApplicationController
     result = search_result[0]
     @count = search_result[1]
 
-    CSV.open("data/cloud_text.csv", "wb") do |csv|
+    CSV.open("#{Rails.root}/data/cloud_text.csv", "wb") do |csv|
       result.find_all do |res|
         csv << res.attributes.values
       end
-      @cloud = `python3 lib/tasks/Wordcloud/main.py params`
+      @cloud = `python3 #{Rails.root}/lib/tasks/Wordcloud/main.py #{Rails.root}/`
     end
   end
 
@@ -215,16 +215,16 @@ class QueriesController < ApplicationController
     result = search_result[0]
     @count = search_result[1]
 
-    CSV.open("data/tf_data.csv", "wb") do |csv|
+    CSV.open("#{Rails.root}/data/tf_data.csv", "wb") do |csv|
       result.find_all do |res|
         csv << res.attributes.values
       end 
-      @termfreq = `python3 lib/tasks/Termfreq/main.py params`
+      @termfreq = `python3 #{Rails.root}/lib/tasks/Termfreq/main.py #{Rails.root}/`
     end
 
     def tf_check(pos)
-      if File.exist?("data/tf_#{pos}.csv")
-        table = CSV.read("data/tf_#{pos}.csv") 
+      if File.exist?("#{Rails.root}/data/tf_#{pos}.csv")
+        table = CSV.read("#{Rails.root}/data/tf_#{pos}.csv") 
         gon.term = table[0]
         gon.freq = table[1]
       end 
