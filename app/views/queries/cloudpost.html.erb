@@ -2,14 +2,7 @@
   <div class="container">
     <div class="row">
       <h2 class="w-full text-center pb-2 bg-blue-400 rounded-t-lg p-2 text-white text-xl">文字雲</h2>
-      <div id="search" class="search_all">
-        <p id="count">查詢結果：<%= @count %>筆</p>
-        <p id="theme">查詢主題：<%= @theme.to_s.gsub(/[\[\]\"]/, "") %></p>
-        <p id="start">起始時間：<%= @start %></p>
-        <p id="end">結束時間：<%= @end %></p>
-        <p id="source">資料來源：<%= @source.to_s.gsub(/[\[\]\"]/, "") %></p>
-        <p id="type">資料種類：<%= @type.to_s.gsub(/[\[\]\"]/, "") %></p>
-      </div>
+      <%= render "shared/search_all" %>
     </div>
 
   </div>
