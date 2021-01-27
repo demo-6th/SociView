@@ -28,3 +28,4 @@ else:
   cloud = WordCloud(width=960, height=400,background_color='white',font_path=f"{rails_root}/app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
   cloud.to_file(f'{rails_root}/app/assets/images/wordcloud.png')
 
+

@@ -51,7 +51,7 @@ def pos_counter(data, pos_type):
   # transpose csv
   pd.read_csv(f'{rails_root}/data/tf_'+pos_type+'.csv', header=None).T.to_csv(f'{rails_root}/data/tf_'+pos_type+'.csv', header=False, index=False)
 
-if len(data) < 10:
+if len(data) < 20:
   print("您所選擇區間資料過少，請重新選擇")
 else:
   pos_counter(data, "V")
