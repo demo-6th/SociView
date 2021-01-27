@@ -1,5 +1,5 @@
 .footer{
-  @apply py-3 bg-blue-400;
+  @apply bg-blue-400 max-w-screen-2xl m-auto py-8 lg:py-3;
   .row{
     @apply flex justify-between px-10;
   }

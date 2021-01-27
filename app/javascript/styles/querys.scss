@@ -1,27 +1,28 @@
 .query_page {
-  height: calc(100vh - 150px);
+  @apply max-w-screen-2xl m-auto;
+  @media screen and (min-width: 1024px){
+    height: calc(100vh - 116px);
+  }
   .aside {
-    @apply w-1/6 bg-white text-black mt-1 rounded-lg;
+    @apply w-full flex justify-around lg:w-1/6 lg:block bg-white text-black mt-1 rounded-lg;
     .query_link {
-      @apply pl-8;
+      @apply px-2 lg:pl-8 box-border;
       &:hover {
         @apply text-white bg-blue-400 rounded-lg;
       }
       font-size: 1em;
       .function {
-        @apply text-base my-1 block w-full py-2;
-        margin: 10px;
+        @apply text-base block w-full py-3;
         span {
           @apply pr-2;
         }
       }
     }
     .query_link_page {
-      @apply text-white bg-blue-400 rounded-lg;
+      @apply text-white bg-blue-400 rounded-lg box-border;
       font-size: 1em;
       .function {
-        @apply text-base my-1 block w-full py-2;
-        margin: 10px;
+        @apply text-base block w-full py-3;
         span {
           @apply pr-2;
         }
@@ -30,15 +31,18 @@
   }
 
   .users_query_page {
-    @apply bg-gray-200 rounded-lg w-10/12 overflow-hidden overflow-y-scroll pt-2;
+    @apply w-full leading-4  bg-gray-200 rounded-lg lg:w-10/12 overflow-hidden overflow-y-scroll lg:py-2 lg:text-left;
     .section {
-      @apply rounded w-full;
+      @apply rounded w-full px-2 lg:p-0;
       .choice_page {
-        @apply flex justify-around pt-1;
+        @apply lg:flex lg:justify-around lg:pt-1;
         .col-3 {
+          @apply w-full;
+          @media screen and (min-width: 1024px){
           width: 23%;
+          }
           .theme {
-            @apply mb-1 rounded-lg bg-white;
+            @apply m-5 lg:mb-1 lg:m-0 rounded-lg bg-white;
             box-sizing: border-box;
             .theme_item {
               @apply bg-blue-400 text-white text-xl text-center rounded-t-lg p-2;
@@ -59,7 +63,7 @@
     .button_page {
       @apply text-center;
       .search_btn {
-        @apply my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-400 cursor-pointer;
+        @apply mb-4 lg:my-4 rounded-lg text-white py-3 px-7 font-bold bg-blue-400 cursor-pointer;
         &:hover {
           @apply bg-blue-500;
         }
