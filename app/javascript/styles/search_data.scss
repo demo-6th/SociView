@@ -4,7 +4,7 @@
     @apply m-auto;
     .row{
       .search_all{
-        @apply bg-white px-4 py-2 border border-blue-400 rounded-lg leading-6 flex flex-wrap;
+        @apply bg-white px-4 py-2 border border-blue-400 rounded-b-lg leading-6 flex flex-wrap;
         p{
           @apply w-1/2 my-1;
           span{
