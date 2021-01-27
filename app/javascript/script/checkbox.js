@@ -3,14 +3,33 @@ document.addEventListener("turbolinks:load", () => {
     const input = document.querySelector(".input_check")
     input.type = "hidden"
     const check_box = document.querySelector('.choice_item_input input[type="checkbox"]');
-    check_box.addEventListener('click', function() {
-        if (check_box.checked == true) {
+    if (check_box !== null) {
+        check_box.addEventListener('click', function() {
+            if (check_box.checked == true) {
+                input.type = "text"
+                input.focus();
+            } else {
+                input.type = "hidden"
+            }
+        })
+    }
+
+    const radio_box = document.querySelector('.choice_item_input input[type="radio"]');
+    const radio_rmbox1 = document.querySelector('.input_rm1 input[type="radio"]');
+    const radio_rmbox2 = document.querySelector('.input_rm2 input[type="radio"]');
+    if (radio_box !== null) {
+
+        radio_box.addEventListener('click', function() {
             input.type = "text"
             input.focus();
-        } else {
+        })
+        radio_rmbox1.addEventListener('click', function() {
             input.type = "hidden"
-        }
-    })
+        })
+        radio_rmbox2.addEventListener('click', function() {
+            input.type = "hidden"
+        })
+    }
 
     const source_box = document.querySelector('.source_select_all input[type="checkbox"]')
     const source_btn = document.querySelectorAll('.source_btn input[type="checkbox"]')
