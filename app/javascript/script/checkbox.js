@@ -1,15 +1,15 @@
 document.addEventListener("turbolinks:load", () => {
 
     const input = document.querySelector(".input_check")
-    input.type = "hidden"
+    input.style.display = "none"
     const check_box = document.querySelector('.choice_item_input input[type="checkbox"]');
     if (check_box !== null) {
         check_box.addEventListener('click', function() {
             if (check_box.checked == true) {
-                input.type = "text"
+                input.style.display = ""
                 input.focus();
             } else {
-                input.type = "hidden"
+                input.style.display = "none"
             }
         })
     }
@@ -20,14 +20,21 @@ document.addEventListener("turbolinks:load", () => {
     if (radio_box !== null) {
 
         radio_box.addEventListener('click', function() {
-            input.type = "text"
+            input.style.display = ""
             input.focus();
+            radio_rmbox1.checked = false
+            radio_rmbox2.checked = false
         })
         radio_rmbox1.addEventListener('click', function() {
-            input.type = "hidden"
+            input.style.display = "none"
+            radio_rmbox2.checked = false
+            radio_box.checked = false
+
         })
         radio_rmbox2.addEventListener('click', function() {
-            input.type = "hidden"
+            input.style.display = "none"
+            radio_rmbox1.checked = false
+            radio_box.checked = false
         })
     }
 
@@ -80,7 +87,6 @@ document.addEventListener("turbolinks:load", () => {
         btn.classList.add("active")
         const theme_radio_len = document.querySelectorAll('.theme_btn input[type="radio"]:checked').length
         const theme_checkbox_len = document.querySelectorAll('.theme_btn input[type="checkbox"]:checked').length
-        const theme_checkbox_input_len = document.querySelectorAll('.choice_item_input input[type="checkbox"]:checked').length
         const time_check = document.querySelectorAll('.time_btn input[type="text"]')
         const input_check = document.querySelectorAll('.theme_btn input[type="text"]')
         const source_len = document.querySelectorAll('.source_btn input[type="checkbox"]:checked').length
@@ -88,9 +94,7 @@ document.addEventListener("turbolinks:load", () => {
         let time_len = 0
 
         for (var i = 0; i < time_check.length; i++) {
-            if (time_check[i].value.trim() == '') {
-
-            } else {
+            if (time_check[i].value.trim() == '') {} else {
                 time_len += 1
             }
         }
@@ -102,7 +106,7 @@ document.addEventListener("turbolinks:load", () => {
                 input_len += 1
             }
         }
-        if (input.type == "hidden") {
+        if (true) {
             if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
 
             } else {
