@@ -36,23 +36,23 @@ document.addEventListener("turbolinks:load", () => {
     all_date.forEach((d) => {
         ptt_line[d] = 0;
         dcard_line[d] = 0;
-        dcard_source1[d] = 0
-        dcard_source2[d] = 0
-        dcard_source3[d] = 0
-        dcard_source4[d] = 0
-        dcard_source5[d] = 0
-        ptt_source1[d] = 0
-        ptt_source2[d] = 0
-        ptt_source3[d] = 0
-        ptt_source4[d] = 0
-        ptt_source5[d] = 0
+        dcard_source1[d] = 0;
+        dcard_source2[d] = 0;
+        dcard_source3[d] = 0;
+        dcard_source4[d] = 0;
+        dcard_source5[d] = 0;
+        ptt_source1[d] = 0;
+        ptt_source2[d] = 0;
+        ptt_source3[d] = 0;
+        ptt_source4[d] = 0;
+        ptt_source5[d] = 0;
     });
     if (gon.result !== undefined) {
         gon.result.forEach((e) => {
             let d_result = `${new Date(e.created_at).getFullYear()}-${
               new Date(e.created_at).getMonth() + 1
             }-${new Date(e.created_at).getDate()}`;
-            if (e.alias.includes('ptt') !== undefined) {
+            if (e.alias !== undefined) {
                 if (e.alias.includes('ptt')) {
                     ptt_line[d_result] += 1;
                 } else if (e.alias.includes('dcard')) {
@@ -64,9 +64,9 @@ document.addEventListener("turbolinks:load", () => {
 
     const total_result = []
     Object.keys(ptt_line).forEach(function(time) {
-        total_result[time] |= 0
-        total_result[time] += ptt_line[time]
-        total_result[time] += dcard_line[time]
+        total_result[time] |= 0;
+        total_result[time] += ptt_line[time];
+        total_result[time] += dcard_line[time];
 
     })
 
@@ -163,22 +163,22 @@ document.addEventListener("turbolinks:load", () => {
 
     const dcard_result = []
     Object.keys(dcard_source1).forEach(function(time) {
-        dcard_result[time] |= 0
-        dcard_result[time] += dcard_source1[time]
-        dcard_result[time] += dcard_source2[time]
-        dcard_result[time] += dcard_source3[time]
-        dcard_result[time] += dcard_source4[time]
-        dcard_result[time] += dcard_source5[time]
+        dcard_result[time] |= 0;
+        dcard_result[time] += dcard_source1[time];
+        dcard_result[time] += dcard_source2[time];
+        dcard_result[time] += dcard_source3[time];
+        dcard_result[time] += dcard_source4[time];
+        dcard_result[time] += dcard_source5[time];
     })
 
     const ptt_result = []
     Object.keys(ptt_source1).forEach(function(time) {
-        ptt_result[time] |= 0
-        ptt_result[time] += ptt_source1[time]
-        ptt_result[time] += ptt_source2[time]
-        ptt_result[time] += ptt_source3[time]
-        ptt_result[time] += ptt_source4[time]
-        ptt_result[time] += ptt_source5[time]
+        ptt_result[time] |= 0;
+        ptt_result[time] += ptt_source1[time];
+        ptt_result[time] += ptt_source2[time];
+        ptt_result[time] += ptt_source3[time];
+        ptt_result[time] += ptt_source4[time];
+        ptt_result[time] += ptt_source5[time];
     })
 
     // const dcard_result = [dcard_source1, dcard_source2, dcard_source3, dcard_source4, dcard_source5].reduce(function(rs, source) {
