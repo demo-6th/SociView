@@ -78,43 +78,43 @@ class QueriesController < ApplicationController
 
   def volumepost
     # pass value down to api action
-    @theme = [params[:theme1], params[:theme2], params[:theme3_input]].delete_if { |x| x == nil || "" }
+    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-    @sent = params
 
     #theme1
-    @post_result1 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
-    @comment_result1 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%"))
+    post_result1 = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: theme_keywords(@theme[0])).result.joins(board: :source).where(boards: { sources: { name: @source } })
+    comment_search1 = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
+    comment_result1 = comment_search1.ransack(content_cont_any: theme_keywords(@theme[0])).result.or(comment_search1.where(:pid => post_result1.pluck(:pid)))
 
     #theme2
-    @post_result2 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%")
-    @comment_result2 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[1]}%", "%#{@theme[1]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[1]}%"))
+    post_result2 = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: theme_keywords(@theme[1])).result.joins(board: :source).where(boards: { sources: { name: @source } })
+    comment_search2 = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
+    comment_result2 = comment_search2.ransack(content_cont_any: theme_keywords(@theme[1])).result.or(comment_search2.where(:pid => post_result2.pluck(:pid)))
 
     #theme3
     if @theme[2].nil? || @theme[2].empty?
       @count3 = 0
     else
+      @theme[2] = params[:theme3_input]
       gon.theme3 = @theme[2]
+      post_result3 = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: theme_keywords(@theme[2])).result.joins(board: :source).where(boards: { sources: { name: @source } })
+      comment_search3 = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
+      comment_result3 = comment_search3.ransack(content_cont_any: theme_keywords(@theme[2])).result.or(comment_search3.where(:pid => post_result3.pluck(:pid)))
 
-      @post_result3 = Post.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[2]}%", "%#{@theme[2]}%")
-      @comment_result3 = Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[2]}%", "%#{@theme[2]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <=?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[2]}%"))
-
-      post_count3 = @post_result3.count
-      comment_count3 = @comment_result3.count
-
-      #待改進
+      post_count3 = post_result3.count
+      comment_count3 = comment_result3.count
       if params[:post] && params[:comment]
         @count3 = post_count3 + comment_count3
-        gon.result3 = @post_result3 + @comment_result3
+        gon.result3 = post_result3 + comment_result3
       elsif params[:post] && !params[:comment]
         @count3 = post_count3
-        gon.result3 = @post_result3
+        gon.result3 = post_result3
       else
         @count3 = comment_count3
-        gon.result3 = @comment_result3
+        gon.result3 = comment_result3
       end
       gon.count3 = @count3
     end
@@ -125,34 +125,31 @@ class QueriesController < ApplicationController
     gon.theme1 = @theme[0]
     gon.theme2 = @theme[1]
 
-    post_count1 = @post_result1.count
-    comment_count1 = @comment_result1.count
-    post_count2 = @post_result2.count
-    comment_count2 = @comment_result2.count
-
-    #待改進
+    post_count1 = post_result1.count
+    comment_count1 = comment_result1.count
     if params[:post] && params[:comment]
       @count1 = post_count1 + comment_count1
-      gon.result1 = @post_result1 + @comment_result1
+      gon.result1 = post_result1 + comment_result1
     elsif params[:post] && !params[:comment]
       @count1 = post_count1
-      gon.result1 = @post_result1
+      gon.result1 = post_result1
     else
       @count1 = comment_count1
-      gon.result1 = @comment_result1
+      gon.result1 = comment_result1
     end
     gon.count1 = @count1
 
-    #待改進
+    post_count2 = post_result2.count
+    comment_count2 = comment_result2.count
     if params[:post] && params[:comment]
       @count2 = post_count2 + comment_count2
-      gon.result2 = @post_result2 + @comment_result2
+      gon.result2 = post_result2 + comment_result2
     elsif params[:post] && !params[:comment]
       @count2 = post_count2
-      gon.result2 = @post_result2
+      gon.result2 = post_result2
     else
       @count2 = comment_count2
-      gon.result2 = @comment_result2
+      gon.result2 = comment_result2
     end
     gon.count2 = @count2
   end
