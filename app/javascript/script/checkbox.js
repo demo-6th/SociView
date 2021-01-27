@@ -86,8 +86,9 @@ document.addEventListener("turbolinks:load", () => {
         const source_len = document.querySelectorAll('.source_btn input[type="checkbox"]:checked').length
         const type_len = document.querySelectorAll('.type_btn input[type="checkbox"]:checked').length
         let time_len = 0
+
         for (var i = 0; i < time_check.length; i++) {
-            if (time_check[i].value == '') {
+            if (time_check[i].value.trim() == '') {
 
             } else {
                 time_len += 1
@@ -95,13 +96,12 @@ document.addEventListener("turbolinks:load", () => {
         }
         let input_len = 0
         for (var i = 0; i < input_check.length; i++) {
-            if (input_check[i].value == '') {
-
+            if (input_check[i].value.trim() == '') {
+                input_check[i].value = ""
             } else {
                 input_len += 1
             }
         }
-        console.log(input_len)
         if (input.type == "hidden") {
             if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
 
