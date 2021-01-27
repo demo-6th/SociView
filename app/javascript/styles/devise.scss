@@ -1,5 +1,8 @@
 .login_page{
   @apply flex items-center max-w-screen-2xl m-auto py-8;
+  @media screen and (min-width: 1024px){
+    height: calc(100vh - 116px);
+  }
   .container{
     @apply m-auto max-w-screen-xl ;
     .row{
