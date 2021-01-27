@@ -1,0 +1,85 @@
+<%= form_tag listpost_queries_path, method: :get, id: 'query_ajax' do %>
+	<div class="section">
+		<div class="choice_page">
+			<div class="col-3">
+				<div class="theme">
+					<h2 class="theme_item">搜尋主題分類</h2>
+					<div class="choice_box theme_btn">
+						<div><%= radio_button_tag(:theme, "五倍", params[:theme] == '五倍', id: 1,:checked => 'checked') %> <%= label_tag(:theme, "五倍", class: "theme_text", for: 1) %></div>
+						<div><%= radio_button_tag(:theme, "手機", params[:theme] == '手機', id: 2) %> <%= label_tag(:theme, "手機", class: "theme_text", for: 2) %></div>
+						<div><%= radio_button_tag(:theme, "貓", params[:theme] == '貓', id: 3) %> <%= label_tag(:theme, "貓", class: "theme_text", for: 3) %></div>
+						</div>
+						<p id="validate_theme" class="disable"> 請選擇至少一種主題 </p>        
+				</div>
+			</div>
+	<div class="col-3">
+				<div class="theme">
+					<h2 class="theme_item">時間區段</h2>
+					<div class="choice_box time_btn">
+						<div><%= label_tag(:start, "開始時間：", class: "theme_text") %><%= date_field_tag(:start, params[:start], class: "datepicker_start border border-gray-200 w-full rounded", id: "start") %></div>
+						<div><%= label_tag(:end, "結束時間：", class: "theme_text", for: "end") %><%= date_field_tag(:end, params[:end], class: "datepicker_end border border-gray-200 w-full rounded") %></div>
+				</div>
+					<p id="validate_time" class="disable"> 請選擇開始與結束時間 </p>
+			</div>
+		</div>
+			<div class="col-3">
+				<div class="theme">
+					<h2 class="theme_item">搜尋熱門社群</h2>
+					<div class="choice_box source_btn">
+						<div>
+							<%= check_box_tag(:dcard, "Dcard", params[:dcard] == 'Dcard',:checked => 'checked') %>  
+							<%= label_tag(:dcard, "Dcard", class: "theme_text") %>
+						</div>
+						<div>
+							<%= check_box_tag(:ptt, "PTT", params[:ptt] == 'PTT') %>   
+							<%= label_tag(:ptt, "PTT", class: "theme_text") %>
+						</div>
+					</div>
+					<p id="validate_source" class="disable"> 請選擇至少一種社群 </p>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="theme">
+					<h2 class="theme_item">搜尋資料類型</h2>
+					<div class="choice_box type_btn_list">
+						<div><%= radio_button_tag(:type, "主文", params[:type] == '主文',:checked => 'checked') %> <%= label_tag(:type, "主文", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:type, "回文", params[:type] == '回文') %> <%= label_tag(:type, "回文", class: "theme_text") %></div>
+					</div>
+					<p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
+				</div>
+			</div>  	
+						<div class="col-3">
+				<div class="theme">
+					<h2 class="theme_item">情緒分類</h2>
+					<div class="choice_box type_btn">
+						<div><%= radio_button_tag(:sentiment, "不分情緒", params[:sentiment] == '不分情緒',:checked => 'checked') %> <%= label_tag(:sentiment, "不分情緒", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sentiment, "正面", params[:sentiment] == '正面') %> <%= label_tag(:sentiment, "正面", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sentiment, "負面", params[:sentiment] == '負面') %> <%= label_tag(:sentiment, "負面", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sentiment, "中立", params[:sentiment] == '中立') %> <%= label_tag(:sentiment, "中立", class: "theme_text") %></div>
+					</div>
+					<p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
+				</div>
+			</div>  
+			<div class="col-3">
+				<div class="theme">
+					<h2 class="theme_item">排序方式</h2>
+					<div class="choice_box type_btn">
+						<div><%= radio_button_tag(:sort, "由新到舊", params[:sort] == '由新到舊',:checked => 'checked') %> <%= label_tag(:sort, "由新到舊", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sort, "由舊到新", params[:sort] == '由舊到新') %> <%= label_tag(:sort, "由舊到新", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sort, "按讚數高", params[:sort] == "按讚數高") %> <%= label_tag(:sort, "按讚數高", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sort, "按讚數低", params[:sort] == "按讚數低") %> <%= label_tag(:sort, "按讚數低", class: "theme_text") %></div>
+					</div>
+					<p id="validate_type" class="disable"> 請選擇排序類型 </p>
+				</div>
+			</div> 
+		</div>  
+	<div id="sort" class="choice_page">
+		
+			</div>
+			<div class="button_page"><%= submit_tag "開始分析", class: "search_btn check", id: "analy" %></div>
+
+	
+	</div>
+
+<% end %>
+  
