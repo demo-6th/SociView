@@ -1,6 +1,6 @@
 document.addEventListener("turbolinks:load", () => {
     const btn = document.querySelector('.check');
-    btn.addEventListener('click', function(e) {
+    btn.addEventListener('click', function (e) {
         btn.classList.remove("search_btn")
         btn.classList.add("active")
         const theme_radio_len = document.querySelectorAll('.theme_btn input[type="radio"]:checked').length
@@ -8,6 +8,7 @@ document.addEventListener("turbolinks:load", () => {
         const time_check = document.querySelectorAll('.time_btn input[type="text"]')
         const source_len = document.querySelectorAll('.source_btn input[type="checkbox"]:checked').length
         const type_len = document.querySelectorAll('.type_btn input[type="checkbox"]:checked').length
+        const type_len_list = document.querySelectorAll('.type_btn_list input[type="radiobox"]:checked').length
         let time_len = 0
         for (var i = 0; i < time_check.length; i++) {
             if (time_check[i].value == '') {
@@ -17,7 +18,7 @@ document.addEventListener("turbolinks:load", () => {
             }
         }
 
-        if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
+        if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && (type_len > 0 || type_btn_list > 0)) {
 
         } else {
             e.preventDefault();
