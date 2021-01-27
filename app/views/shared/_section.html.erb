@@ -27,9 +27,16 @@
         </div>
             <p id="validate_theme" class="disable"> 請選擇至少兩種以上主題 </p>
         <% else %> 
-          <div><%= radio_button_tag(:theme, "新冠肺炎", false, id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
-          <div><%= radio_button_tag(:theme, "萊豬", false, id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
-          <!-- <div><%= radio_button_tag(:theme, "貓", false, id: 3) %> <%= label_tag(:theme, "貓", class: "theme_text", for: 3) %></div> -->
+          <div class="input_rm1"><%= radio_button_tag(:theme, "新冠肺炎", false, id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
+          <div class="input_rm2"><%= radio_button_tag(:theme, "萊豬", false, id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
+          <div class="choice_item_input">
+          <%= form_tag("/search", method: "get") do %>
+          <%= radio_button_tag(:theme, "自選主題", false, id: 3) %>
+          <%= label_tag(:theme, "自選主題", class: "theme_text", for: 3) %>
+          <%= text_field_tag(:theme, "", class: "border border-gray-200 w-full rounded input_check") %>
+          <% end %>
+          </div>
+
           </div>
           <p id="validate_theme" class="disable"> 請選擇至少一種主題 </p>
         <% end %>
@@ -70,10 +77,15 @@
 			<div class="theme">
 				<h2 class="theme_item">搜尋資料類型</h2>
 				<div class="choice_box type_btn">
-          <div class="type_select_all"><%= check_box_tag(:type_all, "全選") %> <%= label_tag(:type_all, "全選", class: "theme_text") %></div>
-					<div>&emsp;<%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
-					<div>&emsp;<%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
-					
+          <div class="type_select_all">
+          <%= check_box_tag(:type_all, "全選") %>
+          <%= label_tag(:type_all, "全選", class: "theme_text") %></div>
+					<div>
+          &emsp;<%= check_box_tag(:post, "主文") %>
+          <%= label_tag(:post, "主文", class: "theme_text") %></div>
+					<div>
+          &emsp;<%= check_box_tag(:comment, "回文") %>
+          <%= label_tag(:comment, "回文", class: "theme_text") %></div>
 				</div>
         <p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
 			</div>
@@ -83,3 +95,4 @@
 </div>
 <% end %>
   
+z
