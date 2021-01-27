@@ -17,7 +17,7 @@
             <%= check_box_tag(:theme2, "萊豬") %> 
             <%= label_tag(:theme2, "萊豬", class: "theme_text") %>
           </div>
-          <div class="choice_item_input">
+          <div class="choice_item check_item_input">
             <%= check_box_tag(:theme3, "自選主題") %> 
           	<%= label_tag(:theme3, "自選主題", class: "theme_text") %>
             <%= text_field_tag(:theme3_input, "", class: "border border-gray-200 w-full rounded input_check") %>
@@ -27,7 +27,7 @@
         <% else %> 
           <div class="input_rm1"><%= radio_button_tag(:theme1, "新冠肺炎", false, id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
           <div class="input_rm2"><%= radio_button_tag(:theme2, "萊豬", false, id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
-          <div class="choice_item_input">
+          <div class="choice_item radio_item_input">
           <%= radio_button_tag(:theme3, "自選主題", false, id: 3) %>
           <%= label_tag(:theme3, "自選主題", class: "theme_text", for: 3) %>
           <%= text_field_tag(:theme3_input, "", class: "border border-gray-200 w-full rounded input_check") %>
