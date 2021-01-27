@@ -1,0 +1,6 @@
+gunicorn
+requests
+pandas
+Counter
+ckip-segmenter
+tqdm
