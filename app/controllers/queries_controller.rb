@@ -11,67 +11,41 @@ class QueriesController < ApplicationController
   def listpost
     @theme = params[:theme]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_s
-    @end = params[:end].to_s
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @start = params[:start].to_date
+    @end = params[:end].to_date
+    @type = case true
+            when params[:type] == '回文' then "回文"
+            else
+              "文章"
+            end
+    @sentiment = case true
+                 when params[:sentiment] == "不分情緒"  then ""
+                 when params[:sentiment] == "正面"  then "positive"
+                 when params[:sentiment] == "負面"  then "negative"
+                 when params[:sentiment] == "中立"  then "neutral"
+                 end
+    @sort = case true
+            when params[:sort] == "由新到舊" then :desc
+            when params[:sort] == "由舊到新" then :asc
+            when params[:sort] == "按讚數高" then :desc
+            when params[:sort] == "按讚數低" then :asc
+            end
 
-    if params[:dcard] && params[:ptt] #同時搜尋Dcard & PTT
-      if params[:post] && params[:comment] #同時找Post & Comment
-        @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result.sort_by { |x| x[:created_at] }
-        @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result
-        @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result
-        @comment_total = @post_comment + @comments
-        @comment_total = @comment_total.uniq.sort_by { |x| x[:created_at] }
-        @count = @posts.count + @comment_total.count
-      elsif params[:post] && !params[:comment] #只找Post
-        @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result.sort_by { |x| x[:created_at] }
-        @count = @posts.count
-      else #只找Comment
-        @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result
-        @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time).result
-        @comment_total = @post_comment + @comments
-        @comment_total = @comment_total.uniq.sort_by { |x| x[:created_at] }
-        @count = @comment_total.count
-      end
-    elsif params[:dcard] && !params[:ptt] #只找Dcard
-      @source_id = 1
-      if params[:post] && params[:comment] #同時找Post & Comment
-        @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, board_source_id_eq: @source_id).result.sort_by { |x| x[:created_at] }
-        @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comment_total = @post_comment + @comments
-        @comment_total = @comment_total.uniq.sort_by { |x| x[:created_at] }
-        @count = @posts.count + @comment_total.count
-      elsif params[:post] && !params[:comment] #只找Post
-        @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, board_source_id_eq: @source_id).result.sort_by { |x| x[:created_at] }
-        @count = @posts.count
-      else #只找Comment
-        @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comment_total = @post_comment + @comments
-        @comment_total = @comment_total.uniq.sort_by { |x| x[:created_at] }
-        @count = @comment_total.count
-      end
-    else #只找PTT
-      @source_id = 2
-      if params[:post] && params[:comment] #同時找Post & Comment
-        @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, board_source_id_eq: @source_id).result.sort_by { |x| x[:created_at] }
-        @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comment_total = @post_comment + @comments
-        @comment_total = @comment_total.uniq.sort_by { |x| x[:created_at] }
-        @count = @posts.count + @comment_total.count
-      elsif params[:post] && !params[:comment] #只找Post
-        @posts = Post.ransack(title_or_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, board_source_id_eq: @source_id).result.sort_by { |x| x[:created_at] }
-        @count = @posts.count
-      else #只找Comment
-        @post_comment = Comment.ransack(post_title_or_post_content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comments = Comment.ransack(content_cont_any: @theme, created_at_gteq_any: @start_time, created_at_lteq_any: @end_time, post_board_source_id_eq: @source_id).result
-        @comment_total = @post_comment + @comments
-        @comment_total = @comment_total.uniq.sort_by { |x| x[:created_at] }
-        @count = @comment_total.count
-      end
+    if @type == "回文"
+      post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme,sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
+
+      comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1,sentiment_cont_any: @sentiment).result
+
+      @result = comment_search.ransack(content_cont_any: @theme,sentiment_cont_any: @sentiment).result.or(comment_search.where(pid: post_result))
+    else
+      @result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme,sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
     end
+    if @sort == "由新到舊 由舊到新"
+      @results = @result.order(created_at: @sort).page(params[:page]).per(20)
+    else
+      @results = @result.order(like_count: @sort).page(params[:page]).per(20)
+    end
+   @count = @results.total_count
   end
 
   def volume; end
