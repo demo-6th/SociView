@@ -49,10 +49,10 @@
               border-bottom: 1px solid black;
             }
             .choice_box {
-              @apply bg-white p-2 border-solid border-red-600 h-36 rounded-lg text-lg;
+              @apply bg-white p-2 border-solid border-red-600 h-40 rounded-lg text-lg;
               .choice_item {
                 .theme_text {
-                  @apply p-1;
+                  @apply p-1 w-11/12 inline-block;
                 }
               }
             }
