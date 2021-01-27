@@ -1,6 +1,14 @@
 # search
-def search_box
+def radio_search_box
   @theme = params[:theme1] || params[:theme2] || params[:theme3_input]
+  @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
+  @start = params[:start].to_date
+  @end = params[:end].to_date
+  @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+end
+
+def check_search_box
+  @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
   @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
   @start = params[:start].to_date
   @end = params[:end].to_date
@@ -50,4 +58,22 @@ def doc_type(array, col1, col2)
   else
     search_comment(@start.midnight, @end.end_of_day, theme_keywords(@theme), col1, col2)
   end
+end
+
+def type_judgment(post, comment)
+  if params[:post] && params[:comment]
+    result = post + comment
+  elsif params[:post] && !params[:comment]
+    result = post
+  else
+    result = comment
+  end
+  return result
+end
+
+def checkbox_search_all(theme, d_start, d_end, source)
+  post_result = Post.ransack(created_at_gt: d_start, created_at_lt: d_end + 1, title_or_content_cont_any: theme_keywords(theme)).result.joins(board: :source).where(boards: { sources: { name: source } })
+  comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: source } } } }).ransack(created_at_gt: d_start, created_at_lt: d_end + 1).result
+  comment_result = comment_search.ransack(content_cont_any: theme_keywords(theme)).result.or(comment_search.where(:pid => post_result.pluck(:pid)))
+  return post_result, comment_result
 end
