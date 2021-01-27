@@ -32,6 +32,7 @@ document.addEventListener("turbolinks:load", () => {
           ],
         },
         title: {
+          fontSize: 30,
           display: true,
           text: pos_ch + "長條圖",
         },
