@@ -17,18 +17,18 @@ document.addEventListener("turbolinks:load", () => {
 
     source_box.addEventListener('click', function() {
         if (source_box.checked == "") {
-            source_btn[0].checked = ""
             source_btn[1].checked = ""
+            source_btn[2].checked = ""
         } else {
-            source_btn[0].checked = "checked"
             source_btn[1].checked = "checked"
+            source_btn[2].checked = "checked"
         }
     })
 
-    source_btn[0].addEventListener('click', function() {
+    source_btn[1].addEventListener('click', function() {
         source_box.checked = ""
     })
-    source_btn[1].addEventListener('click', function() {
+    source_btn[2].addEventListener('click', function() {
         source_box.checked = ""
     })
 
@@ -37,18 +37,18 @@ document.addEventListener("turbolinks:load", () => {
 
     type_box.addEventListener('click', function() {
         if (type_box.checked == "") {
-            type_btn[0].checked = ""
             type_btn[1].checked = ""
+            type_btn[2].checked = ""
         } else {
-            type_btn[0].checked = "checked"
             type_btn[1].checked = "checked"
+            type_btn[2].checked = "checked"
         }
     })
 
-    type_btn[0].addEventListener('click', function() {
+    type_btn[1].addEventListener('click', function() {
         type_box.checked = ""
     })
-    type_btn[1].addEventListener('click', function() {
+    type_btn[2].addEventListener('click', function() {
         type_box.checked = ""
     })
 

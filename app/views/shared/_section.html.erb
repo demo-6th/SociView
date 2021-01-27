@@ -50,6 +50,10 @@
       <div class="theme">
         <h2 class="theme_item">搜尋熱門社群</h2>
         <div class="choice_box source_btn">
+          <div class="source_select_all">
+            <%= check_box_tag(:source_all, "全選") %>   
+            <%= label_tag(:source_all, "全選", class: "theme_text") %>
+          </div>
           <div>
             <%= check_box_tag(:dcard, "Dcard") %>  
             <%= label_tag(:dcard, "Dcard", class: "theme_text") %>
@@ -57,10 +61,6 @@
           <div>
             <%= check_box_tag(:ptt, "PTT") %>   
             <%= label_tag(:ptt, "PTT", class: "theme_text") %>
-          </div>
-          <div class="source_select_all">
-            <%= check_box_tag(:source_all, "全選") %>   
-            <%= label_tag(:source_all, "全選", class: "theme_text") %>
           </div>
         </div>
         <p id="validate_source" class="disable"> 請選擇至少一種社群 </p>
@@ -70,9 +70,9 @@
 			<div class="theme">
 				<h2 class="theme_item">搜尋資料類型</h2>
 				<div class="choice_box type_btn">
+					<div class="type_select_all"><%= check_box_tag(:type_all, "全選") %> <%= label_tag(:type_all, "全選", class: "theme_text") %></div>
 					<div><%= check_box_tag(:post, "主文") %> <%= label_tag(:post, "主文", class: "theme_text") %></div>
 					<div><%= check_box_tag(:comment, "回文") %> <%= label_tag(:comment, "回文", class: "theme_text") %></div>
-					<div class="type_select_all"><%= check_box_tag(:type_all, "全選") %> <%= label_tag(:type_all, "全選", class: "theme_text") %></div>
 				</div>
         <p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
 			</div>
