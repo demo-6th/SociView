@@ -1,5 +1,8 @@
 .query_page {
   @apply max-w-screen-2xl m-auto;
+  @media screen and (min-width: 1024px){
+    height: calc(100vh - 116px);
+  }
   .aside {
     @apply w-full flex justify-around lg:w-1/6 lg:block bg-white text-black mt-1 rounded-lg;
     .query_link {
