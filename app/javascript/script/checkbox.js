@@ -101,7 +101,7 @@ document.addEventListener("turbolinks:load", () => {
                 input_len += 1
             }
         }
-
+        console.log(input_len)
         if (input.type == "hidden") {
             if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
 
