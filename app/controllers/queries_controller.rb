@@ -82,10 +82,7 @@ class QueriesController < ApplicationController
     @start = params[:start].to_date
     @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-    puts "========================="
-    puts @source
-    puts @type
-    puts "========================="
+
     #theme1
     @post_result1 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
     @comment_result1 = Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where(:pid => Post.where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%").pluck(:pid)).or(Comment.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ?", "%#{@theme[0]}%"))
