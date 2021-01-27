@@ -66,8 +66,8 @@
 					<div class="choice_box type_btn">
 						<div><%= radio_button_tag(:sort, "由新到舊", params[:sort] == '由新到舊',:checked => 'checked') %> <%= label_tag(:sort, "由新到舊", class: "theme_text") %></div>
 						<div><%= radio_button_tag(:sort, "由舊到新", params[:sort] == '由舊到新') %> <%= label_tag(:sort, "由舊到新", class: "theme_text") %></div>
-						<div><%= radio_button_tag(:sort, "按讚數高", params[:sort] == "按讚數高") %> <%= label_tag(:sort, "按讚數高", class: "theme_text") %></div>
-						<div><%= radio_button_tag(:sort, "按讚數低", params[:sort] == "按讚數低") %> <%= label_tag(:sort, "按讚數低", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sort, "按讚數多", params[:sort] == '按讚數多') %> <%= label_tag(:sort, "按讚數多", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:sort, "按讚數少", params[:sort] == '按讚數少') %> <%= label_tag(:sort, "按讚數少", class: "theme_text") %></div>
 					</div>
 					<p id="validate_type" class="disable"> 請選擇排序類型 </p>
 				</div>

@@ -25,12 +25,12 @@ class QueriesController < ApplicationController
                  when params[:sentiment] == "中立"  then "neutral"
                  end
     @sort = case true
-            when params[:sort] == "由新到舊" then :desc
-            when params[:sort] == "由舊到新" then :asc
-            when params[:sort] == "按讚數高" then :desc
-            when params[:sort] == "按讚數低" then :asc
-            end
-
+                 when params[:sort] == '由新到舊'  then :desc
+                 when params[:sort] == '由舊到新'  then :asc
+                 when params[:sort] == '按讚數多'  then :desc
+                 when params[:sort] == '按讚數少'  then :asc
+                 end
+      
     if @type == "回文"
       post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme,sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
 
@@ -40,7 +40,8 @@ class QueriesController < ApplicationController
     else
       @result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme,sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
     end
-    if @sort == "由新到舊 由舊到新"
+
+    if params[:sort] == '由新到舊' || params[:sort] == '由舊到新'
       @results = @result.order(created_at: @sort).page(params[:page]).per(20)
     else
       @results = @result.order(like_count: @sort).page(params[:page]).per(20)
