@@ -4,7 +4,7 @@
     height: calc(100vh - 116px);
   }
   .aside {
-    @apply w-full flex justify-around lg:w-1/6 lg:block bg-white text-black mt-1 rounded-lg;
+    @apply w-full text-center justify-around lg:w-1/6 lg:block bg-white text-black mt-1 rounded-lg lg:text-left;
     .query_link {
       @apply px-2 lg:pl-8 box-border;
       &:hover {
@@ -12,7 +12,7 @@
       }
       font-size: 1em;
       .function {
-        @apply text-base block w-full py-3;
+        @apply text-2xl lg:text-base block w-full py-3;
         span {
           @apply pr-2;
         }
@@ -22,7 +22,7 @@
       @apply text-white bg-blue-400 rounded-lg box-border;
       font-size: 1em;
       .function {
-        @apply text-base block w-full py-3;
+        @apply text-2xl lg:text-base block w-full py-3;
         span {
           @apply pr-2;
         }
