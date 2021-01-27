@@ -78,11 +78,12 @@ class QueriesController < ApplicationController
 
   def volumepost
     # pass value down to api action
-    @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
+    @theme = [params[:theme1], params[:theme2], params[:theme3_input]].delete_if { |x| x == nil || "" }
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @end = params[:end].to_date
     @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
+    @sent = params
 
     #theme1
     @post_result1 = Post.where("created_at >= ? and created_at <= ?", @start.midnight, @end.end_of_day).where("content like ? or title like ?", "%#{@theme[0]}%", "%#{@theme[0]}%")
@@ -163,12 +164,9 @@ class QueriesController < ApplicationController
     search_result = doc_type(@type, :sentiment, :created_at)
     result = search_result[0]
     @count = search_result[1]
-
     gon.start = @start
     gon.end = @end
     gon.result = result
-
-    # render json: { count: @count, theme: @theme, source: @source, type: @type, end: @end, start: @start, gon: { start: gon.start, end: gon.end, result: gon.result, count: @count, theme: gon.theme } }
   end
 
   def topic; end
@@ -237,7 +235,7 @@ class QueriesController < ApplicationController
 
   def sourcepost
     # pass value down to api action
-    @theme = params[:theme]
+    @theme = params[:theme1] || params[:theme2] || params[:theme3_input]
     @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
     @start = params[:start].to_date
     @end = params[:end].to_date
