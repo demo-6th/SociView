@@ -101,7 +101,7 @@ document.addEventListener("turbolinks:load", () => {
                 input_len += 1
             }
         }
-
+        console.log(input_len)
         if (input.type == "hidden") {
             if ((theme_radio_len > 0 || theme_checkbox_len > 1) && time_len == time_check.length && source_len > 0 && type_len > 0) {
 
@@ -113,11 +113,11 @@ document.addEventListener("turbolinks:load", () => {
                 type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
             }
         } else if (input.type == "text") {
-            if ((theme_radio_len > 0 || theme_checkbox_len > 1 && input_len > 0) && time_len == time_check.length && source_len > 0 && type_len > 0) {
+            if ((input_len > 0 || theme_checkbox_len > 1 && input_len > 0) && time_len == time_check.length && source_len > 0 && type_len > 0) {
 
             } else {
                 e.preventDefault()
-                theme_radio_len < 1 && (theme_checkbox_len < 2 || input_len < 1) ? validateremove("validate_theme") : validateadd("validate_theme");
+                input_len < 1 && (theme_checkbox_len < 2 || input_len < 1) ? validateremove("validate_theme") : validateadd("validate_theme");
                 time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
                 source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
                 type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
