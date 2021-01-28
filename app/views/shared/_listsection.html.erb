@@ -42,14 +42,15 @@
 				<div class="theme">
 					<h2 class="theme_item">搜尋資料類型</h2>
 					<div class="choice_box type_btn_list">
-						<div><%= radio_button_tag(:type, "主文", params[:type] == '主文',:checked => 'checked') %> <%= label_tag(:type, "主文", class: "theme_text") %></div>
-						<div><%= radio_button_tag(:type, "回文", params[:type] == '回文') %> <%= label_tag(:type, "回文", class: "theme_text") %></div>
+						<div><%= radio_button_tag(:type, "主文", params[:type] == "主文",:checked => 'checked') %> <%= label_tag(:type, "主文", class: "theme_text" ) %></div>
+						<div><%= radio_button_tag(:type, "回文", params[:type] == "回文") %> <%= label_tag(:type, "回文", class: "theme_text") %>
+						</div>
 					</div>
 					<p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
 				</div>
 			</div>  	
 		</div> 
-<div class="choice_filter ">
+ <div class="choice_filter ">
 	<div class="list_sentiment ">
 					<div class="rounded-l-lg">情緒分類</div>
 					<div class="button_tag">
@@ -84,9 +85,6 @@
 		</div>
 </div>
 			<div class="button_page"><%= submit_tag "開始分析", class: "search_btn check", id: "analy" %></div>
-
-	
 	</div>
-
 <% end %>
   
