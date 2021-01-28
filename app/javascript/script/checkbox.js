@@ -68,23 +68,27 @@ document.addEventListener("turbolinks:load", () => {
     const type_btn = document.querySelectorAll(
         '.type_btn input[type="checkbox"]'
     );
-
-    type_box.addEventListener("click", function () {
-        if (type_box.checked == "") {
-            type_btn[1].checked = "";
-            type_btn[2].checked = "";
-        } else {
-            type_btn[1].checked = "checked";
-            type_btn[2].checked = "checked";
-        }
-    });
-
-    type_btn[1].addEventListener("click", function () {
-        type_box.checked = "";
-    });
-    type_btn[2].addEventListener("click", function () {
-        type_box.checked = "";
-    });
+    if (type_box != null) {
+        type_box.addEventListener("click", function () {
+            if (type_box.checked == "") {
+                type_btn[1].checked = "";
+                type_btn[2].checked = "";
+            } else {
+                type_btn[1].checked = "checked";
+                type_btn[2].checked = "checked";
+            }
+        })
+    };
+    if (type_btn[1] != undefined) {
+        type_btn[1].addEventListener("click", function () {
+            type_box.checked = "";
+        })
+    };
+    if (type_btn[2] != undefined) {
+        type_btn[2].addEventListener("click", function () {
+            type_box.checked = "";
+        });
+    };
 
     const btn = document.querySelector(".check");
     btn.addEventListener("click", function (e) {
@@ -111,7 +115,7 @@ document.addEventListener("turbolinks:load", () => {
         const type_len = document.querySelectorAll(
             '.type_btn input[type="checkbox"]:checked'
         ).length;
-        const type_len_list = document.querySelectorAll('.type_btn_list input[type="radiobox"]:checked').length
+        const type_len_list = document.querySelectorAll('.type_btn_list input[type="radio"]:checked').length;
         let time_len = 0;
 
         for (var i = 0; i < time_check.length; i++) {
@@ -137,13 +141,12 @@ document.addEventListener("turbolinks:load", () => {
                 check_input_len += 1;
             }
         }
-
         if (input.type == "hidden") {
             if (
                 (theme_radio_len > 0 || theme_checkbox_len > 1) &&
                 time_len == time_check.length &&
                 source_len > 0 &&
-                type_len > 0
+                (type_len > 0 || type_len_list > 0)
             ) {} else {
                 e.preventDefault();
                 theme_radio_len < 1 && theme_checkbox_len < 2 ?
@@ -152,12 +155,15 @@ document.addEventListener("turbolinks:load", () => {
                 time_len < time_check.length ?
                     validateremove("validate_time") :
                     validateadd("validate_time");
+                console.log(time_check.length)
                 source_len < 1 ?
                     validateremove("validate_source") :
                     validateadd("validate_source");
-                type_len < 1 ?
+
+                type_len < 1 && type_len_list < 1 ?
                     validateremove("validate_type") :
                     validateadd("validate_type");
+
             }
         }
 

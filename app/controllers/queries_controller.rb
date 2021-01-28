@@ -19,9 +19,9 @@ class QueriesController < ApplicationController
             end
     @sentiment = case true
                  when params[:sentiment] == "不分情緒"  then ""
-                 when params[:sentiment] == "正面"  then "positive"
-                 when params[:sentiment] == "負面"  then "negative"
-                 when params[:sentiment] == "中立"  then "neutral"
+                 when params[:sentiment] == "正面情緒"  then "positive"
+                 when params[:sentiment] == "負面情緒"  then "negative"
+                 when params[:sentiment] == "中立情緒"  then "neutral"
                  end
     @sort = case true
                  when params[:sort] == '由新到舊'  then :desc
