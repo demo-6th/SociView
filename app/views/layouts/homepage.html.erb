@@ -26,11 +26,15 @@
       <%= render "shared/aside" %>
       <div class="users_query_page">
       <% if current_page?(volume_queries_path) %>
-      <%= render "shared/volumesection" %>
+        <%= render "shared/volumesection" %>
       <% elsif current_page?(volumepost_queries_path) %>
-      <%= render "shared/volumesection" %>
+        <%= render "shared/volumesection" %>
+      <% elsif current_page?(list_queries_path) %> 
+        <%= render "shared/listsection" %>
+      <% elsif current_page?(listpost_queries_path) %>
+        <%= render "shared/listsection" %>
       <% else %>
-      <%= render "shared/section" %>
+        <%= render "shared/section" %>
       <% end %>
         <%= yield %>
       </div>
