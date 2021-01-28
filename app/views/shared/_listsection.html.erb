@@ -3,19 +3,19 @@
 		<div class="choice_page">
 			<div class="col-3">
 				<div class="theme">
-				      <h2 class="theme_item">搜尋主題分類</h2>
-        <div class="choice_box theme_btn">
-          <div class="input_rm1"><%= radio_button_tag(:theme, "新冠肺炎", params[:theme] == "新冠肺炎",  id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
-          <div class="input_rm2"><%= radio_button_tag(:theme, "萊豬", params[:theme] == "萊豬",  id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
-          <div class="choice_item radio_item_input">
-          <% radio_button_tag(:theme3, "自選主題",  id: 3) %>
-          <% label_tag(:theme3, "自選主題", class: "theme_text", for: 3) %>
-          <%= text_field_tag(:theme3_input, "", class: "border border-gray-200 w-full rounded input_check",type:"hidden") %>
-          </div>
-          </div>
-          <p id="validate_theme" class="disable"> 請選擇一種或輸入自選主題 </p>
+				    <h2 class="theme_item">搜尋主題分類</h2>
+							<div class="choice_box theme_btn">
+								<div class="input_rm1 choice_item"><%= radio_button_tag(:theme, "新冠肺炎", params[:theme] == "新冠肺炎",  id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
+								<div class="input_rm2 choice_item"><%= radio_button_tag(:theme, "萊豬", params[:theme] == "萊豬",  id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
+								<div class="choice_item radio_item_input">
+								<% radio_button_tag(:theme3, "自選主題",  id: 3) %>
+								<% label_tag(:theme3, "自選主題", class: "theme_text", for: 3) %>
+								<%= text_field_tag(:theme3_input, "", class: "border border-gray-200 w-full rounded input_check",type:"hidden") %>
+								</div>
+							</div>
+								<p id="validate_theme" class="disable"> 請選擇一種或輸入自選主題 </p>
+					</div>
 				</div>
-			</div>
 	<div class="col-3">
 				<div class="theme">
 					<h2 class="theme_item">時間區段</h2>
@@ -30,17 +30,17 @@
 				<div class="theme">
 					<h2 class="theme_item">搜尋熱門社群</h2>
 					<div class="choice_box source_btn">
-		   <div class="source_select_all">
-            <%= check_box_tag(:source_all, "全選") %>   
-            <%= label_tag(:source_all, "全選", class: "theme_text") %>
+		   <div class="source_select_all choice_item">
+			<%= check_box_tag(:source_all, "全選") %>   
+			<%= label_tag(:source_all, "全選", class: "theme_text") %>
           </div>
 						<div>
-							<%= check_box_tag(:dcard, "Dcard", params[:dcard] == 'Dcard') %>  
-							<%= label_tag(:dcard, "Dcard", class: "theme_text") %>
+							&emsp;<%= check_box_tag(:dcard, "Dcard", params[:dcard] == 'Dcard') %>  
+							<%= label_tag(:dcard, "Dcard", class: "theme_text px-1 w-9/12 inline-block") %>
 						</div>
 						<div>
-							<%= check_box_tag(:ptt, "PTT", params[:ptt] == 'PTT') %>   
-							<%= label_tag(:ptt, "PTT", class: "theme_text") %>
+							&emsp;<%= check_box_tag(:ptt, "PTT", params[:ptt] == 'PTT') %>   
+							<%= label_tag(:ptt, "PTT", class: "theme_text px-1 w-9/12 inline-block") %>
 						</div>
 					</div>
 					<p id="validate_source" class="disable"> 請選擇至少一種社群 </p>
@@ -50,8 +50,8 @@
 				<div class="theme">
 					<h2 class="theme_item">搜尋資料類型</h2>
 					<div class="choice_box type_btn_list">
-						<div><%= radio_button_tag(:type, "主文", params[:type] == "主文",id:4) %> <%= label_tag(:type, "主文", class: "theme_text" ,for:4) %></div>
-						<div><%= radio_button_tag(:type, "回文", params[:type] == "回文",id:5) %> <%= label_tag(:type, "回文", class: "theme_text",for:5) %>
+						<div><%= radio_button_tag(:type, "主文", params[:type] == "主文",id:4) %> <%= label_tag(:type, "主文", class: "theme_text px-1 w-9/12 inline-block" ,for:4) %></div>
+						<div><%= radio_button_tag(:type, "回文", params[:type] == "回文",id:5) %> <%= label_tag(:type, "回文", class: "theme_text px-1 w-9/12 inline-block",for:5) %>
 						</div>
 					</div>
 					<p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
