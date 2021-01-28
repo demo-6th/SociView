@@ -133,7 +133,6 @@ document.addEventListener("turbolinks:load", () => {
 
             } else {
                 e.preventDefault()
-                console.log(theme_radio_len)
                 if (theme_radio_len == 1) {
                     radio_input_len < 1 ? validateremove("validate_theme") : validateadd("validate_theme");
                     time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
