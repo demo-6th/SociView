@@ -133,10 +133,18 @@ document.addEventListener("turbolinks:load", () => {
 
             } else {
                 e.preventDefault()
-                theme_radio_len < 1 && radio_input_len < 1 && (theme_checkbox_len == 1 && check_input_len >= 0 || theme_checkbox_len > 1 && check_input_len == 0) ? validateremove("validate_theme") : validateadd("validate_theme");
-                time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
-                source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
-                type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
+                console.log(theme_radio_len)
+                if (theme_radio_len == 1) {
+                    radio_input_len < 1 ? validateremove("validate_theme") : validateadd("validate_theme");
+                    time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
+                    source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
+                    type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
+                } else {
+                    (theme_checkbox_len == 1 && check_input_len >= 0 || theme_checkbox_len > 1 && check_input_len == 0) ? validateremove("validate_theme"): validateadd("validate_theme");
+                    time_len < time_check.length ? validateremove("validate_time") : validateadd("validate_time");
+                    source_len < 1 ? validateremove("validate_source") : validateadd("validate_source");
+                    type_len < 1 ? validateremove("validate_type") : validateadd("validate_type");
+                }
             }
         }
 
