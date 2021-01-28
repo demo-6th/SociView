@@ -6,5 +6,6 @@ import "./termfreq.js";
 import "./listpost.js"
 import "./sentiment.js";
 import "./volume.js";
+import "./burger.js";
 
 // import "./tab_click.js"
