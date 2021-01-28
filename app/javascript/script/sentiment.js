@@ -24,7 +24,6 @@ document.addEventListener("turbolinks:load", () => {
         neg_line[d] = 0;
         neu_line[d] = 0;
     });
-    console.log(neg_line)
 
     if (result !== undefined) {
         result.forEach((e) => {

@@ -27,7 +27,6 @@ document.addEventListener("turbolinks:load", () => {
         count_line3[d] = 0;
     });
 
-    //待改進
     if (gon.result1 !== undefined) {
         gon.result1.forEach((e) => {
             let d_result1 = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
