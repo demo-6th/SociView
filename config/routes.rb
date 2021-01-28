@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       get :list
       post :list, to: "queries#listpost"
       get :volume
-      post :volume, to: "queries#volumepost"
+      get :volumepost, to: "queries#volumepost"
       get :sentiment
       post :sentiment, to: "queries#sentpost"
       get :topic
@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       post :wordcloud, to: "queries#cloudpost"
       get :termfreq
       post :termfreq, to: "queries#termfreqpost"
+      get :source
+      post :source, to: "queries#sourcepost"
     end
   end
 
