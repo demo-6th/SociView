@@ -1,6 +1,6 @@
 .query_page {
   @apply max-w-screen-2xl m-auto;
-  @media screen and (min-width: 1024px){
+  @media screen and (min-width: 1024px) {
     height: calc(100vh - 116px);
   }
   .aside {
@@ -38,8 +38,8 @@
         @apply lg:flex lg:justify-around lg:pt-1;
         .col-3 {
           @apply w-full;
-          @media screen and (min-width: 1024px){
-          width: 23%;
+          @media screen and (min-width: 1024px) {
+            width: 23%;
           }
           .theme {
             @apply m-5 lg:mb-1 lg:m-0 rounded-lg bg-white;
@@ -103,3 +103,47 @@
   @apply text-red-600 font-bold bg-red-200 w-full rounded-b-lg text-center;
 }
 
+.choice_filter {
+  @apply lg:flex lg:justify-around lg:pt-1 px-2 mb-2;
+}
+
+.list_sentiment {
+  box-sizing: border-box;
+  @apply bg-white border-gray-700 flex space-x-4 rounded-lg justify-around my-1 mx-3 mb-4;
+}
+
+.rounded-l-lg {
+  flex: auto;
+  @apply lg:w-1/6 px-2 py-2 bg-blue-400 text-white text-center;
+}
+
+.button_tag {
+  flex: auto;
+  @apply py-2;
+}
+
+.page_button {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination {
+  box-sizing: border-box;
+  border: 1px solid #2563eb;
+  @apply bg-white  flex space-x-4 justify-around mt-3 mx-2 lg:py-2 px-2 rounded-lg;
+}
+
+@media screen and (min-width: 1024px) {
+  .choice_filter {
+    @apply lg:flex lg:justify-around lg:pt-1 space-x-4 mb-0;
+  }
+  .list_sentiment {
+    box-sizing: border-box;
+    @apply bg-white w-full border-gray-700 flex space-x-4 rounded-lg justify-around my-1;
+  }
+}
+
+.page:hover {
+  background-color: #2563eb;
+  @apply text-white;
+}
