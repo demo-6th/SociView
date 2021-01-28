@@ -6,7 +6,7 @@
       <div id="typewriter" class="pt-1 text-xl text-blue-700 w-1/2 overflow-hidden text-center"></div>
       <div class="login_btns">
         <% if current_user %>
-          <!-- <#%= render "shared/notice" if notice           %> -->
+          <!-- <#%= render "shared/notice" if notice               %> -->
           <div class="nav_user"><%= current_user.nickname %> 您好!  <%= notice if notice %> </div>
           <%= link_to("登出", destroy_user_session_path, class: "nav_btn border-2 border-blue-400 text-blue-400", method: :delete) %> 
         <% else %>
