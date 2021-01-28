@@ -25,7 +25,13 @@
     <div class="burger text-2xl text-center p-2 lg:hidden bg-blue-400 text-white rounded-lg m-auto">主要功能選單</div>
       <%= render "shared/aside" %>
       <div class="users_query_page">
-        <%= render "shared/section" %>
+      <% if current_page?(volume_queries_path) %>
+      <%= render "shared/volumesection" %>
+      <% elsif current_page?(volumepost_queries_path) %>
+      <%= render "shared/volumesection" %>
+      <% else %>
+      <%= render "shared/section" %>
+      <% end %>
         <%= yield %>
       </div>
     </div>
