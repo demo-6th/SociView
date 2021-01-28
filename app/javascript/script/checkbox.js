@@ -5,7 +5,7 @@ document.addEventListener("turbolinks:load", () => {
         '.check_item_input input[type="checkbox"]'
     );
     if (check_box !== null) {
-        check_box.addEventListener("click", function() {
+        check_box.addEventListener("click", function () {
             if (check_box.checked == true) {
                 input.type = "text";
                 input.focus();
@@ -21,18 +21,18 @@ document.addEventListener("turbolinks:load", () => {
     const radio_rmbox1 = document.querySelector('.input_rm1 input[type="radio"]');
     const radio_rmbox2 = document.querySelector('.input_rm2 input[type="radio"]');
     if (radio_box !== null) {
-        radio_box.addEventListener("click", function() {
+        radio_box.addEventListener("click", function () {
             input.type = "text";
             input.focus();
             radio_rmbox1.checked = false;
             radio_rmbox2.checked = false;
         });
-        radio_rmbox1.addEventListener("click", function() {
+        radio_rmbox1.addEventListener("click", function () {
             input.type = "hidden";
             radio_rmbox2.checked = false;
             radio_box.checked = false;
         });
-        radio_rmbox2.addEventListener("click", function() {
+        radio_rmbox2.addEventListener("click", function () {
             input.type = "hidden";
             radio_rmbox1.checked = false;
             radio_box.checked = false;
@@ -45,7 +45,7 @@ document.addEventListener("turbolinks:load", () => {
     const source_btn = document.querySelectorAll(
         '.source_btn input[type="checkbox"]'
     );
-    source_box.addEventListener("click", function() {
+    source_box.addEventListener("click", function () {
         if (source_box.checked == "") {
             source_btn[1].checked = "";
             source_btn[2].checked = "";
@@ -55,10 +55,10 @@ document.addEventListener("turbolinks:load", () => {
         }
     });
 
-    source_btn[1].addEventListener("click", function() {
+    source_btn[1].addEventListener("click", function () {
         source_box.checked = "";
     });
-    source_btn[2].addEventListener("click", function() {
+    source_btn[2].addEventListener("click", function () {
         source_box.checked = "";
     });
 
@@ -69,7 +69,7 @@ document.addEventListener("turbolinks:load", () => {
         '.type_btn input[type="checkbox"]'
     );
 
-    type_box.addEventListener("click", function() {
+    type_box.addEventListener("click", function () {
         if (type_box.checked == "") {
             type_btn[1].checked = "";
             type_btn[2].checked = "";
@@ -79,15 +79,15 @@ document.addEventListener("turbolinks:load", () => {
         }
     });
 
-    type_btn[1].addEventListener("click", function() {
+    type_btn[1].addEventListener("click", function () {
         type_box.checked = "";
     });
-    type_btn[2].addEventListener("click", function() {
+    type_btn[2].addEventListener("click", function () {
         type_box.checked = "";
     });
 
     const btn = document.querySelector(".check");
-    btn.addEventListener("click", function(e) {
+    btn.addEventListener("click", function (e) {
         btn.classList.remove("search_btn");
         btn.classList.add("active");
         const theme_radio_len = document.querySelectorAll(
@@ -111,6 +111,7 @@ document.addEventListener("turbolinks:load", () => {
         const type_len = document.querySelectorAll(
             '.type_btn input[type="checkbox"]:checked'
         ).length;
+        const type_len_list = document.querySelectorAll('.type_btn_list input[type="radiobox"]:checked').length
         let time_len = 0;
 
         for (var i = 0; i < time_check.length; i++) {

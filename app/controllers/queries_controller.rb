@@ -41,9 +41,9 @@ class QueriesController < ApplicationController
     end
 
     if params[:sort] == '由新到舊' || params[:sort] == '由舊到新'
-      @results = @result.order(created_at: @sort).page(params[:page]).per(50)
+      @results = @result.order(created_at: @sort).page(params[:page]).per(20)
     else
-      @results = @result.ransack(like_count_not_eq: "-").order(like_count: @sort).page(params[:page]).per(50)
+      @results = @result.order(like_count: @sort).page(params[:page]).per(20)
     end
    @count = @results.total_count
   end
