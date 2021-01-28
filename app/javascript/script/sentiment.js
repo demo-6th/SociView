@@ -15,7 +15,7 @@ document.addEventListener("turbolinks:load", () => {
     ) {
         let formatDt = `${new Date(d).getFullYear()}-${
       new Date(d).getMonth() + 1
-    }-${new Date(d).getDate()}`;
+    }-${new Date(d).getDate() +1}`;
         all_date.push(formatDt);
     }
 
@@ -24,6 +24,7 @@ document.addEventListener("turbolinks:load", () => {
         neg_line[d] = 0;
         neu_line[d] = 0;
     });
+    console.log(neg_line)
 
     if (result !== undefined) {
         result.forEach((e) => {
@@ -43,6 +44,7 @@ document.addEventListener("turbolinks:load", () => {
             }
         });
     }
+
 
     if (document.getElementById("sentimentPieChart")) {
         // pie chart

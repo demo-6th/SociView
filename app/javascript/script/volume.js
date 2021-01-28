@@ -17,9 +17,10 @@ document.addEventListener("turbolinks:load", () => {
     ) {
         let formatDt = `${new Date(d).getFullYear()}-${
     new Date(d).getMonth() + 1
-  }-${new Date(d).getDate()}`;
+  }-${new Date(d).getDate() +1}`;
         all_date.push(formatDt);
     }
+
     all_date.forEach((d) => {
         count_line1[d] = 0;
         count_line2[d] = 0;
