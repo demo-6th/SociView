@@ -76,9 +76,9 @@ class QueriesController < ApplicationController
   def volume; end
 
   def volumepost
+    check_search_box()
     gon.start = @start
     gon.end = @end
-    check_search_box()
     #theme1
     post_result1 = checkbox_search_all(@theme[0], @start, @end, @source)[0]
     comment_result1 = checkbox_search_all(@theme[0], @start, @end, @source)[1]

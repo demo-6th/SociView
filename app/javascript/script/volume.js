@@ -16,8 +16,8 @@ document.addEventListener("turbolinks:load", () => {
         let d = new Date(start); d <= new Date(end); d.setDate(d.getDate() + 1)
     ) {
         let formatDt = `${new Date(d).getFullYear()}-${
-      new Date(d).getMonth() + 1
-    }-${new Date(d).getDate()}`;
+    new Date(d).getMonth() + 1
+  }-${new Date(d).getDate()}`;
         all_date.push(formatDt);
     }
     all_date.forEach((d) => {
@@ -29,8 +29,7 @@ document.addEventListener("turbolinks:load", () => {
     //待改進
     if (gon.result1 !== undefined) {
         gon.result1.forEach((e) => {
-            let d_result1 = `${new Date(e.created_at).getFullYear()}-${
-        new Date(e.created_at).getMonth() + 1
+            let d_result1 = `${new Date(e.created_at).getFullYear()}-${new Date(e.created_at).getMonth() + 1
       }-${new Date(e.created_at).getDate()}`;
             count_line1[d_result1] += 1;
         });
