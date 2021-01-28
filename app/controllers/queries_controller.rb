@@ -245,7 +245,7 @@ private
 
 # search
 def radio_search_box
-  @theme = params[:theme1] || params[:theme2] || params[:theme3]
+  @theme = params[:theme1] || params[:theme2] || params[:theme3_input]
   @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
   @start = params[:start].to_date
   @end = params[:end].to_date
