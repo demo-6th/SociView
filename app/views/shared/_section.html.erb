@@ -8,8 +8,8 @@
       <div class="theme">
         <h2 class="theme_item">搜尋主題分類</h2>
         <div class="choice_box theme_btn">
-          <div class="input_rm1"><%= radio_button_tag(:theme1, "新冠肺炎", false, id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
-          <div class="input_rm2"><%= radio_button_tag(:theme2, "萊豬", false, id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
+          <div class="input_rm1 choice_item"><%= radio_button_tag(:theme1, "新冠肺炎", false, id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
+          <div class="input_rm2 choice_item"><%= radio_button_tag(:theme2, "萊豬", false, id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
           <div class="choice_item radio_item_input">
           <%= radio_button_tag(:theme3, "自選主題", false, id: 3) %>
           <%= label_tag(:theme3, "自選主題", class: "theme_text", for: 3) %>
@@ -34,17 +34,17 @@
       <div class="theme">
         <h2 class="theme_item">搜尋熱門社群</h2>
         <div class="choice_box source_btn">
-          <div class="source_select_all">
+          <div class="source_select_all choice_item">
             <%= check_box_tag(:source_all, "全選") %>   
             <%= label_tag(:source_all, "全選", class: "theme_text") %>
           </div>
          <div >
           &emsp;<%= check_box_tag(:dcard, "Dcard") %>  
-            <%= label_tag(:dcard, "Dcard", class: "theme_text") %>
+            <%= label_tag(:dcard, "Dcard", class: "theme_text px-1 w-9/12 inline-block") %>
           </div>
           <div>
           &emsp;<%= check_box_tag(:ptt, "PTT") %>   
-            <%= label_tag(:ptt, "PTT", class: "theme_text") %>
+            <%= label_tag(:ptt, "PTT", class: "theme_text px-1 w-9/12 inline-block") %>
           </div>
         </div>
         <p id="validate_source" class="disable"> 請選擇至少一種社群 </p>
@@ -54,15 +54,15 @@
 			<div class="theme">
 				<h2 class="theme_item">搜尋資料類型</h2>
 				<div class="choice_box type_btn">
-          <div class="type_select_all">
+          <div class="type_select_all choice_item">
           <%= check_box_tag(:type_all, "全選") %>
           <%= label_tag(:type_all, "全選", class: "theme_text") %></div>
 					<div>
           &emsp;<%= check_box_tag(:post, "主文") %>
-          <%= label_tag(:post, "主文", class: "theme_text") %></div>
+          <%= label_tag(:post, "主文", class: "theme_text px-1 w-9/12 inline-block") %></div>
 					<div>
           &emsp;<%= check_box_tag(:comment, "回文") %>
-          <%= label_tag(:comment, "回文", class: "theme_text") %></div>
+          <%= label_tag(:comment, "回文", class: "theme_text px-1 w-9/12 inline-block") %></div>
 				</div>
         <p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
 			</div>
