@@ -34,7 +34,7 @@
 }
 
 .step_teach{
-  @apply hidden lg:block bg-gray-100 font-serif text-center pt-5 pb-10 max-w-screen-2xl m-auto py-8 mb-2;
+  @apply hidden lg:block bg-gray-100 font-serif text-center pt-5 pb-10 max-w-screen-2xl m-auto py-8;
   .teach_text{
     .text{
       @apply text-3xl text-black py-5 font-bold;
