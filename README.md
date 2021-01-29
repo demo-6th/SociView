@@ -16,20 +16,13 @@ SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.t
 - 來源分析
 
 ## 使用技術
-### 前端
-- HTML, CSS, Javascript
-- Tailwind CSS
-### 後端
-- Ruby on Rails 
-- Python 
-### 資料庫
-- PostgreSQL
-### 部署
-- Heroku
-### 測試
-- RSpec
-### 版本控制
-- Git & GitHub
+| 前端 | 後端 | 資料庫 |
+|:---------:|:---------:|------------|
+|HTML, CSS, Javascript,Tailwind CSS|Ruby on Rails,  Python|PostgreSQL|
+|  部署  |  測試  |  版本控制  |
+|Heroku|RSpec|Git & GitHub|
+
+
 
 ## 團隊成員
 [程從聖](https://github.com/DanteChengOUO)<br>
