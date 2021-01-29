@@ -13,39 +13,39 @@ class QueriesController < ApplicationController
     @start = params[:start].to_date
     @end = params[:end].to_date
     @type = case true
-            when params[:type] == '回文' then "回文"
-            else
-              "文章"
-            end
+      when params[:type] == "回文" then "回文"
+      else
+        "文章"
+      end
     @sentiment = case true
-                 when params[:sentiment] == "不分情緒"  then ""
-                 when params[:sentiment] == "正面情緒"  then "positive"
-                 when params[:sentiment] == "負面情緒"  then "negative"
-                 when params[:sentiment] == "中立情緒"  then "neutral"
-                 end
+      when params[:sentiment] == "不分情緒" then ""
+      when params[:sentiment] == "正面情緒" then "positive"
+      when params[:sentiment] == "負面情緒" then "negative"
+      when params[:sentiment] == "中立情緒" then "neutral"
+      end
     @sort = case true
-                 when params[:sort] == '由新到舊'  then :desc
-                 when params[:sort] == '由舊到新'  then :asc
-                 when params[:sort] == '按讚數多'  then :desc
-                 when params[:sort] == '按讚數少'  then :asc
-                 end
-      
+      when params[:sort] == "由新到舊" then :desc
+      when params[:sort] == "由舊到新" then :asc
+      when params[:sort] == "按讚數多" then :desc
+      when params[:sort] == "按讚數少" then :asc
+      end
+
     if @type == "回文"
-      post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme,sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
+      post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme, sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
 
-      comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1,sentiment_cont_any: @sentiment).result
+      comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1, sentiment_cont_any: @sentiment).result
 
-      @result = comment_search.ransack(content_cont_any: @theme,sentiment_cont_any: @sentiment).result.or(comment_search.where(pid: post_result))
+      @result = comment_search.ransack(content_cont_any: @theme, sentiment_cont_any: @sentiment).result.or(comment_search.where(pid: post_result))
     else
-      @result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme,sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
+      @result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme, sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
     end
 
-    if params[:sort] == '由新到舊' || params[:sort] == '由舊到新'
+    if params[:sort] == "由新到舊" || params[:sort] == "由舊到新"
       @results = @result.order(created_at: @sort).page(params[:page]).per(50)
     else
       @results = @result.order(like_count: @sort).page(params[:page]).per(50)
     end
-   @count = @results.total_count
+    @count = @results.total_count
   end
 
   def volume; end
