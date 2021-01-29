@@ -1,17 +1,21 @@
 <div class="search_list">
   <div class="container">
     <div class="row">
-      <h2 class="w-full text-center pb-2 bg-blue-400 rounded-t-lg p-2 text-white text-xl">文字雲</h2>
-      <%= render "shared/search_all" %>
+      <div id="search" class="search_all">
+        <p id="count">查詢結果：<%= @count %>筆</p>
+        <p id="theme">查詢主題：<%= @theme.to_s.gsub(/[\[\]\"]/, "") %></p>
+        <p id="start">起始時間：<%= @start %></p>
+        <p id="end">結束時間：<%= @end %></p>
+        <p id="source">資料來源：<%= @source.to_s.gsub(/[\[\]\"]/, "") %></p>
+        <p id="type">資料種類：<%= @type.to_s.gsub(/[\[\]\"]/, "") %></p>
+      </div>
     </div>
 
   </div>
   <div class="chart">
     <div class="row items-center">
       <div class="text-red-500 pl-1"><%= @cloud %></div>
-      <% if FileTest.exist?("app/assets/images/wordcloud.png") %>
-        <div class=""><%= image_tag("wordcloud.png") %></div>
-      <% end %>
+          <img src="/images/wordcloud.png" alt="">
     </div>
   </div>
 </div>
