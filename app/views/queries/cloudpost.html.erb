@@ -15,7 +15,9 @@
   <div class="chart">
     <div class="row items-center">
       <div class="text-red-500 pl-1"><%= @cloud %></div>
+      <% if FileTest.exist?("public/images/wordcloud.png") %>
           <img src="/images/wordcloud.png" alt="">
+      <% end %>
     </div>
   </div>
 </div>
