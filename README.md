@@ -3,7 +3,6 @@
 
 SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.tw/)作為致敬對象。
 
-![image](https://github.com/demo-6th/SociView/blob/develop/sociview%E5%AE%A3%E5%82%B3%E6%AA%94.gif)
 ## 核心功能
 | 爬蟲 | 資料清理與文字處理 | 社群資料庫 |
 |:---------:|:---------:|:------------:|
