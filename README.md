@@ -1,4 +1,5 @@
 # SociView 你的專業社群管家
+簡報影片： https://www.youtube.com/watch?v=Egkm3ylP4xY
 
 SociView是一個社群輿論分析平台，以[opview](https://www.opview.com.tw/)作為致敬對象。
 
