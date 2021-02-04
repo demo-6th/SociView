@@ -13,7 +13,7 @@ class QueriesController < ApplicationController
     post_result1 = checkbox_search_all(@theme[0], @start, @end, @source, params[:sentiment])[0]
     comment_result1 = checkbox_search_all(@theme[0], @start, @end, @source, params[:sentiment])[1]
     result1 = type_judgment(post_result1, comment_result1)
-    @count1 = result1.count
+    @count1 = result1.size
     gon.result1 = result1
     gon.count1 = @count1
     gon.theme1 = @theme[0]
@@ -22,7 +22,7 @@ class QueriesController < ApplicationController
     post_result2 = checkbox_search_all(@theme[1], @start, @end, @source, params[:sentiment])[0]
     comment_result2 = checkbox_search_all(@theme[1], @start, @end, @source, params[:sentiment])[1]
     result2 = type_judgment(post_result2, comment_result2)
-    @count2 = result2.count
+    @count2 = result2.size
     gon.result2 = result2
     gon.count2 = @count2
     gon.theme2 = @theme[1]
@@ -35,7 +35,7 @@ class QueriesController < ApplicationController
       post_result3 = checkbox_search_all(@theme[2], @start, @end, @source)[0]
       comment_result3 = checkbox_search_all(@theme[2], @start, @end, @source)[1]
       result3 = type_judgment(post_result3, comment_result3)
-      @count3 = result3.count
+      @count3 = result3.size
       gon.result3 = result3
       gon.count3 = @count3
       gon.theme3 = @theme[2]
@@ -145,17 +145,17 @@ class QueriesController < ApplicationController
 
     # 計算符合搜尋條件的資料筆數
     if params[:post] && params[:comment]
-      @count = post_result.count + comment_result.count
+      @count = post_result.size + comment_result.size
       gon.result = post_result + comment_result
       gon.ptt_result = ptt_post_result + ptt_comment_result
       gon.dcard_result = dcard_post_result + dcard_comment_result
     elsif params[:post] && !params[:comment]
-      @count = post_result.count
+      @count = post_result.size
       gon.result = post_result
       gon.ptt_result = ptt_post_result
       gon.dcard_result = dcard_post_result
     else
-      @count = comment_result.count
+      @count = comment_result.size
       gon.result = comment_result
       gon.ptt_result = ptt_comment_result
       gon.dcard_result = dcard_comment_result
@@ -192,16 +192,20 @@ private
 def radio_search_box
   @theme = params[:theme1] || params[:theme2] || params[:theme3_input]
   @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-  @start = params[:start].to_date
-  @end = params[:end].to_date
+  # @start = params[:start].to_date
+  # @end = params[:end].to_date
+  @start = "2021-01-17".to_date
+  @end = "2021-01-21".to_date
   @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 end
 
 def check_search_box
   @theme = [params[:theme1], params[:theme2], params[:theme3]].delete_if { |x| x == nil }
   @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-  @start = params[:start].to_date
-  @end = params[:end].to_date
+  # @start = params[:start].to_date
+  # @end = params[:end].to_date
+  @start = "2021-01-17".to_date
+  @end = "2021-01-21".to_date
   @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
 end
 
@@ -223,7 +227,7 @@ end
 # search_post (@start, @end, topic(@theme), source(@source))
 def search_post(start_date, end_date, keywords, col1, col2)
   result = Post.ransack(created_at_gt: start_date, created_at_lt: end_date, title_or_content_cont_any: keywords).result.joins(board: :source).where(boards: { sources: { name: @source } })
-  return result.select(col1, col2), result.count, result
+  return result.select(col1, col2), result.size, result
 end
 
 # search_comment
@@ -232,7 +236,7 @@ def search_comment(start_date, end_date, keywords, col1, col2)
 
   result = comment_search.ransack(content_cont_any: keywords).result.or(comment_search.where(:pid => search_post(start_date, end_date, keywords, col1, col2)[2].pluck(:pid)))
 
-  return result.select(col1, col2), result.count
+  return result.select(col1, col2), result.size
 end
 
 def search_all(start_date, end_date, keywords, col1, col2)

@@ -11,7 +11,7 @@ from pathlib import Path
 
 rails_root = sys.argv[1]
 
-for p in Path(f"{rails_root}/public/images").glob("ldavis*.html"):
+for p in Path(f"{rails_root}/public/images").glob("ldavis.html"):
   p.unlink()
 
 data = pd.read_csv(f"{rails_root}/data/topic_text.csv",names=["id", "token"])
