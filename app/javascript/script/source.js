@@ -340,162 +340,182 @@ document.addEventListener("turbolinks:load", () => {
             },
         });
 
-        // board
-        const ctx_bar_dcard = document
-            .getElementById("dcardBarChart")
-            .getContext("2d");
-        const dcardbarChart = new Chart(ctx_bar_dcard, {
-            type: "bar",
-            data: {
-                labels: all_date,
-                datasets: [{
-                        label: dcard_board.slice(0, 5)[0][0],
-                        backgroundColor: dcard_source1_bgc,
-                        fillColor: "#000000",
-                        data: dcard_source1_divsion,
-                    },
-                    {
-                        label: dcard_board.slice(0, 5)[1][0],
-                        backgroundColor: dcard_source2_bgc,
-                        data: dcard_source2_divsion,
-                    },
-                    {
-                        label: dcard_board.slice(0, 5)[2][0],
-                        backgroundColor: dcard_source3_bgc,
-                        data: dcard_source3_divsion,
-                    },
-                    {
-                        label: dcard_board.slice(0, 5)[3][0],
-                        backgroundColor: dcard_source4_bgc,
-                        data: dcard_source4_divsion,
-                    },
-                    {
-                        label: dcard_board.slice(0, 5)[4][0],
-                        backgroundColor: dcard_source5_bgc,
-                        data: dcard_source5_divsion,
-                    },
-                ],
-            },
-            options: {
-                tooltips: {
-                    enabled: true,
-                    mode: "single",
-                    callbacks: {
-                        label: function(tooltipItems, data) {
-                            return (
-                                data.datasets[tooltipItems.datasetIndex].label +
-                                ": " +
-                                tooltipItems.yLabel +
-                                " %"
-                            );
+        // board        
+        if (dcard.length != 0) {
+            const dcard_div = document.querySelector(".dcard")
+            const chart = document.createElement('canvas')
+            dcard_div.classList.add("chart")
+            chart.id = "dcardBarChart"
+            chart.style.width = "960px"
+            chart.style.height = "400px"
+            dcard_div.appendChild(chart)
+
+            const ctx_bar_dcard = document
+                .getElementById("dcardBarChart")
+                .getContext("2d");
+            const dcardbarChart = new Chart(ctx_bar_dcard, {
+                type: "bar",
+                data: {
+                    labels: all_date,
+                    datasets: [{
+                            label: dcard_board.slice(0, 5)[0][0],
+                            backgroundColor: dcard_source1_bgc,
+                            fillColor: "#000000",
+                            data: dcard_source1_divsion,
                         },
-                    },
+                        {
+                            label: dcard_board.slice(0, 5)[1][0],
+                            backgroundColor: dcard_source2_bgc,
+                            data: dcard_source2_divsion,
+                        },
+                        {
+                            label: dcard_board.slice(0, 5)[2][0],
+                            backgroundColor: dcard_source3_bgc,
+                            data: dcard_source3_divsion,
+                        },
+                        {
+                            label: dcard_board.slice(0, 5)[3][0],
+                            backgroundColor: dcard_source4_bgc,
+                            data: dcard_source4_divsion,
+                        },
+                        {
+                            label: dcard_board.slice(0, 5)[4][0],
+                            backgroundColor: dcard_source5_bgc,
+                            data: dcard_source5_divsion,
+                        },
+                    ],
                 },
-                scales: {
-                    yAxes: [{
-                        stacked: true,
-                        ticks: {
-                            max: 100,
-                            callback: function(value, index, values) {
-                                return value + "%";
-                            },
-                            beginAtZero: true,
-                            scaleLabel: {
-                                display: true,
+                options: {
+                    tooltips: {
+                        enabled: true,
+                        mode: "single",
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return (
+                                    data.datasets[tooltipItems.datasetIndex].label +
+                                    ": " +
+                                    tooltipItems.yLabel +
+                                    " %"
+                                );
                             },
                         },
-                    }, ],
-                    xAxes: [{
-                        stacked: true,
-                    }, ],
+                    },
+                    scales: {
+                        yAxes: [{
+                            stacked: true,
+                            ticks: {
+                                max: 100,
+                                callback: function(value, index, values) {
+                                    return value + "%";
+                                },
+                                beginAtZero: true,
+                                scaleLabel: {
+                                    display: true,
+                                },
+                            },
+                        }, ],
+                        xAxes: [{
+                            stacked: true,
+                        }, ],
+                    },
+                    title: {
+                        display: true,
+                        text: "Dcard 討論版來源長條圖",
+                        fontSize: 30,
+                    },
+                    legend: {
+                        display: false,
+                    },
                 },
-                title: {
-                    display: true,
-                    text: "Dcard 討論版來源長條圖",
-                    fontSize: 30,
-                },
-                legend: {
-                    display: false,
-                },
-            },
-        });
+            })
+        };
 
         // board
-        const ctx_bar_ptt = document.getElementById("pttBarChart").getContext("2d");
-        const pttbarChart = new Chart(ctx_bar_ptt, {
-            type: "bar",
-            data: {
-                labels: all_date,
-                datasets: [{
-                        label: ptt_board.slice(0, 5)[0][0],
-                        backgroundColor: ptt_source1_bgc,
-                        fillColor: "#000000",
-                        data: ptt_source1_divsion,
-                    },
-                    {
-                        label: ptt_board.slice(0, 5)[1][0],
-                        backgroundColor: ptt_source2_bgc,
-                        data: ptt_source2_divsion,
-                    },
-                    {
-                        label: ptt_board.slice(0, 5)[2][0],
-                        backgroundColor: ptt_source3_bgc,
-                        data: ptt_source3_divsion,
-                    },
-                    {
-                        label: ptt_board.slice(0, 5)[3][0],
-                        backgroundColor: ptt_source4_bgc,
-                        data: ptt_source4_divsion,
-                    },
-                    {
-                        label: ptt_board.slice(0, 5)[4][0],
-                        backgroundColor: ptt_source5_bgc,
-                        data: ptt_source5_divsion,
-                    },
-                ],
-            },
-            options: {
-                tooltips: {
-                    enabled: true,
-                    mode: "single",
-                    callbacks: {
-                        label: function(tooltipItems, data) {
-                            return (
-                                data.datasets[tooltipItems.datasetIndex].label +
-                                ": " +
-                                tooltipItems.yLabel +
-                                " %"
-                            );
+        if (ptt.length != 0) {
+            const ptt_div = document.querySelector(".ptt")
+            const chart = document.createElement('canvas')
+            ptt_div.classList.add("chart")
+            chart.id = "pttBarChart"
+            chart.style.width = "960px"
+            chart.style.height = "400px"
+            ptt_div.appendChild(chart)
+
+            const ctx_bar_ptt = document.getElementById("pttBarChart").getContext("2d");
+            const pttbarChart = new Chart(ctx_bar_ptt, {
+                type: "bar",
+                data: {
+                    labels: all_date,
+                    datasets: [{
+                            label: ptt_board.slice(0, 5)[0][0],
+                            backgroundColor: ptt_source1_bgc,
+                            fillColor: "#000000",
+                            data: ptt_source1_divsion,
                         },
-                    },
+                        {
+                            label: ptt_board.slice(0, 5)[1][0],
+                            backgroundColor: ptt_source2_bgc,
+                            data: ptt_source2_divsion,
+                        },
+                        {
+                            label: ptt_board.slice(0, 5)[2][0],
+                            backgroundColor: ptt_source3_bgc,
+                            data: ptt_source3_divsion,
+                        },
+                        {
+                            label: ptt_board.slice(0, 5)[3][0],
+                            backgroundColor: ptt_source4_bgc,
+                            data: ptt_source4_divsion,
+                        },
+                        {
+                            label: ptt_board.slice(0, 5)[4][0],
+                            backgroundColor: ptt_source5_bgc,
+                            data: ptt_source5_divsion,
+                        },
+                    ],
                 },
-                scales: {
-                    yAxes: [{
-                        stacked: true,
-                        ticks: {
-                            max: 100,
-                            callback: function(value, index, values) {
-                                return value + "%";
-                            },
-                            beginAtZero: true,
-                            scaleLabel: {
-                                display: true,
+                options: {
+                    tooltips: {
+                        enabled: true,
+                        mode: "single",
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return (
+                                    data.datasets[tooltipItems.datasetIndex].label +
+                                    ": " +
+                                    tooltipItems.yLabel +
+                                    " %"
+                                );
                             },
                         },
-                    }, ],
-                    xAxes: [{
-                        stacked: true,
-                    }, ],
+                    },
+                    scales: {
+                        yAxes: [{
+                            stacked: true,
+                            ticks: {
+                                max: 100,
+                                callback: function(value, index, values) {
+                                    return value + "%";
+                                },
+                                beginAtZero: true,
+                                scaleLabel: {
+                                    display: true,
+                                },
+                            },
+                        }, ],
+                        xAxes: [{
+                            stacked: true,
+                        }, ],
+                    },
+                    title: {
+                        display: true,
+                        text: "PTT 討論版來源長條圖",
+                        fontSize: 30,
+                    },
+                    legend: {
+                        display: false,
+                    },
                 },
-                title: {
-                    display: true,
-                    text: "PTT 討論版來源長條圖",
-                    fontSize: 30,
-                },
-                legend: {
-                    display: false,
-                },
-            },
-        });
+            })
+        };
     }
 });
