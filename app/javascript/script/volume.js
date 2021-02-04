@@ -87,6 +87,7 @@ document.addEventListener("turbolinks:load", () => {
           ],
         },
         title: {
+          fontSize: 30,
           display: true,
           text: "聲量長條圖",
         },
