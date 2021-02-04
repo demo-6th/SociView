@@ -34,7 +34,7 @@ class QueriesController < ApplicationController
 
     if @type == "回文"
       post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme, sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
-
+      
       comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1, sentiment_cont_any: @sentiment).result
 
       @result = comment_search.ransack(content_cont_any: @theme, sentiment_cont_any: @sentiment).result.or(comment_search.where(pid: post_result))
