@@ -1,16 +1,21 @@
-<%= form_tag listpost_queries_path, method: :get, id: 'query_ajax' do %>
+<%= form_tag listpost_queries_path, method: :get, id: "query_ajax" do %>
 	<div class="section">
 		<div class="choice_page">
 			<div class="col-3">
 				<div class="theme">
 				    <h2 class="theme_item">搜尋主題分類</h2>
 							<div class="choice_box theme_btn">
-								<div class="input_rm1 choice_item"><%= radio_button_tag(:theme, "新冠肺炎", params[:theme] == "新冠肺炎",  id: 1) %> <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
-								<div class="input_rm2 choice_item"><%= radio_button_tag(:theme, "萊豬", params[:theme] == "萊豬",  id: 2) %> <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
+								<div class="input_rm1 choice_item">
+                <%= radio_button_tag(:theme1, "新冠肺炎", params[:theme1] == "新冠肺炎", id: 1) %>
+                <%= label_tag(:theme, "新冠肺炎", class: "theme_text", for: 1) %></div>
+								<div class="input_rm2 choice_item">
+                <%= radio_button_tag(:theme2, "萊豬", params[:theme2] == "萊豬", id: 2) %> 
+                <%= label_tag(:theme, "萊豬", class: "theme_text", for: 2) %></div>
 								<div class="choice_item radio_item_input">
-								<% radio_button_tag(:theme3, "自選主題",  id: 3) %>
-								<% label_tag(:theme3, "自選主題", class: "theme_text", for: 3) %>
-								<%= text_field_tag(:theme3_input, "", class: "border border-gray-200 w-full rounded input_check",type:"hidden") %>
+                <% # 自選主題送出後記憶選項待改 %>
+								<%= radio_button_tag(:theme3, "自選主題", false, id: 3) %>
+								<%= label_tag(:theme3, "自選主題", class: "theme_text", for: 3) %>
+								<%= text_field_tag(:theme3_input, "", class: "border border-gray-200 w-full rounded input_check") %>
 								</div>
 							</div>
 								<p id="validate_theme" class="disable"> 請選擇一種主題 </p>
@@ -31,15 +36,15 @@
 					<h2 class="theme_item">搜尋熱門社群</h2>
 					<div class="choice_box source_btn">
 		   <div class="source_select_all choice_item">
-			<%= check_box_tag(:source_all, "全選") %>   
+			<%= check_box_tag(:source_all, "全選", params[:source_all] == "全選") %>   
 			<%= label_tag(:source_all, "全選", class: "theme_text") %>
           </div>
 						<div>
-							&emsp;<%= check_box_tag(:dcard, "Dcard", params[:dcard] == 'Dcard') %>  
+							&emsp;<%= check_box_tag(:dcard, "Dcard", params[:dcard] == "Dcard") %>  
 							<%= label_tag(:dcard, "Dcard", class: "theme_text px-1 w-9/12 inline-block") %>
 						</div>
 						<div>
-							&emsp;<%= check_box_tag(:ptt, "PTT", params[:ptt] == 'PTT') %>   
+							&emsp;<%= check_box_tag(:ptt, "PTT", params[:ptt] == "PTT") %>   
 							<%= label_tag(:ptt, "PTT", class: "theme_text px-1 w-9/12 inline-block") %>
 						</div>
 					</div>
@@ -50,8 +55,13 @@
 				<div class="theme">
 					<h2 class="theme_item">搜尋資料類型</h2>
 					<div class="choice_box type_btn_list">
-						<div><%= radio_button_tag(:type, "主文", params[:type] == "主文",id:4) %> <%= label_tag(:type, "主文", class: "theme_text px-1 w-9/12 inline-block" ,for:4) %></div>
-						<div><%= radio_button_tag(:type, "回文", params[:type] == "回文",id:5) %> <%= label_tag(:type, "回文", class: "theme_text px-1 w-9/12 inline-block",for:5) %>
+						<div>
+            <%= radio_button_tag(:post, "主文", params[:post] == "主文", id: 4) %> 
+            <%= label_tag(:post, "主文", class: "theme_text px-1 w-9/12 inline-block", for: 4) %>
+            </div>
+						<div>
+            <%= radio_button_tag(:comment, "回文", params[:comment] == "回文", id: 5) %> 
+            <%= label_tag(:comment, "回文", class: "theme_text px-1 w-9/12 inline-block", for: 5) %>
 						</div>
 					</div>
 					<p id="validate_type" class="disable"> 請選擇至少一種類型 </p>
@@ -62,33 +72,33 @@
 	<div class="list_sentiment ">
 					<div class="rounded-l-lg">情緒分類</div>
 					<div class="button_tag">
-						<%= radio_button_tag(:sentiment, "不分情緒", params[:sentiment] == '不分情緒',id:6,:checked => 'checked') %> <%= label_tag(:sentiment, "不分情緒", class: "theme_text",for:6) %>
+						<%= radio_button_tag(:sentiment, "不分情緒", params[:sentiment] == "不分情緒", id: 6, :checked => "checked") %> <%= label_tag(:sentiment, "不分情緒", class: "theme_text", for: 6) %>
 					</div>
 					<div class="button_tag">
-						<%= radio_button_tag(:sentiment, "正面情緒", params[:sentiment] == '正面情緒',id:7) %> <%= label_tag(:sentiment, "正面情緒", class: "theme_text",for:7) %>
+						<%= radio_button_tag(:sentiment, "正面情緒", params[:sentiment] == "正面情緒", id: 7) %> <%= label_tag(:sentiment, "正面情緒", class: "theme_text", for: 7) %>
 					</div>
 
 					<div class="button_tag">
-						<%= radio_button_tag(:sentiment, "負面情緒", params[:sentiment] == '負面情緒',id:8) %> <%= label_tag(:sentiment, "負面情緒", class: "theme_text",for:8) %>
+						<%= radio_button_tag(:sentiment, "負面情緒", params[:sentiment] == "負面情緒", id: 8) %> <%= label_tag(:sentiment, "負面情緒", class: "theme_text", for: 8) %>
 					</div>
 					<div class="button_tag">
-						<%= radio_button_tag(:sentiment, "中立情緒", params[:sentiment] == '中立情緒',id:9) %> <%= label_tag(:sentiment, "中立情緒", class: "theme_text",for:9) %>
+						<%= radio_button_tag(:sentiment, "中立情緒", params[:sentiment] == "中立情緒", id: 9) %> <%= label_tag(:sentiment, "中立情緒", class: "theme_text", for: 9) %>
 					</div>
 
 	</div>
 	<div class="list_sentiment ">
 	<div class="rounded-l-lg">排序方式</div>
 						<div class="button_tag">
-						<%= radio_button_tag(:sort, "由新到舊", params[:sort] == '由新到舊',id:10,:checked => 'checked') %> <%= label_tag(:sort, "由新到舊", class: "theme_text",for:10) %>
+						<%= radio_button_tag(:sort, "由新到舊", params[:sort] == "由新到舊", id: 10, :checked => "checked") %> <%= label_tag(:sort, "由新到舊", class: "theme_text", for: 10) %>
 						</div>
 						<div class="button_tag">
-						<%= radio_button_tag(:sort, "由舊到新", params[:sort] == '由舊到新',id:11) %> <%= label_tag(:sort, "由舊到新", class: "theme_text",for:11) %>
+						<%= radio_button_tag(:sort, "由舊到新", params[:sort] == "由舊到新", id: 11) %> <%= label_tag(:sort, "由舊到新", class: "theme_text", for: 11) %>
 						</div>
 						<div class="button_tag">
-						<%= radio_button_tag(:sort, "按讚數多", params[:sort] == '按讚數多',id:12) %> <%= label_tag(:sort, "按讚數多", class: "theme_text",for:12) %>
+						<%= radio_button_tag(:sort, "按讚數多", params[:sort] == "按讚數多", id: 12) %> <%= label_tag(:sort, "按讚數多", class: "theme_text", for: 12) %>
 						</div>
 						<div class="button_tag">
-						<%= radio_button_tag(:sort, "按讚數少", params[:sort] == '按讚數少',id:13) %> <%= label_tag(:sort, "按讚數少", class: "theme_text",for:13) %>
+						<%= radio_button_tag(:sort, "按讚數少", params[:sort] == "按讚數少", id: 13) %> <%= label_tag(:sort, "按讚數少", class: "theme_text", for: 13) %>
 						</div>
 		</div>
 </div>
