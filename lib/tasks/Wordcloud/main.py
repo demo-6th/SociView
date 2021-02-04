@@ -6,11 +6,12 @@ from matplotlib import pyplot as plt
 import os
 pd.options.mode.chained_assignment = None
 import sys 
+from pathlib import Path
 
 rails_root = sys.argv[1]
 
-if os.path.exists(f"{rails_root}/app/assets/images/wordcloud.png"):
-  os.remove(f"{rails_root}/app/assets/images/wordcloud.png")
+for p in Path(f"{rails_root}/public/images").glob("wordcloud*.png"):
+    p.unlink()
 
 txt = pd.read_csv(f"{rails_root}/data/cloud_text.csv",names=["id", "no_stop"])
 txt_str = ""
@@ -26,6 +27,6 @@ if len(txt_str) < 50:
   print("您所選擇區間資料過少，請重新選擇")
 else:
   cloud = WordCloud(width=960, height=400,background_color='white',font_path=f"{rails_root}/app/assets/fonts/TaipeiSansTCBeta-Regular.ttf").generate(txt_str)
-  cloud.to_file(f'{rails_root}/app/assets/images/wordcloud.png')
+  cloud.to_file(f'{rails_root}/public/images/wordcloud.png')
 
 

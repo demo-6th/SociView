@@ -13,7 +13,7 @@ document.addEventListener("turbolinks:load", () => {
   startPicker = flatpickr(".datepicker_start", {
     enable: [
       {
-        from: "2021-01-14",
+        from: "2021-01-17",
         to: "2021-01-21",
       },
     ],

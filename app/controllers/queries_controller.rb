@@ -104,7 +104,12 @@ class QueriesController < ApplicationController
   def topicpost
     radio_search_box()
     search_result = doc_type(@type, :token, :id)
-    result = search_result[0]
+    if search_result[1] >= 100
+      result = search_result[0].sample(100)
+    else 
+      result = search_result[0]
+    end 
+  
     @count = search_result[1]
 
     CSV.open("#{Rails.root}/data/topic_text.csv", "wb") do |csv|
@@ -243,7 +248,7 @@ def theme_keywords(theme)
     result = ["萊豬", "萊克多巴胺", "毒豬"]
   elsif theme == "新冠肺炎"
     # result = ["口罩", "武漢", "陳時中", "鋼鐵部長", "誠實中", "疾病管制署", "Covid", "傳染", "疫情", "防疫", "肺炎", "感染", "疫苗", "疫情指揮中心", "張上淳", "陳宗彥", "周志浩", "莊人祥", "1922", "疾管", "本土案例", "境外案例", "病例", "偽出國", "變種病毒", "瘟疫", "疫調", "病毒", "染疫", "自主健康管理", "隔離", "隔離檢疫", "居家隔離", "居家檢疫", "中國武肺", "味覺喪失", "嗅覺喪失", "採檢", "CT值", "超前部署", "新冠疫苗", "無症狀", "境外移入", "確診", "敦陸艦隊"]
-    result = ["武漢肺炎", "武肺", "新冠肺炎", "疫情"]
+    result = ["肺炎", "疫情"]
   else
     result = [theme]
   end
