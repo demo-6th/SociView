@@ -5,58 +5,13 @@ class QueriesController < ApplicationController
 
   def index; end
 
-  def list; end
-
-  def listpost
-    @theme = params[:theme]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = case true
-      when params[:type] == "回文" then "回文"
-      else
-        "文章"
-      end
-    @sentiment = case true
-      when params[:sentiment] == "不分情緒" then ""
-      when params[:sentiment] == "正面情緒" then "positive"
-      when params[:sentiment] == "負面情緒" then "negative"
-      when params[:sentiment] == "中立情緒" then "neutral"
-      end
-    @sort = case true
-      when params[:sort] == "由新到舊" then :desc
-      when params[:sort] == "由舊到新" then :asc
-      when params[:sort] == "按讚數多" then :desc
-      when params[:sort] == "按讚數少" then :asc
-      end
-
-    if @type == "回文"
-      post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme, sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
-
-      comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1, sentiment_cont_any: @sentiment).result
-
-      @result = comment_search.ransack(content_cont_any: @theme, sentiment_cont_any: @sentiment).result.or(comment_search.where(pid: post_result))
-    else
-      @result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme, sentiment_cont_any: @sentiment).result.joins(board: :source).where(boards: { sources: { name: @source } })
-    end
-
-    if params[:sort] == "由新到舊" || params[:sort] == "由舊到新"
-      @results = @result.order(created_at: @sort).page(params[:page]).per(50)
-    else
-      @results = @result.order(like_count: @sort).page(params[:page]).per(50)
-    end
-    @count = @results.total_count
-  end
-
-  def volume; end
-
   def volumepost
     check_search_box()
     gon.start = @start
     gon.end = @end
     #theme1
-    post_result1 = checkbox_search_all(@theme[0], @start, @end, @source)[0]
-    comment_result1 = checkbox_search_all(@theme[0], @start, @end, @source)[1]
+    post_result1 = checkbox_search_all(@theme[0], @start, @end, @source, params[:sentiment])[0]
+    comment_result1 = checkbox_search_all(@theme[0], @start, @end, @source, params[:sentiment])[1]
     result1 = type_judgment(post_result1, comment_result1)
     @count1 = result1.count
     gon.result1 = result1
@@ -64,8 +19,8 @@ class QueriesController < ApplicationController
     gon.theme1 = @theme[0]
     #theme2
     @theme[1] = params[:theme3_input] if @theme[1] == "自選主題"
-    post_result2 = checkbox_search_all(@theme[1], @start, @end, @source)[0]
-    comment_result2 = checkbox_search_all(@theme[1], @start, @end, @source)[1]
+    post_result2 = checkbox_search_all(@theme[1], @start, @end, @source, params[:sentiment])[0]
+    comment_result2 = checkbox_search_all(@theme[1], @start, @end, @source, params[:sentiment])[1]
     result2 = type_judgment(post_result2, comment_result2)
     @count2 = result2.count
     gon.result2 = result2
@@ -87,8 +42,6 @@ class QueriesController < ApplicationController
     end
   end
 
-  def sentiment; end
-
   def sentpost
     radio_search_box()
     search_result = doc_type(@type, :sentiment, :created_at)
@@ -99,28 +52,35 @@ class QueriesController < ApplicationController
     gon.result = result
   end
 
-  def topic; end
-
-  def topicpost
+  def listpost
     radio_search_box()
-    search_result = doc_type(@type, :token, :id)
-    if search_result[1] >= 100
-      result = search_result[0].sample(100)
-    else 
-      result = search_result[0]
-    end 
-  
-    @count = search_result[1]
-
-    CSV.open("#{Rails.root}/data/topic_text.csv", "wb") do |csv|
-      result.find_all do |res|
-        csv << res.attributes.values
+    sentiment = case true
+      when params[:sentiment] == "不分情緒" then ""
+      when params[:sentiment] == "正面情緒" then "positive"
+      when params[:sentiment] == "負面情緒" then "negative"
+      when params[:sentiment] == "中立情緒" then "neutral"
       end
-    end
-    @topic = `python3 #{Rails.root}/lib/tasks/Topic/main.py #{Rails.root}`
-  end
+    sort = case true
+      when params[:sort] == "由新到舊" then :desc
+      when params[:sort] == "由舊到新" then :asc
+      when params[:sort] == "按讚數多" then :desc
+      when params[:sort] == "按讚數少" then :asc
+      end
 
-  def wordcloud; end
+    post_result = checkbox_search_all(@theme, @start, @end, @source, sentiment)[0]
+
+    comment_result = checkbox_search_all(@theme, @start, @end, @source, sentiment)[1]
+
+    result = type_judgment(post_result, comment_result)
+
+    if params[:sort] == "由新到舊" || params[:sort] == "由舊到新"
+      @results = result.order(created_at: sort).page(params[:page]).per(50)
+    else
+      @results = result.order(like_count: sort).page(params[:page]).per(50)
+    end
+
+    @count = @results.total_count
+  end
 
   def cloudpost
     radio_search_box()
@@ -135,8 +95,6 @@ class QueriesController < ApplicationController
       @cloud = `python3 #{Rails.root}/lib/tasks/Wordcloud/main.py #{Rails.root}/`
     end
   end
-
-  def termfreq; end
 
   def termfreqpost
     radio_search_box()
@@ -169,55 +127,62 @@ class QueriesController < ApplicationController
   end
 
   def sourcepost
-    # pass value down to api action
-    @theme = params[:theme1] || params[:theme2] || params[:theme3_input]
-    @source = [params[:dcard], params[:ptt]].delete_if { |x| x == nil }
-    @start = params[:start].to_date
-    @end = params[:end].to_date
-    @type = [params[:post], params[:comment]].delete_if { |x| x == nil }
-
+    radio_search_box()
     #theme1
-    post_result = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: @source } })
-
-    comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: @source } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
-
-    comment_result = comment_search.ransack(content_cont_any: @theme).result.or(comment_search.where(:pid => post_result.pluck(:pid)))
+    post_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[0]
+    comment_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[1]
+    result = type_judgment(post_result, comment_result)
 
     ###ptt_source
-    ptt_post = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: "PTT" } })
-
-    comment_ptt_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: "PTT" } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
-
-    ptt_comment = comment_ptt_search.ransack(content_cont_any: @theme).result.or(comment_ptt_search.where(:pid => ptt_post.pluck(:pid)))
+    ptt_post_result = checkbox_search_all(@theme, @start, @end, "PTT", params[:sentiment])[0]
+    ptt_comment_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[1]
+    ptt_result = type_judgment(ptt_post_result, ptt_comment_result)
 
     ###dcard_source
-    dcard_post = Post.ransack(created_at_gt: @start, created_at_lt: @end + 1, title_or_content_cont_any: @theme).result.joins(board: :source).where(boards: { sources: { name: "Dcard" } })
-
-    comment_dcard_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: "Dcard" } } } }).ransack(created_at_gt: @start, created_at_lt: @end + 1).result
-
-    dcard_comment = comment_dcard_search.ransack(content_cont_any: @theme).result.or(comment_dcard_search.where(:pid => dcard_post.pluck(:pid)))
+    dcard_post_result = checkbox_search_all(@theme, @start, @end, "Dcard", params[:sentiment])[0]
+    dcard_comment_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[1]
+    dcard_result = type_judgment(dcard_post_result, dcard_comment_result)
 
     # 計算符合搜尋條件的資料筆數
     if params[:post] && params[:comment]
       @count = post_result.count + comment_result.count
       gon.result = post_result + comment_result
-      gon.ptt_result = ptt_post + ptt_comment
-      gon.dcard_result = dcard_post + dcard_comment
+      gon.ptt_result = ptt_post_result + ptt_comment_result
+      gon.dcard_result = dcard_post_result + dcard_comment_result
     elsif params[:post] && !params[:comment]
       @count = post_result.count
       gon.result = post_result
-      gon.ptt_result = ptt_post
-      gon.dcard_result = dcard_post
+      gon.ptt_result = ptt_post_result
+      gon.dcard_result = dcard_post_result
     else
       @count = comment_result.count
       gon.result = comment_result
-      gon.ptt_result = ptt_comment
-      gon.dcard_result = dcard_comment
+      gon.ptt_result = ptt_comment_result
+      gon.dcard_result = dcard_comment_result
     end
 
     gon.start = @start
     gon.end = @end
     gon.board = Board.all
+  end
+
+  def topicpost
+    radio_search_box()
+    search_result = doc_type(@type, :token, :id)
+    if search_result[1] >= 100
+      result = search_result[0].sample(100)
+    else
+      result = search_result[0]
+    end
+
+    @count = search_result[1]
+
+    CSV.open("#{Rails.root}/data/topic_text.csv", "wb") do |csv|
+      result.find_all do |res|
+        csv << res.attributes.values
+      end
+    end
+    @topic = `python3 #{Rails.root}/lib/tasks/Topic/main.py #{Rails.root}`
   end
 end
 
@@ -279,11 +244,11 @@ end
 # search based on doc_type
 def doc_type(array, col1, col2)
   if array.length == 2
-    search_all(@start.midnight, @end.end_of_day, theme_keywords(@theme), col1, col2)
+    search_all(@start, @end + 1, theme_keywords(@theme), col1, col2)
   elsif array.include?("主文")
-    search_post(@start.midnight, @end.end_of_day, theme_keywords(@theme), col1, col2)
+    search_post(@start, @end + 1, theme_keywords(@theme), col1, col2)
   else
-    search_comment(@start.midnight, @end.end_of_day, theme_keywords(@theme), col1, col2)
+    search_comment(@start, @end + 1, theme_keywords(@theme), col1, col2)
   end
 end
 
@@ -298,9 +263,11 @@ def type_judgment(post, comment)
   return result
 end
 
-def checkbox_search_all(theme, d_start, d_end, source)
-  post_result = Post.ransack(created_at_gt: d_start, created_at_lt: d_end + 1, title_or_content_cont_any: theme_keywords(theme)).result.joins(board: :source).where(boards: { sources: { name: source } })
+def checkbox_search_all(theme, d_start, d_end, source, sentiment)
+  post_result = Post.ransack(created_at_gt: d_start, created_at_lt: d_end + 1, title_or_content_cont_any: theme_keywords(theme), sentiment_cont: sentiment).result.joins(board: :source).where(boards: { sources: { name: source } })
+
   comment_search = Comment.joins(post: [board: :source]).where(comments: { posts: { boards: { sources: { name: source } } } }).ransack(created_at_gt: d_start, created_at_lt: d_end + 1).result
-  comment_result = comment_search.ransack(content_cont_any: theme_keywords(theme)).result.or(comment_search.where(:pid => post_result.pluck(:pid)))
+
+  comment_result = comment_search.ransack(content_cont_any: theme_keywords(theme), sentiment_cont: sentiment).result.or(comment_search.where(:pid => post_result.pluck(:pid)))
   return post_result, comment_result
 end
