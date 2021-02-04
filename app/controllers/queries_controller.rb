@@ -133,6 +133,10 @@ class QueriesController < ApplicationController
     comment_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[1]
     result = type_judgment(post_result, comment_result)
 
+    search_result = doc_type(@type, :source, :alias)
+    result = search_result[0]
+    @count = search_result[1]
+
     ###ptt_source
     ptt_post_result = checkbox_search_all(@theme, @start, @end, "PTT", params[:sentiment])[0]
     ptt_comment_result = checkbox_search_all(@theme, @start, @end, "PTT", params[:sentiment])[1]
