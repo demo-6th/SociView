@@ -10,7 +10,7 @@ from pathlib import Path
 
 rails_root = sys.argv[1]
 
-for p in Path(f"{rails_root}/public/images").glob("wordcloud*.png"):
+for p in Path(f"{rails_root}/public/images").glob("wordcloud.png"):
     p.unlink()
 
 txt = pd.read_csv(f"{rails_root}/data/cloud_text.csv",names=["id", "no_stop"])
