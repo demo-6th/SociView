@@ -135,12 +135,12 @@ class QueriesController < ApplicationController
 
     ###ptt_source
     ptt_post_result = checkbox_search_all(@theme, @start, @end, "PTT", params[:sentiment])[0]
-    ptt_comment_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[1]
+    ptt_comment_result = checkbox_search_all(@theme, @start, @end, "PTT", params[:sentiment])[1]
     ptt_result = type_judgment(ptt_post_result, ptt_comment_result)
 
     ###dcard_source
     dcard_post_result = checkbox_search_all(@theme, @start, @end, "Dcard", params[:sentiment])[0]
-    dcard_comment_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[1]
+    dcard_comment_result = checkbox_search_all(@theme, @start, @end, "Dcard", params[:sentiment])[1]
     dcard_result = type_judgment(dcard_post_result, dcard_comment_result)
 
     # 計算符合搜尋條件的資料筆數
