@@ -150,8 +150,8 @@ class QueriesController < ApplicationController
   def topicpost
     radio_search_box()
     search_result = doc_type(@type, :token, :id)
-    if search_result[1] >= 100
-      result = search_result[0].sample(100)
+    if search_result[1] >= 1000
+      result = search_result[0].sample(1000)
     else
       result = search_result[0]
     end
