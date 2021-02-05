@@ -11,13 +11,12 @@ document.addEventListener("turbolinks:load", () => {
     let count_line1 = {};
     let count_line2 = {};
     let count_line3 = {};
-
     for (
         let d = new Date(start); d <= new Date(end); d.setDate(d.getDate() + 1)
     ) {
         let formatDt = `${new Date(d).getFullYear()}-${
-      new Date(d).getMonth() + 1
-    }-${new Date(d).getDate()}`;
+          new Date(d).getMonth() + 1
+        }-${new Date(d).getDate()}`;
         all_date.push(formatDt);
     }
 
@@ -30,11 +29,12 @@ document.addEventListener("turbolinks:load", () => {
     if (gon.result1 !== undefined) {
         gon.result1.forEach((e) => {
             let d_result1 = `${new Date(e.created_at).getFullYear()}-${
-        new Date(e.created_at).getMonth() + 1
-      }-${new Date(e.created_at).getDate()}`;
+            new Date(e.created_at).getMonth() + 1
+          }-${new Date(e.created_at).getDate()}`;
             count_line1[d_result1] += 1;
         });
     }
+
     if (gon.result2 !== undefined) {
         gon.result2.forEach((e) => {
             let d_result2 = `${new Date(e.created_at).getFullYear()}-${

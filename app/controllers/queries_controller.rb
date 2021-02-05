@@ -9,35 +9,34 @@ class QueriesController < ApplicationController
     check_search_box()
     gon.start = @start
     gon.end = @end
+
     #theme1
-    post_result1 = checkbox_search_all(@theme[0], @start, @end, @source, params[:sentiment])[0]
-    comment_result1 = checkbox_search_all(@theme[0], @start, @end, @source, params[:sentiment])[1]
-    result1 = type_judgment(post_result1, comment_result1)
-    @count1 = result1.size
+    theme1_search_result = checkbox_doc_type(@type, @theme[0], :id, :created_at)
+    result1 = theme1_search_result[0]
+    @theme1_count = theme1_search_result[1]
     gon.result1 = result1
-    gon.count1 = @count1
+    gon.count1 = @theme1_count
     gon.theme1 = @theme[0]
+
     #theme2
     @theme[1] = params[:theme3_input] if @theme[1] == "自選主題"
-    post_result2 = checkbox_search_all(@theme[1], @start, @end, @source, params[:sentiment])[0]
-    comment_result2 = checkbox_search_all(@theme[1], @start, @end, @source, params[:sentiment])[1]
-    result2 = type_judgment(post_result2, comment_result2)
-    @count2 = result2.size
+    theme2_search_result = checkbox_doc_type(@type, @theme[1], :id, :created_at)
+    result2 = theme2_search_result[0]
+    @theme2_count = theme2_search_result[1]
     gon.result2 = result2
-    gon.count2 = @count2
+    gon.count2 = @theme2_count
     gon.theme2 = @theme[1]
 
     #theme3
-    if @theme[2].nil? || @theme[2].empty?
-      @count3 = 0
+    if @theme[2].nil?
+      @theme3_count = 0
     else
       @theme[2] = params[:theme3_input]
-      post_result3 = checkbox_search_all(@theme[2], @start, @end, @source)[0]
-      comment_result3 = checkbox_search_all(@theme[2], @start, @end, @source)[1]
-      result3 = type_judgment(post_result3, comment_result3)
-      @count3 = result3.size
+      theme3_search_result = checkbox_doc_type(@type, @theme[2], :id, :created_at)
+      result3 = theme3_search_result[0]
+      @theme3_count = theme3_search_result[1]
       gon.result3 = result3
-      gon.count3 = @count3
+      gon.count3 = @theme3_count
       gon.theme3 = @theme[2]
     end
   end
@@ -67,19 +66,15 @@ class QueriesController < ApplicationController
       when params[:sort] == "按讚數少" then :asc
       end
 
-    post_result = checkbox_search_all(@theme, @start, @end, @source, sentiment)[0]
-
-    comment_result = checkbox_search_all(@theme, @start, @end, @source, sentiment)[1]
-
-    result = type_judgment(post_result, comment_result)
+    search_result = doc_type(@type, "", "")
+    result = search_result[0].ransack(sentiment_cont: sentiment).result
+    @count = search_result[1]
 
     if params[:sort] == "由新到舊" || params[:sort] == "由舊到新"
       @results = result.order(created_at: sort).page(params[:page]).per(50)
     else
       @results = result.order(like_count: sort).page(params[:page]).per(50)
     end
-
-    @count = @results.total_count
   end
 
   def cloudpost
@@ -129,38 +124,24 @@ class QueriesController < ApplicationController
   def sourcepost
     radio_search_box()
     #theme1
-    post_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[0]
-    comment_result = checkbox_search_all(@theme, @start, @end, @source, params[:sentiment])[1]
-    result = type_judgment(post_result, comment_result)
+    search_result = doc_type(@type, :alias, :created_at)
+    result = search_result[0]
+    @count = search_result[1]
+    gon.result = result
 
     ###ptt_source
-    ptt_post_result = checkbox_search_all(@theme, @start, @end, "PTT", params[:sentiment])[0]
-    ptt_comment_result = checkbox_search_all(@theme, @start, @end, "PTT", params[:sentiment])[1]
-    ptt_result = type_judgment(ptt_post_result, ptt_comment_result)
+    @source = params[:ptt]
+    ptt_search_result = doc_type(@type, :alias, :created_at)
+    ptt_result = ptt_search_result[0]
+    gon.ptt_result = ptt_result
 
     ###dcard_source
-    dcard_post_result = checkbox_search_all(@theme, @start, @end, "Dcard", params[:sentiment])[0]
-    dcard_comment_result = checkbox_search_all(@theme, @start, @end, "Dcard", params[:sentiment])[1]
-    dcard_result = type_judgment(dcard_post_result, dcard_comment_result)
+    @source = params[:dcard]
+    dcard_search_result = doc_type(@type, :alias, :created_at)
+    dcard_result = dcard_search_result[0]
+    gon.dcard_result = dcard_result
 
-    # 計算符合搜尋條件的資料筆數
-    if params[:post] && params[:comment]
-      @count = post_result.size + comment_result.size
-      gon.result = post_result + comment_result
-      gon.ptt_result = ptt_post_result + ptt_comment_result
-      gon.dcard_result = dcard_post_result + dcard_comment_result
-    elsif params[:post] && !params[:comment]
-      @count = post_result.size
-      gon.result = post_result
-      gon.ptt_result = ptt_post_result
-      gon.dcard_result = dcard_post_result
-    else
-      @count = comment_result.size
-      gon.result = comment_result
-      gon.ptt_result = ptt_comment_result
-      gon.dcard_result = dcard_comment_result
-    end
-
+    radio_search_box()
     gon.start = @start
     gon.end = @end
     gon.board = Board.all
@@ -169,8 +150,8 @@ class QueriesController < ApplicationController
   def topicpost
     radio_search_box()
     search_result = doc_type(@type, :token, :id)
-    if search_result[1] >= 100
-      result = search_result[0].sample(100)
+    if search_result[1] >= 1000
+      result = search_result[0].sample(1000)
     else
       result = search_result[0]
     end
@@ -253,6 +234,16 @@ def doc_type(array, col1, col2)
     search_post(@start, @end + 1, theme_keywords(@theme), col1, col2)
   else
     search_comment(@start, @end + 1, theme_keywords(@theme), col1, col2)
+  end
+end
+
+def checkbox_doc_type(array, theme, col1, col2)
+  if array.length == 2
+    search_all(@start, @end + 1, theme_keywords(theme), col1, col2)
+  elsif array.include?("主文")
+    search_post(@start, @end + 1, theme_keywords(theme), col1, col2)
+  else
+    search_comment(@start, @end + 1, theme_keywords(theme), col1, col2)
   end
 end
 
